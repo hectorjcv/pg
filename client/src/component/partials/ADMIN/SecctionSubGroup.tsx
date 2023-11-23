@@ -1,0 +1,164 @@
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { GroupsCompletedList, SubGroups, SubGroupsCompleted, SubGroupsCompletedList } from "../../../types/ObjectsGroupSub";
+import { BASIC_URL } from "../../../constants";
+import { TextSubtitle } from "../DEFAULT/TextTypes";
+
+type StateForm = 'Crear' | 'Actualizar';
+export const SecctionSubGroup = () => {
+    const [groups, setGroups] = useState<SubGroupsCompletedList | null>(null);
+    const [definedGroup, setDefineGroups] = useState<GroupsCompletedList | null>(null);
+    const [data, setData] = useState<SubGroups | null>(null);
+    const [read, setRead] = useState(false);
+    const [send, setSend] = useState<StateForm>('Crear');
+
+    const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+        const newSubGroupas:SubGroups = {
+            id: data?.id,
+            sub_group: event.target.value,
+            group_id: parseInt(`${data?.group_id}`)
+        }
+        setData(newSubGroupas);
+    }
+
+    const handleChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
+        const newSubGroupas:SubGroups = {
+            id: data?.id,
+            sub_group: `${data?.sub_group}`,
+            group_id: parseInt(event.target.value)
+        }
+        setData(newSubGroupas);
+    }
+
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const SaveGroup = async () => {
+            if(data === null) return;
+            const token = `${window.localStorage.getItem('token')}`
+            const RequesOptions = {
+                "method": send == "Crear" ? "POST" : "PUT",
+                "headers":{
+                    "token":token,
+                    "Content-Type":"application/json"
+                },
+                "body":JSON.stringify(data)
+            };
+            console.log(data);
+            if(send == 'Actualizar' && data.id) {
+                const url = `${BASIC_URL}/admin/subgroup/${data.id}`
+                console.log(url);
+                const res = await fetch(url, RequesOptions);
+                if(!res.ok) return;
+                setData({sub_group:'',group_id:0});
+                setSend('Crear');
+                return setRead(!read);
+            }
+            const url = `${BASIC_URL}/admin/subgroup`;
+            const res = await fetch(url, RequesOptions);
+            if(!res.ok) return;
+
+            res.json();
+            setData({sub_group:'', group_id:0});
+            return setRead(!read);
+        }
+        SaveGroup();
+    }
+
+    const ToUpdate = (subgroup: SubGroupsCompleted) => {
+        setSend("Actualizar");
+        console.log(subgroup);
+        setData({sub_group:subgroup.sub_group, id:subgroup.id, group_id:subgroup.group_id});
+    }
+
+    useEffect(()=> {
+        const GetGroups = async () => {
+            const token = `${window.localStorage.getItem('token')}`
+            const RequesOptions = {
+                "method":"GET",
+                "headers":{
+                    "token":token,
+                    "Content-Type":"application/json"
+                }
+            };
+            const res = await fetch(`${BASIC_URL}/admin/group`, RequesOptions);
+            const json = await res.json();
+            const groups: GroupsCompletedList = json.body.groups;
+            setDefineGroups(groups);
+        }
+        GetGroups();
+    },[]);
+
+    useEffect(()=> {
+        const GetGroups = async () => {
+            const token = `${window.localStorage.getItem('token')}`
+            const RequesOptions = {
+                "method":"GET",
+                "headers":{
+                    "token":token,
+                    "Content-Type":"application/json"
+                }
+            };
+            const res = await fetch(`${BASIC_URL}/admin/subgroup`, RequesOptions);
+            
+            if(!res.ok) return;
+            const json = await res.json();
+            console.log(json);
+            const subgroups: SubGroupsCompletedList = json.body.subGroups;
+            console.log(subgroups);
+            setGroups(subgroups);
+        }
+        GetGroups();
+    },[read]);
+
+    return (
+        <div className='grid md:grid-cols-[1fr_2fr] p-3 gap-4'>
+            <section>
+                <TextSubtitle text={`${send} Sub Grupo`} />
+                <form className='grid gap-y-3' onSubmit={handleSubmit}>
+                    <input 
+                        type='text' 
+                        value={data?.sub_group} 
+                        onChange={handleChangeInput} 
+                        placeholder="Sub Grupo" 
+                        className='rounded-md w-full p-3 focus:outline-none border bg-white shadow' 
+                        />
+                    <select className='rounded-md w-full p-3 focus:outline-none border bg-white shadow' onChange={handleChangeSelect}>
+                        {
+                            definedGroup != null 
+                            ? <>{
+                                definedGroup.map((item) => (
+                                    <option value={item.id}>{item.group}</option>
+                                ))
+                            }</>
+                            : <></>
+                        }
+                    </select>
+                    <input type='submit' value={`${send}`} className="w-full bg-purple-600 hover:bg-purple-700 rounded-md py-3 text-white font-bold" />
+                </form>
+            </section>
+            <section>
+                {
+                    groups != null
+                    ? <ul className='grid gap-3'>{
+                        groups.map((item)=>(
+                            <li key={item.id} className='list-none pl-3 bg-white rounded-md flex justify-between items-center border'>
+                                <span className='font-bold text-purple-800 text-lg'>{item.group_id}</span>
+                                <span className='font-bold text-gray-800 text-lg'>{item.sub_group}</span>
+                                <div>
+                                    <button
+                                        onClick={()=>ToUpdate(item)}
+                                        className='bg-green-400 hover:bg-green-500 rounded-r-md py-3 px-3 h-full'
+                                    >
+                                        Actualizar
+                                    </button>
+                                </div>
+                            </li>
+                        ))
+                    }</ul>
+                    : <></>
+                    
+                }
+            </section>
+        </div>
+    );
+}

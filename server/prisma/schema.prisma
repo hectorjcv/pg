@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model SGI {
+  id            Int  @id @default(autoincrement())
+  status        Boolean @default(false)
+  status_itmes  Boolean @default(false)
+  roles         Boolean @default(false)
+  category      Boolean @default(false)
+}
+
+model Logs {
+  id          Int  @id @default(autoincrement())
+  code        Int
+  data        DateTime
+  description String
+  url         String
+  ci          String
+}
+
+model People {
+  id                Int         @id @default(autoincrement())
+  name              String 
+  lastname          String
+  ci                String      @unique
+  password          String?
+  phone             String
+  email             String
+  session           Boolean     @default(false)
+  last_session      DateTime?
+  create            DateTime    @default(now())
+  token             String?
+  status            String
+  role              String
+}
+
+model Roles {
+  id          Int @id @default(autoincrement())
+  rol         String
+  description String?
+}
+
+model StatusUser {
+  id          Int @id @default(autoincrement())
+  status      String
+  description String?
+}
+
+model Objects {
+  id                                Int             @id     @default(autoincrement())
+  name                              String
+  description                       String
+  price                             Decimal
+  quantity                          Int
+  n_identification                  String
+  estado                            String
+  show_me                           Boolean               @default(true)
+  creathe_by                        Int
+  date_reference                    Dates_objects         @relation(fields: [date_id], references: [id])
+  date_id                           Int                   @unique
+  clasification_reference           Clasification_objects @relation(fields: [clasification_id], references: [id])
+  clasification_id                  Int                   @unique
+  quantity_reference                Quantity_objects      @relation(fields: [quantity_id], references: [id])
+  quantity_id                       Int                   @unique
+}
+
+model Dates_objects {
+  id          Int         @id     @default(autoincrement())
+  creathe     DateTime            @default(now())
+  update      DateTime
+  delete      DateTime
+  date        Objects?
+}
+
+model Quantity_objects {
+  id            Int       @id   @default(autoincrement())
+  fisica        Int
+  contable      Int
+  quantity        Objects?
+}
+
+model Clasification_objects {
+  id                    Int       @id   @default(autoincrement())
+  clasification         Objects?
+  group_id              Int
+  sub_group_id          Int
+  secction_id           Int
+}
+
+model Groups {
+  id          Int       @id   @default(autoincrement())
+  group       String
+}
+
+model Sub_groups {
+  id              Int       @id   @default(autoincrement())
+  sub_group       String
+  group_id        Int
+}
+
+model Secction {
+  id        Int       @id   @default(autoincrement())
+  secction     String
+}
+
+model After {
+  id        Int       @id   @default(autoincrement())
+  culo      String
+}
