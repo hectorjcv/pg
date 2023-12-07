@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { TextSubtitle } from "../DEFAULT/TextTypes";
 import { BASIC_URL } from "../../../constants";
+import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 
 interface AdminRegister {
     name: string,
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export const FormCreateAdmin: React.FC<Props> = ({cb, close}) => {
+    const noti = useNotification();
     const [data, setData] = useState<AdminRegister>(defaultAdmin);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,8 +47,21 @@ export const FormCreateAdmin: React.FC<Props> = ({cb, close}) => {
             const response = await res.json();
             
             if(response.response === 'SUCCESS_ADMIN_CREATE') {
+                const newNoti: ObjNotification = {
+                    type: 'SUCCESS',
+                    notification: 'Administrador Creado'
+                }
+                noti.newNotification(newNoti);
+                noti.updateActive(true);
                 close(false);
                 if (cb) cb();
+            } else {
+                const newNoti: ObjNotification = {
+                    type: 'DANGER',
+                    notification: 'Error, verifica los datos'
+                }
+                noti.newNotification(newNoti);
+                noti.updateActive(true);
             }
         }
         RegisterAdmin();

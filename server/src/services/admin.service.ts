@@ -1,5 +1,5 @@
-import { Prisma, PrismaClient } from '@prisma/client';
-import { Clasifications, Groups, ObjectCreate, Quantity, Secction, SubGroups } from '../interfaces/objects.interface';
+import { PrismaClient } from '@prisma/client';
+import { Clasifications, Groups, ObjectCreate, ObjectsCompletedList, ObjectCompleted, Quantity, Secction, SubGroups } from '../interfaces/objects.interface';
 
 /**
  * @GROUPS_CRUD
@@ -126,9 +126,32 @@ const CreatheObjects = async (data: ObjectCreate, clf: Clasifications, qun: Quan
     return {toSave}
 }
 
-const ReadObjects = async () => {
+const ReadObjects = async (take: number, sk:number) => {
+    const prisma = new PrismaClient();
 
-    return {}
+    const count = await prisma.objects.count();
+
+    const Objects = await prisma.objects.findMany({
+        take: take,
+        skip: sk
+    });
+    const Dates = await prisma.dates_objects.findMany();
+    const Clasifications = await prisma.clasification_objects.findMany();
+    const Quantity = await prisma.quantity_objects.findMany();
+
+    const ObjetsResult: any[] = [];
+    Objects.map(async (item) => {
+        const obj = {
+            ...item,
+            date_reference: Dates.find(d => d.id == item.date_id),
+            clasification_reference: Clasifications.find(c => c.id == item.clasification_id),
+            quantity_reference: Quantity.find(q => q.id == item.quantity_id)
+        };
+        ObjetsResult.push(obj);
+    });
+
+
+    return {ObjetsResult, count}
 }
 
 const UpdateObjects = async () => {

@@ -5,7 +5,7 @@ import { TextTitle } from "../DEFAULT/TextTypes";
 
 interface Props {
     list: User[],
-    update: Dispatch<SetStateAction<StateFilterAdmins>>
+    update: Dispatch<SetStateAction<boolean>>
 }
 
 export const ContainerList: React.FC<Props> = ({ list, update }) => {
@@ -14,20 +14,6 @@ export const ContainerList: React.FC<Props> = ({ list, update }) => {
         <>
             <div className='flex items-center justify-between'>
                 <TextTitle text="Administradores" />
-
-                <select 
-                    className='px-14 py-2 font-bold rounded-md text-purple-900'
-                    onChange={(event)=>{
-                        const stateS = event.target.value as STATUS_USER;
-                        
-                        const newState: StateFilterAdmins = stateS
-                        update(newState)
-                    }}
-                    >
-                    <option value="ALL">Todos</option>
-                    <option value="ACTIVE">Activos</option>
-                    <option value="BLOQUED">Bloqueados</option>
-                </select>
             </div>
             <ul className='grid gap-y-4 py-4'>
                 {

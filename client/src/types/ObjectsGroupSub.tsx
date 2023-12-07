@@ -65,6 +65,7 @@ export interface SecctionCompleted {
 }
 
 export interface ObjectCompleted {
+    id: number,
     name: string,
     description:string,
     price: number,
@@ -73,11 +74,11 @@ export interface ObjectCompleted {
     estado: any,
     creathe_by: number,
     date_id: number,
-    date_reference: Dates,
+    date_reference: Dates | undefined,
     clasification_id: number,
-    Clasification_reference: Clasifications,
+    clasification_reference: Clasifications | undefined,
     quantity_id: number,
-    quantity_reference: Quantity
+    quantity_reference: Quantity | undefined
 }
 
 export type ObjectsCompletedList = ObjectCompleted[]; 

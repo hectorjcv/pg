@@ -2,7 +2,7 @@ import { Response } from "express";
 import { RequestExtend } from "../interfaces/jwt.interface";
 import { handleHTTP } from "../util/error.handle";
 import { UserRegister } from "../interfaces/user.interface";
-import { GetAdmins, RegisterAdmin, BloquedAdmin, DisBloquedAdmin } from "../services/direct.service";
+import { GetAdmins, RegisterAdmin, DeleteAdmin } from "../services/direct.service";
 
 const ControllerRegisterAdmin = async (req: RequestExtend, res:Response) => {
     try {
@@ -42,33 +42,19 @@ const ControllerGetAllAdmin = async (req: RequestExtend, res:Response) => {
     }
 }
 
-const ControllerBloquedAdmin = async (req: RequestExtend, res:Response) => {
+const ControllerDeleteAdmin = async (req: RequestExtend, res:Response) => {
     try {
         
         const id = req.user.userid;
-        const responseRegister = await BloquedAdmin(req.body.id, id);
+        const responseRegister = await DeleteAdmin(req.body.id, id);
 
         return res
             .status(200)
-            .json({ response:'SUCCESS_BLOQUED_ADMIN', body:responseRegister });
+            .json({ response:'SUCCESS_DELETE_ADMIN', body:responseRegister });
     }
     catch (error) {
         handleHTTP(res, 'DANGER_BLOQUED_ADMIN', error);
     }
 }
 
-const ControllerDisBloquedAdmin = async (req: RequestExtend, res:Response) => {
-    try {
-        const id = req.user.userid;
-        const responseRegister = await DisBloquedAdmin(req.body.id, id);
-
-        return res
-            .status(200)
-            .json({ response:'SUCCESS_DISBLOQUED_ADMIN', body:responseRegister });
-    }
-    catch (error) {
-        handleHTTP(res, 'DANGER_DISBLOQUED_ADMIN', error);
-    }
-}
-
-export { ControllerRegisterAdmin, ControllerGetAllAdmin, ControllerBloquedAdmin, ControllerDisBloquedAdmin }
+export { ControllerRegisterAdmin, ControllerGetAllAdmin, ControllerDeleteAdmin }

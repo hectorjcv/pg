@@ -13,8 +13,11 @@ import { BASIC_URL } from "../../constants";
 import { RefreshToken } from "../../hooks/useRefrestToken";
 import { DeleteStorage } from "../../service/DeleteStorage";
 import { Inventary } from "../../component/partials/DIRECT/Inventary";
+import { useNotification } from "../../context/NotificationContext";
+import { Notification } from "../../component/partials/DEFAULT/Notification";
 
 export const DashboardPage = () => {
+    const noti = useNotification();
     const auth = useAuth();
     OnSession(auth.session);
     const user = GetUserStorage();
@@ -25,12 +28,14 @@ export const DashboardPage = () => {
     const [adminSection, setAdminSection] = useState<SECTION_ADMIN>('');
     const [admins, setAdmins] = useState< User[] | null >(null);
     const [getAdminsState, setGetAdminsState] = useState<StateFilterAdmins>('ALL');
+    const [updateAdmin, setUpdateAdmin] = useState(false);
 
     const After = () => {
         setGetAdminsState("ACTIVE");
         setGetAdminsState('ALL');
         setAdminSection('');
         setModalInventary(false);
+        setUpdateAdmin(!updateAdmin);
     }
 
     const LogOut = (userId: number) => {
@@ -57,13 +62,6 @@ export const DashboardPage = () => {
     const calbakModalInventary = () => {
         setModalInventary(true);
     }
-
-    useEffect(()=>{
-        const cb = () => {
-            setGetAdminsState('ALL');
-        }  
-        RefreshToken({cb});
-    }, []);
 
     useEffect(() => {
         const getAdmins = async () => {
@@ -95,10 +93,11 @@ export const DashboardPage = () => {
             }
         }
         getAdmins();
-    }, [getAdminsState]);
+    }, [updateAdmin]);
 
     return (
         <>
+        { noti.active && <Notification /> }
         {
             modalAdmin && 
             <ModalBasic closeModal={setModalAdmin} cb={After}>
@@ -112,7 +111,7 @@ export const DashboardPage = () => {
                             </div>
                         :   adminSection == 'CREATE'
                         ?   <FormCreateAdmin cb={After} close={setModalAdmin} />
-                        :   <ListAdmins list={admins} update={setGetAdminsState} />
+                        :   <ListAdmins list={admins} update={setUpdateAdmin} />
                     }
                 </div>
             </ModalBasic> 
@@ -149,7 +148,7 @@ export const DashboardPage = () => {
             <main className='py-5 hidden lg:grid grid-cols-[2fr_1fr] w-full px-10 gap-5'>
                 <div className='grid grid-cols-2 grid-rows-3 gap-5'>
                     <CardSingle>
-                        <TextTitle text='Administradores' />
+                        <TextTitle text={`Administradores (${admins?.length})`} />
                         <ParagraxOpacity text='Crea, actualiza, bloquea, elimina administradores' />
 
                         <ButtonBorder cb={calbakModal}>

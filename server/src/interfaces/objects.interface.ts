@@ -74,7 +74,7 @@ export interface ObjectCompleted {
     date_id: number,
     date_reference: Dates,
     clasification_id: number,
-    Clasification_reference: Clasifications,
+    clasification_reference: Clasifications,
     quantity_id: number,
     quantity_reference: Quantity
 }

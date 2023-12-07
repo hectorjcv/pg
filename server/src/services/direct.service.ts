@@ -48,29 +48,7 @@ const GetAdmins = async (id: number) => {
     return admins;   
 }
 
-const BloquedAdmin = async (id: number, direct:number) => {
-    const prisma = new PrismaClient();
-
-    const IS_DIRECT = await prisma.people.findFirst({
-        where: { id: parseInt(`${direct}`) }
-    });
-
-    console.log(IS_DIRECT);
-    if (IS_DIRECT && IS_DIRECT.role !== 'DIRECT') throw new Error('DANGER_CREATE_ADMIN_NOT_IS_DIRECT');
-
-    const update = await prisma.people.update({
-        where: { id: parseInt(`${id}`) },
-        data: {
-            status: 'BLOQUED'
-        }
-    })
-
-    console.log(update);
-
-    return update;
-}
-
-const DisBloquedAdmin = async (id: number, direct:number) => {
+const DeleteAdmin = async (id: number, direct:number) => {
     const prisma = new PrismaClient();
 
     const IS_DIRECT = await prisma.people.findFirst({
@@ -79,16 +57,10 @@ const DisBloquedAdmin = async (id: number, direct:number) => {
 
     if (IS_DIRECT && IS_DIRECT.role !== 'DIRECT') throw new Error('DANGER_CREATE_ADMIN_NOT_IS_DIRECT');
 
-    const update = await prisma.people.update({
-        where: { id: parseInt(`${id}`) },
-        data: {
-            status: 'ACTIVE'
-        }
+    const update = await prisma.people.delete({
+        where: { id: parseInt(`${id}`) }
     })
-
-    console.log(update);
-
     return update;
 }
 
-export { RegisterAdmin, GetAdmins, BloquedAdmin, DisBloquedAdmin };
+export { RegisterAdmin, GetAdmins, DeleteAdmin };

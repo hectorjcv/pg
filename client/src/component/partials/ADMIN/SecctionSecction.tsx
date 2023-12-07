@@ -2,9 +2,11 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Secction, SecctionCompletedList } from "../../../types/ObjectsGroupSub";
 import { BASIC_URL } from "../../../constants";
 import { TextSubtitle } from "../DEFAULT/TextTypes";
+import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 
 type StateForm = 'Crear' | 'Actualizar';
 export const SecctionSecction = () => {
+    const noti = useNotification();
     const [secctions, setSecction] = useState<SecctionCompletedList | null>(null);
     const [data, setData] = useState<Secction | null>(null);
     const [read, setRead] = useState(false);
@@ -37,7 +39,23 @@ export const SecctionSecction = () => {
                 const res = await fetch(url, RequesOptions);
                 if(!res.ok) return;
 
-                res.json();
+                const json = await res.json();
+                console.log(json.response);
+                if(json.response == "SUCCESS_UPDATE_SECCTION") {
+                    const newNoti: ObjNotification = {
+                        type: 'SUCCESS',
+                        notification: `sección actualizado exitosamente.`
+                    }
+                    noti.newNotification(newNoti);
+                    noti.updateActive(true);
+                } else {
+                    const newNoti: ObjNotification = {
+                        type: 'DANGER',
+                        notification: 'Error, verifica los datos'
+                    }
+                    noti.newNotification(newNoti);
+                    noti.updateActive(true);
+                }
                 setData({secction:''});
                 setSend('Crear');
                 setRead(!read);
@@ -47,7 +65,23 @@ export const SecctionSecction = () => {
             const res = await fetch(url, RequesOptions);
             if(!res.ok) return;
 
-            res.json();
+            const json = await res.json();
+                console.log(json.response);
+                if(json.response == 'SUCCESS_CREATE_SECCTION') {
+                    const newNoti: ObjNotification = {
+                        type: 'SUCCESS',
+                        notification: `sección creado exitosamente.`
+                    }
+                    noti.newNotification(newNoti);
+                    noti.updateActive(true);
+                } else {
+                    const newNoti: ObjNotification = {
+                        type: 'DANGER',
+                        notification: 'Error, verifica los datos'
+                    }
+                    noti.newNotification(newNoti);
+                    noti.updateActive(true);
+                }
             setData({secction:''});
             setRead(!read);
         }

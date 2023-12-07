@@ -10,14 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model SGI {
-  id            Int  @id @default(autoincrement())
-  status        Boolean @default(false)
-  status_itmes  Boolean @default(false)
-  roles         Boolean @default(false)
-  category      Boolean @default(false)
-}
-
 model Logs {
   id          Int  @id @default(autoincrement())
   code        Int
@@ -41,18 +33,6 @@ model People {
   token             String?
   status            String
   role              String
-}
-
-model Roles {
-  id          Int @id @default(autoincrement())
-  rol         String
-  description String?
-}
-
-model StatusUser {
-  id          Int @id @default(autoincrement())
-  status      String
-  description String?
 }
 
 model Objects {
@@ -110,9 +90,4 @@ model Sub_groups {
 model Secction {
   id        Int       @id   @default(autoincrement())
   secction     String
-}
-
-model After {
-  id        Int       @id   @default(autoincrement())
-  culo      String
 }

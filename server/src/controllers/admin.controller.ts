@@ -225,7 +225,6 @@ const DeleteSecctionController = async (req: RequestExtend, res:Response) => {
  */
 const CreateObjectController = async (req: RequestExtend, res:Response) => {
   try {
-    console.log(req.user);
     const QuantitySave: Quantity = {
       fisica: parseInt(`${req.body.quantity.fisica}`),
       contable: parseInt(`${req.body.quantity.contable}`)
@@ -260,7 +259,11 @@ const CreateObjectController = async (req: RequestExtend, res:Response) => {
 
 const ReadObjectController = async (req: RequestExtend, res:Response) => {
   try {
-    const responseService = '';
+    console.log(req.query);
+    const take = `${req.query.take}`;
+    const sk = `${req.query.sk}`;
+    console.log(req.user);
+    const responseService = await ReadObjects(parseInt(take), parseInt(sk));
 
     return res
       .status(200)

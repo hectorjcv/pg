@@ -3,6 +3,7 @@ import { AllCreate, Clasifications, GroupsCompletedList, ObjectCreate, Quantity,
 import { TextSubtitle, TextTitle } from "../DEFAULT/TextTypes";
 import { BASIC_URL } from "../../../constants";
 import { ReadyObject } from "./ReadyObject";
+import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 
 const dataDefault: ObjectCreate = {
     name: '',
@@ -33,6 +34,7 @@ type GSS = {
 }
 
 export const FormObjects = () => {
+    const noti = useNotification();
     const obj_data: (ObjectCreate | null) = JSON.parse(`${window.localStorage.getItem('obj_data')}`);
     const obj_quantity: (Quantity | null) = JSON.parse(`${window.localStorage.getItem('obj_quantity')}`);
     const [data, setData] = useState<ObjectCreate>(obj_data ? obj_data :dataDefault);
@@ -70,14 +72,21 @@ export const FormObjects = () => {
                 const res = await fetch(url, RequesOptions);
                 if(!res.ok) return;
 
-                window.localStorage.removeItem('obj_data');
-                window.localStorage.removeItem('obj_clasification');
-                window.localStorage.removeItem('obj_quantity');
-                console.log(res);
+                //window.localStorage.removeItem('obj_data');
+                //window.localStorage.removeItem('obj_clasification');
+                //window.localStorage.removeItem('obj_quantity');
+                const json = await res.json();
+                if(json.response == "SUCCESS_CREAte_OBJECTS") {
+                    const newNoti: ObjNotification = {
+                        type: 'SUCCESS',
+                        notification: `Creado exitosamente`
+                    }
+                    noti.newNotification(newNoti);
+                    noti.updateActive(true);
+                }
 
             }
             SaveObjects();
-
         }
     }
 
@@ -144,7 +153,6 @@ export const FormObjects = () => {
                 sub_group: jsonSubGroup.body.subGroups,
                 secction: jsonSecction.body.secctions,
             } 
-            console.log(AllDefined);
             setGroupSubSecction(AllDefined);
         }
         const gss = JSON.parse(`${window.localStorage.getItem('gss')}`);
@@ -293,7 +301,7 @@ export const FormObjects = () => {
                         : <span>cargando...</span>
                     }
                 </>
-                : pag == 3 
+                : pag == 3 && data && clasification && quantity
                 ? <ReadyObject />
                 : <span>cargando...</span>
             }

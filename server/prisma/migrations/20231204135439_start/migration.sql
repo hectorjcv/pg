@@ -1,15 +1,4 @@
 -- CreateTable
-CREATE TABLE `SGI` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `status` BOOLEAN NOT NULL DEFAULT false,
-    `status_itmes` BOOLEAN NOT NULL DEFAULT false,
-    `roles` BOOLEAN NOT NULL DEFAULT false,
-    `category` BOOLEAN NOT NULL DEFAULT false,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `Logs` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `code` INTEGER NOT NULL,
@@ -38,24 +27,6 @@ CREATE TABLE `People` (
     `role` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `People_ci_key`(`ci`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Roles` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `rol` VARCHAR(191) NOT NULL,
-    `description` VARCHAR(191) NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `StatusUser` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `status` VARCHAR(191) NOT NULL,
-    `description` VARCHAR(191) NULL,
-
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -130,14 +101,6 @@ CREATE TABLE `Sub_groups` (
 CREATE TABLE `Secction` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `secction` VARCHAR(191) NOT NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `After` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `culo` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

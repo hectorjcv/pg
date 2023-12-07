@@ -2,9 +2,11 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Groups, GroupsCompleted, GroupsCompletedList } from "../../../types/ObjectsGroupSub";
 import { BASIC_URL } from "../../../constants";
 import { TextSubtitle } from "../DEFAULT/TextTypes";
+import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 
 type StateForm = 'Crear' | 'Actualizar';
 export const SecctionGroup = () => {
+    const noti = useNotification();
     const [groups, setGroups] = useState<GroupsCompletedList | null>(null);
     const [data, setData] = useState<Groups | null>(null);
     const [read, setRead] = useState(false);
@@ -49,7 +51,24 @@ export const SecctionGroup = () => {
             const res = await fetch(url, RequesOptions);
             if(!res.ok) return;
 
-            res.json();
+            const json = await res.json();
+            if(json.response == "SUCCESS_CREAte_GROUPS") {
+                const newNoti: ObjNotification = {
+                    type: 'SUCCESS',
+                    notification: 'Grupo creado exitosamente.'
+                }
+                noti.newNotification(newNoti);
+                noti.updateActive(true);
+            } else {
+                const newNoti: ObjNotification = {
+                    type: 'DANGER',
+                    notification: 'Error, verifica los datos'
+                }
+                noti.newNotification(newNoti);
+                noti.updateActive(true);
+            }
+            
+            console.log(json);
             setData({group:''});
             setRead(!read);
         }

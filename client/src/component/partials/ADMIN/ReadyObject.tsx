@@ -7,17 +7,14 @@ export const ReadyObject = () => {
     const clasi: Clasifications = JSON.parse(`${window.localStorage.getItem('obj_clasification')}`);
     const quantity: Quantity = JSON.parse(`${window.localStorage.getItem('obj_quantity')}`);
 
-    const [ready, setReady] = useState(false);
-    console.log(clasi)
-    useEffect(() => {
-        if(!data || !clasi || !quantity) return setReady(false);
-        return setReady(true);
-    }, []);
-
+    const [ready, setReady] = useState(data && clasi && quantity ? true : false);
+    useEffect(()=>{
+        setReady(data && clasi && quantity ? true : false);
+    },[])
     return (
         <>
             {
-                ready
+                data.name && clasi.group_id && quantity.contable
                 ? <>
                     <TextSubtitle text='Objeto para crear' />
                     <div className='mt-3 p-3 bg-purple-100 shadow rounded-md'>

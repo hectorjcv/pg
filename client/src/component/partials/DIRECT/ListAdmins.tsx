@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { StateFilterAdmins, User } from "../../../types/DefaultTypes";
+import { User } from "../../../types/DefaultTypes";
 import { ContainerList } from "./ContainerList";
 import { ContainerNotList } from "./ContainerNotList";
 
 interface Props {
     list: User[] | null,
-    update: Dispatch<SetStateAction<StateFilterAdmins>>
+    update: Dispatch<SetStateAction<boolean>>
 }
 
 export const ListAdmins: React.FC<Props> = ({ list, update }) => {

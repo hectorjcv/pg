@@ -4,6 +4,7 @@ import { NAVIGATION_EVENT } from "./constants";
 import { AuthProvider } from "./context/AuthContext";
 import { DashboardPage } from "./pages/direct/DashboardPage";
 import { DashBoardAdmin } from "./pages/admin/DashboardPage";
+import { NotificationProvider } from "./context/NotificationContext";
 
 
 function App() {
@@ -28,9 +29,11 @@ function App() {
   return (
     <>
       <AuthProvider>
-        { currentPath === '/direct/dashboard' && <DashboardPage /> }
-        { currentPath === '/admin/dashboard' && <DashBoardAdmin /> }
-        { currentPath === '/' && <LoginPage /> }
+        <NotificationProvider>
+          { currentPath === '/direct/dashboard' && <DashboardPage /> }
+          { currentPath === '/admin/dashboard' && <DashBoardAdmin /> }
+          { currentPath === '/' && <LoginPage /> }
+        </NotificationProvider>
       </AuthProvider>
     </>
   )

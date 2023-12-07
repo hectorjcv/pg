@@ -14,8 +14,11 @@ import { SecctionSecction } from "../../component/partials/ADMIN/SecctionSecctio
 import { SecctionInventary } from "../../component/partials/ADMIN/SecctionInventary";
 import { InventaryProvider } from "../../context/InventaryContext";
 import { GroupsCompletedList, SecctionCompletedList, SubGroupsCompletedList } from "../../types/ObjectsGroupSub";
+import { useNotification } from "../../context/NotificationContext";
+import { Notification } from "../../component/partials/DEFAULT/Notification";
 
 export const DashBoardAdmin = () => {
+    const noti = useNotification();
     const auth = useAuth();
     OnSession(auth.session);
     const user = GetUserStorage();
@@ -60,8 +63,7 @@ export const DashBoardAdmin = () => {
             window.localStorage.setItem('gss', JSON.stringify(AllDefined));
         }
         const gss: GSS = JSON.parse(`${window.localStorage.getItem('gss')}`);
-        console.log(gss.group);
-        if(gss.group.length == 0) getAll();
+        if(gss && gss.group.length == 0) getAll();
     },[])
 
     const LogOut = (userId: number) => {
@@ -107,6 +109,7 @@ export const DashBoardAdmin = () => {
 
     return (
         <>
+            { noti.active && <Notification /> }
             {
                 modalGroup && 
                 <ModalBasic closeModal={setModalGroup} cb={afterGroup} w='w-[90%] lg:w-[60%]'>

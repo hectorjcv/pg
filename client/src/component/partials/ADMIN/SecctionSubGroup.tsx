@@ -2,9 +2,11 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { GroupsCompletedList, SubGroups, SubGroupsCompleted, SubGroupsCompletedList } from "../../../types/ObjectsGroupSub";
 import { BASIC_URL } from "../../../constants";
 import { TextSubtitle } from "../DEFAULT/TextTypes";
+import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 
 type StateForm = 'Crear' | 'Actualizar';
 export const SecctionSubGroup = () => {
+    const noti = useNotification();
     const [groups, setGroups] = useState<SubGroupsCompletedList | null>(null);
     const [definedGroup, setDefineGroups] = useState<GroupsCompletedList | null>(null);
     const [data, setData] = useState<SubGroups | null>(null);
@@ -49,6 +51,22 @@ export const SecctionSubGroup = () => {
                 console.log(url);
                 const res = await fetch(url, RequesOptions);
                 if(!res.ok) return;
+                const json = await res.json();
+                if(json.response == "SUCCESS_UPDATE_SUB_GROUP") {
+                    const newNoti: ObjNotification = {
+                        type: 'SUCCESS',
+                        notification: `SubGrupo actualizado exitosamente.`
+                    }
+                    noti.newNotification(newNoti);
+                    noti.updateActive(true);
+                } else {
+                    const newNoti: ObjNotification = {
+                        type: 'DANGER',
+                        notification: 'Error, verifica los datos'
+                    }
+                    noti.newNotification(newNoti);
+                    noti.updateActive(true);
+                }
                 setData({sub_group:'',group_id:0});
                 setSend('Crear');
                 return setRead(!read);
@@ -57,7 +75,23 @@ export const SecctionSubGroup = () => {
             const res = await fetch(url, RequesOptions);
             if(!res.ok) return;
 
-            res.json();
+            const json = await res.json();
+            console.log(json.response);
+            if(json.response == "SUCCESS_CREATE_SUB_GROUP") {
+                const newNoti: ObjNotification = {
+                    type: 'SUCCESS',
+                    notification: `SubGrupo creado exitosamente.`
+                }
+                noti.newNotification(newNoti);
+                noti.updateActive(true);
+            } else {
+                const newNoti: ObjNotification = {
+                    type: 'DANGER',
+                    notification: 'Error, verifica los datos'
+                }
+                noti.newNotification(newNoti);
+                noti.updateActive(true);
+            }
             setData({sub_group:'', group_id:0});
             return setRead(!read);
         }
@@ -123,6 +157,7 @@ export const SecctionSubGroup = () => {
                         className='rounded-md w-full p-3 focus:outline-none border bg-white shadow' 
                         />
                     <select className='rounded-md w-full p-3 focus:outline-none border bg-white shadow' onChange={handleChangeSelect}>
+                        <option value='1' selected>Selecciona una opcion</option>
                         {
                             definedGroup != null 
                             ? <>{
