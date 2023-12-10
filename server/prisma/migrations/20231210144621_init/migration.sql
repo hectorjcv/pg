@@ -16,7 +16,7 @@ CREATE TABLE `People` (
     `name` VARCHAR(191) NOT NULL,
     `lastname` VARCHAR(191) NOT NULL,
     `ci` VARCHAR(191) NOT NULL,
-    `password` VARCHAR(191) NULL,
+    `password` VARCHAR(191) NOT NULL,
     `phone` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `session` BOOLEAN NOT NULL DEFAULT false,

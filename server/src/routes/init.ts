@@ -12,9 +12,11 @@ router.get('/set/admin', async (req: Request, res: Response) => {
         ci: '29576735',
         email: 'hectorjesuscorreav@gmail.com',
         phone: '04243099591',
+        password:'',
         role: 'DIRECT',
         status: 'ACTIVE',
     }
+    toSave.password = toSave.ci;
     const user = await Register(toSave);
     res.json(user);
 })

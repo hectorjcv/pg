@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { GroupsCompletedList, SubGroups, SubGroupsCompleted, SubGroupsCompletedList } from "../../../types/ObjectsGroupSub";
 import { BASIC_URL } from "../../../constants";
-import { TextSubtitle } from "../DEFAULT/TextTypes";
+import { ParagraxOpacity, TextSubtitle } from "../DEFAULT/TextTypes";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 
 type StateForm = 'Crear' | 'Actualizar';
@@ -136,9 +136,7 @@ export const SecctionSubGroup = () => {
             
             if(!res.ok) return;
             const json = await res.json();
-            console.log(json);
             const subgroups: SubGroupsCompletedList = json.body.subGroups;
-            console.log(subgroups);
             setGroups(subgroups);
         }
         GetGroups();
@@ -162,7 +160,7 @@ export const SecctionSubGroup = () => {
                             definedGroup != null 
                             ? <>{
                                 definedGroup.map((item) => (
-                                    <option value={item.id}>{item.group}</option>
+                                    <option key={item.id} value={item.id}>{item.group}</option>
                                 ))
                             }</>
                             : <></>
@@ -170,6 +168,21 @@ export const SecctionSubGroup = () => {
                     </select>
                     <input type='submit' value={`${send}`} className="w-full bg-purple-600 hover:bg-purple-700 rounded-md py-3 text-white font-bold" />
                 </form>
+                <div className='mt-5'>
+                    <TextSubtitle text='Leyenda' />
+                    {
+                        definedGroup 
+                        ? <ul>
+                            {
+                                definedGroup?.map(item => (
+                                    <li className='text-center text-gray-800 text-md' key={item.id}>{item.id} - {item.group}</li>
+                                ))
+                            }
+                        </ul>
+                        : <ParagraxOpacity text='cargando grupos...' />
+                    }
+                    
+                </div>
             </section>
             <section>
                 {

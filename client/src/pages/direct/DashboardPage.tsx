@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { ButtonBorder } from "../../component/partials/DEFAULT/ButtonBorder";
 import { CardSingle } from "../../component/partials/DEFAULT/CardSingle";
 import { ParagraxOpacity, TextSubtitle, TextTitle } from "../../component/partials/DEFAULT/TextTypes";
@@ -13,8 +13,11 @@ import { BASIC_URL } from "../../constants";
 import { RefreshToken } from "../../hooks/useRefrestToken";
 import { DeleteStorage } from "../../service/DeleteStorage";
 import { Inventary } from "../../component/partials/DIRECT/Inventary";
-import { useNotification } from "../../context/NotificationContext";
+import { ObjNotification, useNotification } from "../../context/NotificationContext";
 import { Notification } from "../../component/partials/DEFAULT/Notification";
+import { FormUpdatePassword } from "../../component/partials/DEFAULT/FormUpdatePassword";
+import { InventaryProvider } from "../../context/InventaryContext";
+import { AllCreate } from "../../component/partials/DIRECT/AllCreated";
 
 export const DashboardPage = () => {
     const noti = useNotification();
@@ -50,6 +53,7 @@ export const DashboardPage = () => {
             });
             const response = await res.json();
             DeleteStorage();
+            auth.setSession(false);
             console.log(response);
         }
         LogOutFn();
@@ -100,18 +104,18 @@ export const DashboardPage = () => {
         { noti.active && <Notification /> }
         {
             modalAdmin && 
-            <ModalBasic closeModal={setModalAdmin} cb={After}>
+            <ModalBasic closeModal={setModalAdmin} cb={After} w="w-[60%]">
                 <div>
                     {
                         adminSection === ''
-                        ?   <div className='mt-5 flex justify-center items-center flex-col'>
-                                <TextSubtitle text={`¿Qué vamos a hacer?, ${user.ci}`} />
+                        ?   <div className='mt-5 flex justify-center items-center flex-col w-full'>
+                                <TextSubtitle text={`Director`} />
                                 <button type='button' onClick={()=>{setAdminSection('ADMINISTRATION')}} className='w-full transition-colors text-xl font-bold font-mono text-center mt-5 py-4 border border-purple-600 text-purple-600 hover:text-purple-50 hover:bg-purple-600 rounded-xl'>Administrar</button>
                                 <button type='button' onClick={()=>{setAdminSection('CREATE')}} className='w-full transition-colors text-xl font-bold font-mono text-center mt-5 py-4 border border-purple-600 text-purple-600 hover:text-purple-50 hover:bg-purple-600 rounded-xl'>Crear</button>
                             </div>
                         :   adminSection == 'CREATE'
                         ?   <FormCreateAdmin cb={After} close={setModalAdmin} />
-                        :   <ListAdmins list={admins} update={setUpdateAdmin} />
+                        :   <ListAdmins list={admins} update={After} />
                     }
                 </div>
             </ModalBasic> 
@@ -120,7 +124,9 @@ export const DashboardPage = () => {
         {
             modalInventary && 
             <ModalBasic closeModal={setModalInventary} cb={After} w='w-[90%] lg:w-[60%]'>
-                <Inventary />
+                <InventaryProvider>
+                    <Inventary />
+                </InventaryProvider>
             </ModalBasic> 
         }
 
@@ -148,7 +154,7 @@ export const DashboardPage = () => {
             <main className='py-5 hidden lg:grid grid-cols-[2fr_1fr] w-full px-10 gap-5'>
                 <div className='grid grid-cols-2 grid-rows-3 gap-5'>
                     <CardSingle>
-                        <TextTitle text={`Administradores (${admins?.length})`} />
+                        <TextTitle text={`Cuentas (${admins?.length})`} />
                         <ParagraxOpacity text='Crea, actualiza, bloquea, elimina administradores' />
 
                         <ButtonBorder cb={calbakModal}>
@@ -166,22 +172,23 @@ export const DashboardPage = () => {
                     </CardSingle>
 
                     <CardSingle>
-                        <TextTitle text='...' />
+                        <TextTitle text='3' />
 
                     </CardSingle>
 
                     <CardSingle cls='row-span-3'>
-                        <TextTitle text='...' />
+                        <TextTitle text='Actualizar tu contraseña' />
+                        <FormUpdatePassword />
                     </CardSingle>
 
                     <CardSingle>
-                        <TextTitle text='...' />
+                        <TextTitle text='1' />
 
                     </CardSingle>
                 </div>
                 <div className='grid grid-rows-1 pag-5'>
                     <CardSingle>
-                            
+                        <AllCreate />
                     </CardSingle>
                 </div>
             </main>

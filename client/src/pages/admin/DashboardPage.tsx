@@ -16,6 +16,7 @@ import { InventaryProvider } from "../../context/InventaryContext";
 import { GroupsCompletedList, SecctionCompletedList, SubGroupsCompletedList } from "../../types/ObjectsGroupSub";
 import { useNotification } from "../../context/NotificationContext";
 import { Notification } from "../../component/partials/DEFAULT/Notification";
+import { FormUpdatePassword } from "../../component/partials/DEFAULT/FormUpdatePassword";
 
 export const DashBoardAdmin = () => {
     const noti = useNotification();
@@ -23,7 +24,7 @@ export const DashBoardAdmin = () => {
     OnSession(auth.session);
     const user = GetUserStorage();
     const ROL = user.role === 'DIRECT' ? 'Director' : 'Administrador';
-
+    console.log(user.password );
     const [modalGroup, setModalGroup] = useState(false);
     const [modalSubGroup, setModalSubGroup] = useState(false);
     const [modalSecction, setModalSecction] = useState(false);
@@ -76,9 +77,8 @@ export const DashBoardAdmin = () => {
                     "token":token
                 }
             });
-            const response = await res.json();
             DeleteStorage();
-            console.log(response);
+            auth.setSession(false);
         }
         LogOutFn();
     }
@@ -131,15 +131,15 @@ export const DashBoardAdmin = () => {
                 </ModalBasic> 
             }
 
-{
+            {
                 modalInventary && 
                 <InventaryProvider>
                     <ModalBasic closeModal={setModalInventary} cb={afterInventary} w='w-[90%] lg:w-[60%]'>
-                        <SecctionInventary />
+                        <SecctionInventary close={setModalInventary} />
                     </ModalBasic> 
                 </InventaryProvider>
             }
-
+        
         <div className='min-h-screen bg-purple-200 grid grid-rows-[auto_1fr]'>
             <header className='h-full'>
                 <div className='w-full bg-purple-500 top-0 lg:h-[150px] pt-5 flex flex-col justify-center items-center'>
@@ -204,15 +204,12 @@ export const DashBoardAdmin = () => {
                     
 
                     <CardSingle cls='row-span-3'>
-                        <TextTitle text='...' />
+                        <TextTitle text='Actualizar tu contraseña' />
+                        <FormUpdatePassword />
                     </CardSingle>
 
                 </div>
-                <div className='grid grid-rows-1 pag-5'>
-                    <CardSingle>
-                            
-                    </CardSingle>
-                </div>
+                
             </main>
         </div>
         </>

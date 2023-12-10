@@ -33,7 +33,7 @@ type GSS = {
     secction: SecctionCompletedList
 }
 
-export const FormObjects = () => {
+export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction<boolean>>}) => {
     const noti = useNotification();
     const obj_data: (ObjectCreate | null) = JSON.parse(`${window.localStorage.getItem('obj_data')}`);
     const obj_quantity: (Quantity | null) = JSON.parse(`${window.localStorage.getItem('obj_quantity')}`);
@@ -72,9 +72,6 @@ export const FormObjects = () => {
                 const res = await fetch(url, RequesOptions);
                 if(!res.ok) return;
 
-                //window.localStorage.removeItem('obj_data');
-                //window.localStorage.removeItem('obj_clasification');
-                //window.localStorage.removeItem('obj_quantity');
                 const json = await res.json();
                 if(json.response == "SUCCESS_CREAte_OBJECTS") {
                     const newNoti: ObjNotification = {
@@ -83,6 +80,11 @@ export const FormObjects = () => {
                     }
                     noti.newNotification(newNoti);
                     noti.updateActive(true);
+
+                    close(false);
+                    window.localStorage.removeItem('obj_data');
+                    window.localStorage.removeItem('obj_clasification');
+                    window.localStorage.removeItem('obj_quantity');
                 }
 
             }
@@ -106,9 +108,11 @@ export const FormObjects = () => {
     }
 
     const handleChangeQuantity = (event: ChangeEvent<HTMLInputElement>) => {
+        if(event.target.name == 'contable') return 
         const newData = {
             ...quantity,
-            [event.target.name]: event.target.value
+            fisica: parseInt(event.target.value),
+            contable: data ? parseFloat(`${parseInt(event.target.value) * parseFloat(`${data.price}`)}`) : 0
         }
         setQuantity(newData);
     }
@@ -156,7 +160,6 @@ export const FormObjects = () => {
             setGroupSubSecction(AllDefined);
         }
         const gss = JSON.parse(`${window.localStorage.getItem('gss')}`);
-        console.log(gss);
         if(!gss) getAll();
         else setGroupSubSecction(gss)
     }, []);
@@ -174,6 +177,17 @@ export const FormObjects = () => {
             {
                 pag == 0
                 ? <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
+                    <div className='grid gapy-3'>
+                        <label className='text-lg text-purple-900'>Código</label>
+                        <input
+                            onChange={handleChange} 
+                            type='text' 
+                            name='n_identification' 
+                            value={data.n_identification}
+                            placeholder="N° Identificación" 
+                            className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
+                            />
+                    </div>
                     <div className='grid gapy-3'>
                         <label className='text-lg text-purple-900'>Nombre</label>
                         <input
@@ -197,7 +211,7 @@ export const FormObjects = () => {
                             />
                     </div>
                     <div className='grid gapy-3'>
-                        <label className='text-lg text-purple-900'>Precio</label>
+                        <label className='text-lg text-purple-900'>Costo</label>
                         <input
                             onChange={handleChange} 
                             type='number' 
@@ -208,18 +222,7 @@ export const FormObjects = () => {
                             />
                     </div>
                     <div className='grid gapy-3'>
-                        <label className='text-lg text-purple-900'>N° Identificación</label>
-                        <input
-                            onChange={handleChange} 
-                            type='text' 
-                            name='n_identification' 
-                            value={data.n_identification}
-                            placeholder="N° Identificación" 
-                            className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
-                            />
-                    </div>
-                    <div className='grid gapy-3'>
-                        <label className='text-lg text-purple-900'>N° Identificación</label>
+                        <label className='text-lg text-purple-900'>Estado</label>
                         <select 
                             onChange={handleChangeSelect}
                             name='n_identification' 
@@ -232,7 +235,7 @@ export const FormObjects = () => {
                         </select>
                     </div>
                 </section>
-                : pag == 1
+                : pag == 2
                 ? <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
                     <div className='grid gapy-3'>
                         <label className='text-lg text-purple-900'>Física</label>
@@ -257,7 +260,7 @@ export const FormObjects = () => {
                             />
                     </div>
                 </section>
-                : pag == 2 
+                : pag == 1
                 ? <>
                     {
                         groupSubSecction !== null 

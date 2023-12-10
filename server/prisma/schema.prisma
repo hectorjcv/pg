@@ -24,7 +24,7 @@ model People {
   name              String 
   lastname          String
   ci                String      @unique
-  password          String?
+  password          String
   phone             String
   email             String
   session           Boolean     @default(false)

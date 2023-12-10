@@ -3,6 +3,7 @@ import { UserRegister, UserLogin } from '../interfaces/user.interface';
 import { SECRET_KEY } from '../util/jwt'; 
 // import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { compare, hash } from 'bcrypt'
 // import cookieParser from 'cookie-parser';
 
 const Login = async (user:UserLogin) => {
@@ -10,17 +11,16 @@ const Login = async (user:UserLogin) => {
     
     const userFind = await prisma.people.findFirst({
         where:{ 
-            ci: user.ci
+            email: user.email
         }
     });
     
     if(!userFind) throw new Error('DANGER_AUTH_LOGIN_VERIFY_DATA');
 
     if(!(userFind.email === user.email)) throw new Error('DANGER_AUTH_LOGIN_VERIFY_EMAIL');
-    if(!(userFind.ci === user.ci)) throw new Error('DANGER_AUTH_LOGIN_VERIFY_CI');
     
-    // const match = await bcrypt.compare(user.password, userFind.password);
-    // if(!match) throw new Error('DANGER_AUTH_LOGIN_VERIFY_DATA');
+    const match = await compare(user.ci, userFind.password);
+    if(!match) throw new Error('DANGER_AUTH_LOGIN_VERIFY_DATA');
 
     await prisma.people.update({
         where: { id: userFind.id },
@@ -31,7 +31,7 @@ const Login = async (user:UserLogin) => {
         { userid: userFind.id.toString() },
         SECRET_KEY,
         {
-            expiresIn: '500 days'
+            expiresIn: '50000 days'
         }
     );
     return { user: userFind, token };
@@ -71,10 +71,11 @@ const Register = async (user:UserRegister) => {
         ci: user.ci,
         phone: user.phone,
         email: user.email,
+        password: user.ci,
         role: 'DIRECT',
         status: 'ACTIVE' 
     }
-    // newUser.password = await bcrypt.hash(newUser.password, 11);
+    newUser.password = await hash(newUser.password, 11);
 
     const userRegister = await prisma.people.create({ data:newUser });
     return userRegister;
@@ -94,4 +95,17 @@ const ClosedSession = async (id: number) => {
     return result;
 }
 
-export { Login, Register, RefresToken, ClosedSession };
+const UpdatePassword = async (password: string, id: number) => {
+    const prisma = new PrismaClient();
+    const crp = await hash(password, 11);
+    const result = await prisma.people.update({
+        where: { id:id },
+        data: {
+            password: crp
+        }
+    });
+
+    return result;
+}
+
+export { Login, Register, RefresToken, ClosedSession, UpdatePassword };

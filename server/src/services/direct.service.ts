@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { UserRegister, UserLogin } from '../interfaces/user.interface';
+import { hash } from 'bcrypt';
 
 
 const RegisterAdmin = async (user:UserRegister, id: number) => {
@@ -20,11 +21,13 @@ const RegisterAdmin = async (user:UserRegister, id: number) => {
     const phone = await prisma.people.findFirst({ where:{phone:user.phone} });
     if (phone) throw new Error('DANGER_CREATE_ADMIN_PHONE_EXITS');
 
+    const crp = await hash(user.ci, 11);
     const userRegister = await prisma.people.create({ 
         data:{
             name: user.name,
             lastname: user.lastname,
             ci: user.ci,
+            password: crp,
             phone: user.phone,
             email: user.email,
             role: user.role,

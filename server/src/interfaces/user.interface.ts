@@ -4,6 +4,7 @@ export interface UserRegister {
     ci: string,
     phone: string,
     email: string,
+    password: string,
     role: ROLE,
     status: STATUS
 }

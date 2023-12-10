@@ -14,27 +14,9 @@ export const ReadyObject = () => {
     return (
         <>
             {
-                data.name && clasi.group_id && quantity.contable
-                ? <>
-                    <TextSubtitle text='Objeto para crear' />
-                    <div className='mt-3 p-3 bg-purple-100 shadow rounded-md'>
-                        <TextSubtitle text='Datos' />
-                        <p className='grid grid-cols-2'>
-                            <span>Nombre: <b>{data.name}</b></span>
-                            <span>Descripción: <b>{data.description}</b></span>
-                            <span>Valor: <b>{data.price}</b></span>
-                            <span>Estado: <b>{data.estado}</b></span>
-                            <span>N° Identificación: <b>{data.n_identification}</b></span>
-                        </p>
-                    </div>
-                    <div className='mt-3 p-3 bg-purple-100 shadow rounded-md'>
-                        <TextSubtitle text='Cantidad' />
-                        <p className='grid grid-cols-2'>
-                            <span>Física: <b>{quantity.fisica}</b></span>
-                            <span>Contable: <b>{quantity.contable}</b></span>
-                        </p>
-                    </div>
-                    <div className='mt-3 p-3 bg-purple-100 shadow rounded-md'>
+                (data.name && clasi.group_id && quantity.contable) || (ready)
+                ? <div className='bg-purple-100 rounded-md pt-5'>
+                    <div className='mt-3 px-5'>
                         <TextSubtitle text='Clasificación' />
                         <p className='grid grid-cols-1'>
                             <span>ID grupo: <b>{clasi.group_id}</b></span>
@@ -42,8 +24,27 @@ export const ReadyObject = () => {
                             <span>ID sección: <b>{clasi.secction_id}</b></span>
                         </p>
                     </div>
-                </>
-                : <>debes compoletar todos los campos</>
+                    <TextSubtitle text='Objeto para crear' />
+                    <div className='mt-3 p-5'>
+                        <TextSubtitle text='Datos' />
+                        <p className='grid grid-cols-2'>
+                            <span>Nombre: <b>{data.name}</b></span>
+                            <span>Descripción: <b>{data.description}</b></span>
+                            <span>Costo: <b>{data.price}</b></span>
+                            <span>Estado: <b>{data.estado}</b></span>
+                            <span>N° Identificación: <b>{data.n_identification}</b></span>
+                        </p>
+                    </div>
+                    <div className='mt-3 p-5'>
+                        <TextSubtitle text='Cantidad' />
+                        <p className='grid grid-cols-2'>
+                            <span>Física: <b>{quantity.fisica}</b></span>
+                            <span>Valor: <b>{quantity.contable}</b></span>
+                        </p>
+                    </div>
+                    
+                </div>
+                : <>cargando...</>
             }
         </>
     )

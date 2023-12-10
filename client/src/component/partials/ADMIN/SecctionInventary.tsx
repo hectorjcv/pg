@@ -3,7 +3,7 @@ import { FormObjects } from "./FormObjects";
 import { ListObjects } from "./ListObjects";
 import { SelectObjects } from "./SelectObjects";
 
-export const SecctionInventary = () => {
+export const SecctionInventary = ({close}: {close: React.Dispatch<React.SetStateAction<boolean>>}) => {
     const inventary = useInventary();
 
     return (
@@ -12,7 +12,7 @@ export const SecctionInventary = () => {
                 inventary.pag == 0
                 ? <SelectObjects />
                 : inventary.pag == 1
-                ? <FormObjects />
+                ? <FormObjects  close={close} />
                 : <ListObjects />
             }
         </>

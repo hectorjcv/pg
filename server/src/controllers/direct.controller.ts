@@ -12,9 +12,11 @@ const ControllerRegisterAdmin = async (req: RequestExtend, res:Response) => {
             ci: req.body.ci,
             phone: req.body.phone,
             email: req.body.email,
+            password: '',
             role: 'ADMIN',
             status: 'ACTIVE'       
         }
+        objRegister.password = objRegister.ci;
         const id = req.user.userid;
         const responseRegister = await RegisterAdmin(objRegister, id);
 

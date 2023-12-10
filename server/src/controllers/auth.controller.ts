@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { handleHTTP } from '../util/error.handle';
-import { Login, Register, RefresToken, ClosedSession } from '../services/auth.service';
+import { Login, Register, RefresToken, ClosedSession, UpdatePassword } from '../services/auth.service';
 import { UserLogin, UserRegister } from '../interfaces/user.interface';
 import { RequestExtend } from '../interfaces/jwt.interface';
 
@@ -13,6 +13,7 @@ const controllerRegister = async ({body}: RequestExtend, res:Response) => {
             phone: body.phone,
             email: body.email,
             role: 'DIRECT',
+            password: body.ci,
             status: 'ACTIVE'        
         }
         const responseRegister = await Register(objRegister);
@@ -35,7 +36,7 @@ const controllerLogin = async ({body}:Request, res:Response) => {
         }
 
         const REGEX = {
-            ci: /^[0-9]{6,12}/,
+            ci: /^[a-zA-Z0-9]{7,50}/,
             email: /^([a-zA-Z0-9_\-]+)@/
         }
         
@@ -88,4 +89,21 @@ const controllerClosedSession = async (req:RequestExtend, res:Response) => {
     }
 }
 
-export { controllerLogin, controllerRegister, controllerRefresToken, controllerClosedSession };
+const controllerSetPassword = async (req: RequestExtend, res: Response) => {
+    try {
+        const id = req.params.id;
+        const password = req.body.new_password;
+
+        const responseSetPassword = await UpdatePassword(password, parseInt(`${id}`));
+
+        return res
+            .status(200)
+            .json({ response:'SUCCESS_SET_PASSWORD' })
+
+    } catch (error) {
+        console.log(error);
+        handleHTTP(res, `${error}`, error);
+    }
+}
+
+export { controllerLogin, controllerRegister, controllerRefresToken, controllerClosedSession, controllerSetPassword };
