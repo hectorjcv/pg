@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { GroupsCompletedList, SubGroups, SubGroupsCompleted, SubGroupsCompletedList } from "../../../types/ObjectsGroupSub";
 import { BASIC_URL } from "../../../constants";
-import { ParagraxOpacity, TextSubtitle } from "../DEFAULT/TextTypes";
+import { TextSubtitle } from "../DEFAULT/TextTypes";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 
 type StateForm = 'Crear' | 'Actualizar';
@@ -133,10 +133,10 @@ export const SecctionSubGroup = () => {
                 }
             };
             const res = await fetch(`${BASIC_URL}/admin/subgroup`, RequesOptions);
-            
+            console.log(res)
             if(!res.ok) return;
             const json = await res.json();
-            const subgroups: SubGroupsCompletedList = json.body.subGroups;
+            const subgroups: SubGroupsCompletedList = json.body.subGroupsAll;
             setGroups(subgroups);
         }
         GetGroups();
@@ -168,21 +168,6 @@ export const SecctionSubGroup = () => {
                     </select>
                     <input type='submit' value={`${send}`} className="w-full bg-purple-600 hover:bg-purple-700 rounded-md py-3 text-white font-bold" />
                 </form>
-                <div className='mt-5'>
-                    <TextSubtitle text='Leyenda' />
-                    {
-                        definedGroup 
-                        ? <ul>
-                            {
-                                definedGroup?.map(item => (
-                                    <li className='text-center text-gray-800 text-md' key={item.id}>{item.id} - {item.group}</li>
-                                ))
-                            }
-                        </ul>
-                        : <ParagraxOpacity text='cargando grupos...' />
-                    }
-                    
-                </div>
             </section>
             <section>
                 {
@@ -190,7 +175,7 @@ export const SecctionSubGroup = () => {
                     ? <ul className='grid gap-3'>{
                         groups.map((item)=>(
                             <li key={item.id} className='list-none pl-3 bg-white rounded-md flex justify-between items-center border'>
-                                <span className='font-bold text-purple-800 text-lg'>{item.group_id}</span>
+                                <span className='font-bold text-purple-800 text-lg'>{item.group_reference.group}</span>
                                 <span className='font-bold text-gray-800 text-lg'>{item.sub_group}</span>
                                 <div>
                                     <button
@@ -203,7 +188,7 @@ export const SecctionSubGroup = () => {
                             </li>
                         ))
                     }</ul>
-                    : <></>
+                    : <>...</>
                     
                 }
             </section>

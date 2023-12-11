@@ -17,12 +17,19 @@ import {
   CreatheObjects,
   ReadObjects,
   UpdateObjects,
-  DeleteObjects
+  DeleteObjects,
+
+  CreatheDep,
+  ReadDep,
+  UpdateDep,
+  DeleteDep,
+
 } from '../services/admin.service';
 import { Response } from 'express';
 import { RequestExtend } from '../interfaces/jwt.interface';
 import { handleHTTP } from '../util/error.handle';
 import { Clasifications, Groups, ObjectCreate, Quantity, Secction, SubGroups } from '../interfaces/objects.interface';
+import { DepCreate } from '../interfaces/dep.interface';
 
 /**
  * 
@@ -221,6 +228,65 @@ const DeleteSecctionController = async (req: RequestExtend, res:Response) => {
 
 /**
  * 
+ * DEPARTAMENTS
+ */
+const CreateDepController = async (req: RequestExtend, res: Response) => {
+  try {
+    const depCreate: DepCreate = {
+      departament_name: req.body.dep_name
+    };
+
+    console.log(depCreate);
+    const responseService = await CreatheDep(depCreate);
+
+    return res
+      .status(200)
+      .json({ response: 'SUCCESS_DEP_CREATE', body:responseService })
+  } catch (error) {
+    handleHTTP(res, 'DANGER_DEP_CREATE')
+  }
+}
+
+const ReadDepController = async (req: RequestExtend, res: Response) => {
+  try {
+    const responseService = await ReadDep();
+    return res
+      .status(200)
+      .json({ response: 'SUCCESS_DEP_READ', body:responseService })
+  } catch (error) {
+    handleHTTP(res, 'DANGER_DEP_READ')
+  }
+}
+
+const UpdateDepController = async (req: RequestExtend, res: Response) => {
+  try {
+    const depUp: DepCreate = {
+      departament_name: req.body.dep_name
+    }
+    const id:number = parseInt(req.params.id);
+    const responseService = await UpdateDep(depUp, id);
+    return res
+      .status(200)
+      .json({ response: 'SUCCESS_DEP_UPDATE', body:responseService })
+  } catch (error) {
+    handleHTTP(res, 'DANGER_DEP_UPDATE')
+  }
+}
+
+const DeleteDepController = async (req: RequestExtend, res: Response) => {
+  try {
+    const id:number = parseInt(req.params.id);
+    const responseService = await DeleteDep(id);
+    return res
+      .status(200)
+      .json({ response: 'SUCCESS_DEP_DELETE', body:responseService })
+  } catch (error) {
+    handleHTTP(res, 'DANGER_DEP_DELETE')
+  }
+}
+
+/**
+ * 
  * OBJECTS_CRUD
  */
 const CreateObjectController = async (req: RequestExtend, res:Response) => {
@@ -243,7 +309,8 @@ const CreateObjectController = async (req: RequestExtend, res:Response) => {
       quantity: req.body.data.quantity,
       n_identification: req.body.data.n_identification,
       estado: req.body.data.estado,
-      creathe_by: parseInt(req.user.userid)
+      creathe_by: parseInt(req.user.userid),
+      dep_id: parseInt(req.body.dep)
     }
 
     const responseService = await CreatheObjects(ObjectSave, Clasification, QuantitySave, parseInt(req.user.userid));
@@ -315,6 +382,11 @@ export {
   ReadSecctionController,
   UpdateSecctionController,
   DeleteSecctionController,
+
+  CreateDepController,
+  ReadDepController,
+  UpdateDepController,
+  DeleteDepController,
 
   CreateObjectController,
   ReadObjectController,

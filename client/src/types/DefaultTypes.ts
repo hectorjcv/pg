@@ -24,7 +24,7 @@ export interface User {
     status: STATUS_USER
 }
 
-export type ROLE = 'DIRECT' | 'ADMIN';
+export type ROLE = 'DIRECT' | 'ADMIN' | 'SECRETARY';
 
 export type STATUS_USER = 'ACTIVE' | 'DISACTIVE' | 'BLOQUED' | 'ALL';
 

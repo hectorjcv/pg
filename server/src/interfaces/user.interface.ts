@@ -15,6 +15,6 @@ export interface UserLogin {
     ci:string
 }
 
-export type ROLE = 'DIRECT' | 'ADMIN';
+export type ROLE = 'DIRECT' | 'ADMIN' | 'SECRETARY';
 
 export type STATUS = 'ACTIVE' | 'DISACTIVE' | 'BLOQUED';

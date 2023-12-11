@@ -10,6 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// LOGS
+
 model Logs {
   id          Int  @id @default(autoincrement())
   code        Int
@@ -18,6 +20,8 @@ model Logs {
   url         String
   ci          String
 }
+
+// USUARIOS
 
 model People {
   id                Int         @id @default(autoincrement())
@@ -35,6 +39,8 @@ model People {
   role              String
 }
 
+// BIENES
+
 model Objects {
   id                                Int             @id     @default(autoincrement())
   name                              String
@@ -51,6 +57,8 @@ model Objects {
   clasification_id                  Int                   @unique
   quantity_reference                Quantity_objects      @relation(fields: [quantity_id], references: [id])
   quantity_id                       Int                   @unique
+  dep_reference                     Departament      @relation(fields: [dep_id], references: [id])
+  dep_id                            Int                   @unique
 }
 
 model Dates_objects {
@@ -91,3 +99,11 @@ model Secction {
   id        Int       @id   @default(autoincrement())
   secction     String
 }
+
+// DEPARTAMENTOS
+ 
+ model Departament {
+  id                Int       @id   @default(autoincrement())
+  departament_name  String
+  dep               Objects?
+ }

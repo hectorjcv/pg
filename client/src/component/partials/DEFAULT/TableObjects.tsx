@@ -16,16 +16,18 @@ export const TableObjects = () => {
                                 <td className='border border-purple-950 p-2 text-center font-bold'>Nombre</td>
                                 <td className='border border-purple-950 p-2 text-center font-bold'>Valor</td>
                                 <td className='border border-purple-950 p-2 text-center font-bold'>Cantidad</td>
+                                <td className='border border-purple-950 p-2 text-center font-bold'>Ubicación</td>
                             </tr>
                         </thead>
                         <tbody>
                         {
                             inv.objects.map(item => (
                                 <tr className='bg-gray-100 border border-purple-950' key={item.id}>
-                                    <td className='p-2'>{item.n_identification}</td>
-                                    <td className='p-2'>{item.name}</td>
-                                    <td className='p-2'>{item.price}</td>
-                                    <td className='p-2'>{item.quantity_reference?.fisica}</td>
+                                    <td className='border border-purple-950 py-1 text-center'>{item.n_identification}</td>
+                                    <td className='border border-purple-950 py-1 text-center'>{item.name}</td>
+                                    <td className='border border-purple-950 py-1 text-center'>{item.price}</td>
+                                    <td className='border border-purple-950 py-1 text-center'>{item.quantity_reference?.fisica}</td>
+                                    <td className='border border-purple-950 py-1 text-center'>{item.dep_reference.departament_name}</td>
                                 </tr>
                             ))
                         }

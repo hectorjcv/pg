@@ -13,7 +13,7 @@ const ControllerRegisterAdmin = async (req: RequestExtend, res:Response) => {
             phone: req.body.phone,
             email: req.body.email,
             password: '',
-            role: 'ADMIN',
+            role: req.body.role,
             status: 'ACTIVE'       
         }
         objRegister.password = objRegister.ci;

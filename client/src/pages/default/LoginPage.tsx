@@ -10,6 +10,7 @@ import { useAuth } from "../../context/AuthContext";
 import { OffSession } from "../../hooks/useVerifySession";
 import { Navigate } from "../../hooks/useNavigate";
 import { ObjNotification, useNotification } from '../../context/NotificationContext';
+import { Notification } from '../../component/partials/DEFAULT/Notification';
 
 const LoginPage = () => {
     const auth = useAuth();
@@ -30,31 +31,52 @@ const LoginPage = () => {
                 headers: { "Content-Type":"application/json" },
                 body: JSON.stringify(Data)
             }
-            
-            const res = await fetch(`${BASIC_URL}/auth/login`, REQUES_OPTIONS);
-            if(!res.ok) return console.log(res);
-            const result: ResponseLogin = await res.json();
+            try {
+                const res = await fetch(`${BASIC_URL}/auth/login`, REQUES_OPTIONS);
+                if(!res.ok) {
+                    console.log('qlq')
+                    noti.updateActive(true);
+                    const newNoti: ObjNotification = {
+                        type: 'DANGER',
+                        notification: `Error verifica tus datos`
+                    }
+                    noti.newNotification(newNoti);
+                    return console.log(res);
+                }
+                const result: ResponseLogin = await res.json();
 
-            window.localStorage.setItem('session', 'true');
-            window.localStorage.setItem('token', result.body.token);
-            window.localStorage.setItem('user', JSON.stringify(result.body.user));
+                window.localStorage.setItem('session', 'true');
+                window.localStorage.setItem('token', result.body.token);
+                window.localStorage.setItem('user', JSON.stringify(result.body.user));
 
-            auth.setSession(true);
+                auth.setSession(true);
 
-            noti.updateActive(true);
-            const newNoti: ObjNotification = {
-                type: 'SUCCESS',
-                notification: `Bienvenido ${result.body.user.ci}`
+                noti.updateActive(true);
+                const newNoti: ObjNotification = {
+                    type: 'SUCCESS',
+                    notification: `Bienvenido ${result.body.user.ci}`
+                }
+                noti.newNotification(newNoti);
+                if(result.body.user.role == 'DIRECT') return Navigate('/direct/dashboard');
+                if(result.body.user.role == 'SECRETARY') return Navigate('/secretary/dashboard');
+                return Navigate('/admin/dashboard');
+            } catch (error) {
+                noti.updateActive(true);
+                const newNoti: ObjNotification = {
+                    type: 'DANGER',
+                    notification: `Error verifica tus datos`
+                }
+                return noti.newNotification(newNoti);                
             }
-            noti.newNotification(newNoti);
-            if(result.body.user.role == 'DIRECT') return Navigate('/direct/dashboard');
-            return Navigate('/admin/dashboard');
+            
         }
         ServiceLogin();
         
     }
 
     return (
+        <>
+        { noti.active && <Notification /> }
         <div 
             className='w-screen min-h-screen' 
             style={{ 
@@ -81,6 +103,7 @@ const LoginPage = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

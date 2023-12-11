@@ -5,7 +5,8 @@ export interface ObjectCreate {
   quantity: number,
   n_identification: string,
   estado: States,
-  creathe_by: number
+  creathe_by: number,
+  dep_id: number
 }
 
 /*

@@ -1,3 +1,5 @@
+import { DepId } from "./DepTypes";
+
 export interface ObjectCreate {
     name: string,
     description:string,
@@ -10,7 +12,8 @@ export interface ObjectCreate {
 export interface AllCreate {
     data: ObjectCreate,
     quantity: Quantity,
-    clasification: Clasifications
+    clasification: Clasifications,
+    dep: number
 }
 
 export type States = 'NUEVO' | 'USADO';
@@ -56,7 +59,8 @@ export interface GroupsCompleted {
 export interface SubGroupsCompleted {
     id: number,
     sub_group: string,
-    group_id: number
+    group_id: number,
+    group_reference: Groups
 }
 
 export interface SecctionCompleted {
@@ -78,7 +82,9 @@ export interface ObjectCompleted {
     clasification_id: number,
     clasification_reference: Clasifications | undefined,
     quantity_id: number,
-    quantity_reference: Quantity | undefined
+    quantity_reference: Quantity | undefined,
+    dep_id: number,
+    dep_reference: DepId
 }
 
 export type ObjectsCompletedList = ObjectCompleted[]; 

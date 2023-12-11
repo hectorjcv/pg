@@ -3,12 +3,15 @@ import { TextSubtitle } from "../DEFAULT/TextTypes";
 import { BASIC_URL } from "../../../constants";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 
+type ROLE = 'DIRECT' | 'ADMIN' | 'SECRETARY'
+
 interface AdminRegister {
     name: string,
     lastname:string,
     ci: string,
     phone: string,
-    email: string
+    email: string,
+    role: ROLE
 }
 
 const defaultAdmin: AdminRegister = {
@@ -16,7 +19,8 @@ const defaultAdmin: AdminRegister = {
     lastname:'',
     ci: '',
     phone: '',
-    email: ''
+    email: '',
+    role: 'SECRETARY'
 }
 
 interface Props {
@@ -35,6 +39,7 @@ export const FormCreateAdmin: React.FC<Props> = ({cb, close}) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log(data);
 
         const RegisterAdmin = async () => {
             const RequestOptions = {
@@ -92,6 +97,23 @@ export const FormCreateAdmin: React.FC<Props> = ({cb, close}) => {
                     <div>
                         <label htmlFor="" className='text-lg text-gray-800 font-bold'>Teléfono</label>
                         <input type='text' required name='phone' onChange={handleChange} placeholder='Teléfono' className='w-full bg-gray-50 border broder-purple-500 p-3 rounded-md focus:outline-none' />
+                    </div>
+                    <div>
+                        <label htmlFor="" className='text-lg text-gray-800 font-bold'>Rol</label>
+                        <select 
+                            required 
+                            name='role' 
+                            onChange={(event)=> {
+                                const role: ROLE = event.target.value as ROLE;
+                                const newData = {...data, role: role};
+                                setData(newData);
+                            }} 
+                            className='w-full bg-gray-50 border broder-purple-500 p-3 rounded-md focus:outline-none'
+                        >
+                            <option value='SECRETARY' selected>Seleccione una opción</option>
+                            <option value='SECRETARY' selected>Secretario</option>
+                            <option value='ADMIN' selected>Administador</option>
+                        </select>
                     </div>
                     
                     <input type='submit' value='Crear' className='cursor-pointer bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-md' />

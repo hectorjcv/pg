@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Clasifications, Groups, ObjectCreate, ObjectsCompletedList, ObjectCompleted, Quantity, Secction, SubGroups } from '../interfaces/objects.interface';
+import { DepCreate } from '../interfaces/dep.interface';
 
 /**
  * @GROUPS_CRUD
@@ -47,12 +48,16 @@ const CreateSubGroup = async (data: SubGroups) => {
 const ReadSubGroup = async (id?:number) => {
     const prisma = new PrismaClient();
     const groups = await prisma.groups.findMany();
-    if(id) {
-        const subGroups = await prisma.sub_groups.findMany({ where:{group_id:id} });
-        return {subGroups}
-    }
+    const subGroupsAll: any[] = [];
     const subGroups = await prisma.sub_groups.findMany({ orderBy:{ group_id:'asc' } });
-    return {subGroups}
+    subGroups.map(item => {
+        const obj = {
+            ...item,
+            group_reference: groups.find(d => d.id == item.group_id),
+        }
+        subGroupsAll.push(obj);
+    })
+    return {subGroupsAll}
 }
 
 const UpdateSubGroup = async (data:SubGroups, id:number) => {
@@ -100,7 +105,6 @@ const DeleteSecction = async (id:number) => {
 const CreatheObjects = async (data: ObjectCreate, clf: Clasifications, qun: Quantity, uid: number) => {
     const prisma = new PrismaClient();
     const date = new Date();
-    console.log(data);
     const DateSave = {
         creathe: date,
         update: date,
@@ -138,6 +142,7 @@ const ReadObjects = async (take: number, sk:number) => {
     const Dates = await prisma.dates_objects.findMany();
     const Clasifications = await prisma.clasification_objects.findMany();
     const Quantity = await prisma.quantity_objects.findMany();
+    const Dep = await prisma.departament.findMany();
 
     const ObjetsResult: any[] = [];
     Objects.map(async (item) => {
@@ -145,11 +150,11 @@ const ReadObjects = async (take: number, sk:number) => {
             ...item,
             date_reference: Dates.find(d => d.id == item.date_id),
             clasification_reference: Clasifications.find(c => c.id == item.clasification_id),
-            quantity_reference: Quantity.find(q => q.id == item.quantity_id)
+            quantity_reference: Quantity.find(q => q.id == item.quantity_id),
+            dep_reference: Dep.find(d => d.id == item.dep_id)
         };
         ObjetsResult.push(obj);
     });
-
 
     return {ObjetsResult, count}
 }
@@ -164,7 +169,41 @@ const DeleteObjects = async () => {
     return {}
 }
 
+/**
+ * 
+ * @DEP_CRUD
+ */
+
+const CreatheDep = async (dep: DepCreate) => {
+    const prisma = new PrismaClient();
+    const create = await prisma.departament.create({ data:dep });
+    return create;
+}
+
+const ReadDep = async () => {
+    const prisma = new PrismaClient();
+    const read = await prisma.departament.findMany();
+    return read; 
+}
+
+const UpdateDep = async (dep:DepCreate, id:number) => {
+    const prisma = new PrismaClient();
+    const up = await prisma.departament.update({ data: dep, where:{id:id}});
+    return up;
+}
+
+const DeleteDep = async (id: number ) => {
+    const prisma = new PrismaClient();
+    const del = await prisma.departament.delete({ where:{id:id} });
+    return del;
+}
+
 export {
+    CreatheDep,
+    ReadDep,
+    UpdateDep,
+    DeleteDep,
+
     CreateGroup,
     ReadGroup,
     UpdateGroup,

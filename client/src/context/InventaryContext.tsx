@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect, useState } from "react"
-import { ObjectsCompletedList, ObjectCompleted } from "../types/ObjectsGroupSub";
+import { ObjectsCompletedList } from "../types/ObjectsGroupSub";
 import { BASIC_URL } from "../constants";
 
 interface AuthContextInterface {

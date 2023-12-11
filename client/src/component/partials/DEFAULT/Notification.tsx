@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNotification } from "../../../context/NotificationContext";
 
 interface Props {
 }
-
-type displayType = 'hidden' | 'flex';
 
 export const Notification: React.FC<Props> = ({}) => {
     //const [display, setDisplay] = useState<displayType>('flex') 
@@ -27,7 +25,7 @@ export const Notification: React.FC<Props> = ({}) => {
                     className='animate-bounce rounded-full transition-all w-[40px] h-[40px] grid place-items-center hover:font-bold hover:bg-green-600 bg-green-500'></button>
                 : <button
                     type='button'
-                    className='animate-ping rounded-full transition-all w-[40p] h-[40px] grid place-items-center hover:font-bold hover:bg-red-600 bg-red-500'></button>
+                    className='animate-ping rounded-full transition-all w-[40px] h-[40px] grid place-items-center hover:font-bold hover:bg-red-600 bg-red-500'></button>
             }
             
             <span className='flex-1'>

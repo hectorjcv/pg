@@ -1,3 +1,4 @@
+import { GetUserStorage } from "../service/UserService"
 import { Navigate } from "./useNavigate"
 
 export const OnSession = (session: boolean) => {
@@ -8,6 +9,9 @@ export const OnSession = (session: boolean) => {
 
 export const OffSession = (session: boolean) => {
     if (session == true) {
-        Navigate('/dashboard')
+        const user = GetUserStorage();
+        if(user.role == 'ADMIN') return Navigate('/admin/dashboard')
+        if(user.role == 'SECRETARY') return Navigate('/secretary/dashboard')
+        return Navigate('/direct/dashboard')
     }
 }

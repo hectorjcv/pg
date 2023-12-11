@@ -1,9 +1,19 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { AllCreate, Clasifications, GroupsCompletedList, ObjectCreate, Quantity, SecctionCompletedList, States, SubGroupsCompletedList } from "../../../types/ObjectsGroupSub";
+import { 
+    AllCreate, 
+    Clasifications, 
+    GroupsCompletedList, 
+    ObjectCreate, 
+    Quantity, 
+    SecctionCompletedList, 
+    States, 
+    SubGroupsCompletedList
+} from "../../../types/ObjectsGroupSub";
 import { TextSubtitle, TextTitle } from "../DEFAULT/TextTypes";
 import { BASIC_URL } from "../../../constants";
 import { ReadyObject } from "./ReadyObject";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
+import { DepId, DepList } from "../../../types/DepTypes";
 
 const dataDefault: ObjectCreate = {
     name: '',
@@ -23,14 +33,16 @@ const clf: Clasifications = JSON.parse(`${window.localStorage.getItem('obj_clasi
 const clasificationDefault: Clasifications = {
     group_id: clf ? clf.group_id : 0,
     sub_group_id: clf ? clf.sub_group_id : 0,
-    secction_id: clf ? clf.secction_id : 0
+    secction_id: clf ? clf.secction_id : 0,
+
 }
 
 type Range = 0|1|2|3;
 type GSS = {
     group: GroupsCompletedList,
     sub_group: SubGroupsCompletedList,
-    secction: SecctionCompletedList
+    secction: SecctionCompletedList,
+    dep: DepList
 }
 
 export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction<boolean>>}) => {
@@ -39,7 +51,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
     const obj_quantity: (Quantity | null) = JSON.parse(`${window.localStorage.getItem('obj_quantity')}`);
     const [data, setData] = useState<ObjectCreate>(obj_data ? obj_data :dataDefault);
     const [quantity, setQuantity] = useState<Quantity>(obj_quantity ? obj_quantity : quantityDefault);
-    const [idGroup, setIdGroup] = useState<number>(0)
+    const [idGroup, setIdGroup] = useState<number>(0);
+    const [idDep, setIdDep] = useState<number>( parseInt(`${window.localStorage.getItem('dep_id')}`) | 0 );
     const [clasification, setClasification] = useState<Clasifications>(clasificationDefault);
     const [groupSubSecction, setGroupSubSecction] = useState<GSS | null>(null);
     const [pag, setPag] = useState<Range>(0)
@@ -50,15 +63,17 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
         const data: ObjectCreate = JSON.parse(`${window.localStorage.getItem('obj_data')}`);
         const clasi: Clasifications = JSON.parse(`${window.localStorage.getItem('obj_clasification')}`);
         const quantity: Quantity = JSON.parse(`${window.localStorage.getItem('obj_quantity')}`);
+        const dep: {id:string,dep:string} = JSON.parse(`${window.localStorage.getItem('dep_id')}`);
 
-        if(!data || !clasi || !quantity) return console.log('DANGER_GET_DATA_STORAGE')
+        if(!data || !clasi || !quantity || !dep) return console.log('DANGER_GET_DATA_STORAGE')
         else {
             const SaveObjects = async () => {
                 const token = `${window.localStorage.getItem('token')}`;
                 const body: AllCreate = {
                     data: data,
                     clasification: clasi,
-                    quantity: quantity
+                    quantity: quantity,
+                    dep: parseInt(dep.dep)
                 }
                 const RequesOptions = {
                     "method": "POST",
@@ -129,7 +144,6 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
             ...clasification,
             [event.target.name]:event.target.value
         }
-        console.log(newSave);
         setClasification(newSave);
     }
 
@@ -147,15 +161,18 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
             const resGroup = await fetch(`${BASIC_URL}/admin/group`, RequesOptions);
             const resSubGroup = await fetch(`${BASIC_URL}/admin/subgroup`, RequesOptions);
             const resSecction = await fetch(`${BASIC_URL}/admin/secction`, RequesOptions);
+            const resDep = await fetch(`${BASIC_URL}/admin/dep`, RequesOptions);
 
             const jsonGroup = await resGroup.json();
             const jsonSubGroup = await resSubGroup.json();
             const jsonSecction = await resSecction.json();
+            const jsonDep = await resDep.json();
 
             const AllDefined: GSS = {
                 group: jsonGroup.body.groups,
                 sub_group: jsonSubGroup.body.subGroups,
                 secction: jsonSecction.body.secctions,
+                dep: jsonDep.body
             } 
             setGroupSubSecction(AllDefined);
         }
@@ -237,7 +254,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                 </section>
                 : pag == 2
                 ? <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
-                    <div className='grid gapy-3'>
+                    <div className='grid gap-y-3'>
                         <label className='text-lg text-purple-900'>Física</label>
                         <input
                             onChange={handleChangeQuantity} 
@@ -248,7 +265,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                             className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
                             />
                     </div>
-                    <div className='grid gapy-3'>
+                    <div className='grid gap-y-3'>
                         <label className='text-lg text-purple-900'>Contable</label>
                         <input
                             onChange={handleChangeQuantity} 
@@ -258,6 +275,22 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                             placeholder="Contable" 
                             className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
                             />
+                    </div>
+                    <div className='grid col-span-2'>
+                        <label>Departamento</label>
+                        <select name='dep' className='py-3 text-lg text-center' onChange={(event) => {
+                            const val = event.target.value.split('...');
+                            console.log(val);
+                            setIdDep(parseInt(`${event.target.value}`));
+                            window.localStorage.setItem('dep_id', JSON.stringify({id:event.target.value.split('...')[0], dep:event.target.value.split('...')[1]}));
+                        }}>
+                            <option value={idDep ? idDep : 0} selected>{idDep ? idDep : 'Selecciona una opción'}</option>
+                            {
+                                groupSubSecction?.dep.map(item => (
+                                    <option className='font-bold' value={`${item.departament_name}...${item.id}`} >{item.departament_name}</option>
+                                ))
+                            }
+                        </select>
                     </div>
                 </section>
                 : pag == 1

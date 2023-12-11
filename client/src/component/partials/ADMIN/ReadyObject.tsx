@@ -6,8 +6,10 @@ export const ReadyObject = () => {
     const data: ObjectCreate = JSON.parse(`${window.localStorage.getItem('obj_data')}`);
     const clasi: Clasifications = JSON.parse(`${window.localStorage.getItem('obj_clasification')}`);
     const quantity: Quantity = JSON.parse(`${window.localStorage.getItem('obj_quantity')}`);
+    const dep: {id:string,dep:string} = JSON.parse(`${window.localStorage.getItem('dep_id')}`);
 
     const [ready, setReady] = useState(data && clasi && quantity ? true : false);
+    
     useEffect(()=>{
         setReady(data && clasi && quantity ? true : false);
     },[])
@@ -16,6 +18,9 @@ export const ReadyObject = () => {
             {
                 (data.name && clasi.group_id && quantity.contable) || (ready)
                 ? <div className='bg-purple-100 rounded-md pt-5'>
+
+                    <TextSubtitle text='Objeto para crear' />
+
                     <div className='mt-3 px-5'>
                         <TextSubtitle text='Clasificación' />
                         <p className='grid grid-cols-1'>
@@ -24,7 +29,6 @@ export const ReadyObject = () => {
                             <span>ID sección: <b>{clasi.secction_id}</b></span>
                         </p>
                     </div>
-                    <TextSubtitle text='Objeto para crear' />
                     <div className='mt-3 p-5'>
                         <TextSubtitle text='Datos' />
                         <p className='grid grid-cols-2'>
@@ -40,6 +44,9 @@ export const ReadyObject = () => {
                         <p className='grid grid-cols-2'>
                             <span>Física: <b>{quantity.fisica}</b></span>
                             <span>Valor: <b>{quantity.contable}</b></span>
+                        </p>
+                        <p>
+                            <span>Ubicado en el departemento: <b>{dep.id}</b></span>
                         </p>
                     </div>
                     
