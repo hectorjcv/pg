@@ -3,6 +3,7 @@ import { handleHTTP } from '../util/error.handle';
 import { Login, Register, RefresToken, ClosedSession, UpdatePassword } from '../services/auth.service';
 import { UserLogin, UserRegister } from '../interfaces/user.interface';
 import { RequestExtend } from '../interfaces/jwt.interface';
+import { GenerateLog } from '../util/logs.handle';
 
 const controllerRegister = async ({body}: RequestExtend, res:Response) => {
     try {
@@ -30,7 +31,6 @@ const controllerRegister = async ({body}: RequestExtend, res:Response) => {
 const controllerLogin = async ({body}:Request, res:Response) => {
     try {
         const sendService:UserLogin = {
-            role: body.role,
             email: body.email,
             ci: body.ci
         }
@@ -45,12 +45,25 @@ const controllerLogin = async ({body}:Request, res:Response) => {
 
         const responseLogin = await Login(sendService);
 
+        GenerateLog({
+            id:responseLogin.user.id,
+            code:200,
+            data:'SUCCESS_LOGIN',
+            description:'inicio de sessión exitoso',
+            url:'/auth/login'
+        });
         return res
             .status(200)
             .cookie('token', responseLogin.token)
             .json({ response:'SUCCESS_LOGIN', body:responseLogin });
     }
     catch (err) {
+        GenerateLog({
+            code:400,
+            data:'DANGER_LOGIN',
+            description:'inicio de sessión fallido',
+            url:'/auth/login'
+        });
         console.log(err)
         handleHTTP(res, `${err}`, err);
     }
@@ -76,15 +89,27 @@ const controllerRefresToken = async (req:Request, res:Response) => {
 const controllerClosedSession = async (req:RequestExtend, res:Response) => {
     try {
         const id = req.params.id;
-
+        const us = parseInt(req.user.userid);
         const responseClosed = await ClosedSession(parseInt(`${id}`));
 
+        GenerateLog({
+            id:us,
+            code:200,
+            data:'SUCCESS_CLOSED_SESSION',
+            description:'cierre de sessión exitoso',
+            url:'/auth/logout'
+        });
         return res
             .status(200)
             .json({ response:'SUCCESS_CLOSED_SESSION' })
 
     } catch (error) {
-        console.log(error);
+        GenerateLog({
+            code:400,
+            data:'DANGER_CLOSED_SESSION',
+            description:'error al cerrar sesión',
+            url:'/auth/logout'
+        });
         handleHTTP(res, `${error}`, error);
     }
 }
@@ -95,13 +120,25 @@ const controllerSetPassword = async (req: RequestExtend, res: Response) => {
         const password = req.body.new_password;
 
         const responseSetPassword = await UpdatePassword(password, parseInt(`${id}`));
-
+        console.log('#############',req.user)
+        GenerateLog({
+            id:parseInt(req.user.userid),
+            code:200,
+            data:'SUCCESS_UPDATE_PASSWORD',
+            description:'contraseña actualizada exitosamente',
+            url:'/auth/update/password'
+        });
         return res
             .status(200)
             .json({ response:'SUCCESS_SET_PASSWORD' })
 
     } catch (error) {
-        console.log(error);
+        GenerateLog({
+            code:400,
+            data:'DAGNER_UPDATE_PASSWORD',
+            description:'error al actualizar contraseña',
+            url:'/auth/update/password'
+        });
         handleHTTP(res, `${error}`, error);
     }
 }

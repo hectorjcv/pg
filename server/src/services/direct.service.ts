@@ -46,7 +46,7 @@ const GetAdmins = async (id: number) => {
     });
     if (IS_DIRECT && IS_DIRECT.role !== 'DIRECT') throw new Error('DANGER_CREATE_ADMIN_NOT_IS_DIRECT');
 
-    const admins = await prisma.people.findMany({ where:{role:'ADMIN'} });
+    const admins = await prisma.people.findMany({ where:{OR:[{role:'ADMIN'},{role:'SECRETARY'}]} });
     
     return admins;   
 }

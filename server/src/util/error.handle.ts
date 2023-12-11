@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-export const handleHTTP = (res:Response, error:string, errorRap?:any) => {
+export const handleHTTP = async (res:Response, error:string, errorRap?:any) => {
     console.log(errorRap);
     return res
         .status(400)

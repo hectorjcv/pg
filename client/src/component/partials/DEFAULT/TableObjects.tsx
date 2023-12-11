@@ -9,8 +9,8 @@ export const TableObjects = () => {
             {
                 inv.objects
                 ? <>
-                    <table className='table w-full'>
-                        <thead>
+                    <table className='w-full'>
+                        <>
                             <tr className='bg-purple-400'>
                                 <td className='border border-purple-950 p-2 text-center font-bold'>Código</td>
                                 <td className='border border-purple-950 p-2 text-center font-bold'>Nombre</td>
@@ -18,8 +18,8 @@ export const TableObjects = () => {
                                 <td className='border border-purple-950 p-2 text-center font-bold'>Cantidad</td>
                                 <td className='border border-purple-950 p-2 text-center font-bold'>Ubicación</td>
                             </tr>
-                        </thead>
-                        <tbody>
+                        </>
+                        <>
                         {
                             inv.objects.map(item => (
                                 <tr className='bg-gray-100 border border-purple-950' key={item.id}>
@@ -31,7 +31,7 @@ export const TableObjects = () => {
                                 </tr>
                             ))
                         }
-                        </tbody>
+                        </>
                     </table>
                     <div className='w-full rounded-md flex justify-center items-center gap-x-10'>
                         <button 

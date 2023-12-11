@@ -10,7 +10,6 @@ export interface UserRegister {
 }
 
 export interface UserLogin {
-    role:string,
     email:string,
     ci:string
 }

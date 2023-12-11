@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import { RequestExtend } from '../interfaces/jwt.interface';
+import { GenerateLog } from '../util/logs.handle';
 
 export const SECRET_KEY = 'API_REST_TS';
 
@@ -20,6 +21,12 @@ export const auth = async (req: RequestExtend, res: Response, next:NextFunction)
     }
     catch(e) {
         // send error
+        GenerateLog({
+            code:401,
+            data:'DANGER_LOGIN_JWT',
+            description:'Error al iniciar sesión',
+            url:'/login'
+        });
         res
             .status(401)
             .json({ response:'HAVE_REFRES_TOKEN', body:null, err:e });

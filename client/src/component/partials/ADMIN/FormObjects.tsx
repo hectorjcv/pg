@@ -13,7 +13,7 @@ import { TextSubtitle, TextTitle } from "../DEFAULT/TextTypes";
 import { BASIC_URL } from "../../../constants";
 import { ReadyObject } from "./ReadyObject";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
-import { DepId, DepList } from "../../../types/DepTypes";
+import { DepList } from "../../../types/DepTypes";
 
 const dataDefault: ObjectCreate = {
     name: '',
@@ -55,8 +55,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
     const [idDep, setIdDep] = useState<number>( parseInt(`${window.localStorage.getItem('dep_id')}`) | 0 );
     const [clasification, setClasification] = useState<Clasifications>(clasificationDefault);
     const [groupSubSecction, setGroupSubSecction] = useState<GSS | null>(null);
-    const [pag, setPag] = useState<Range>(0)
-
+    const [pag, setPag] = useState<Range>(0);
 
     const hadleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -167,10 +166,9 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
             const jsonSubGroup = await resSubGroup.json();
             const jsonSecction = await resSecction.json();
             const jsonDep = await resDep.json();
-
             const AllDefined: GSS = {
                 group: jsonGroup.body.groups,
-                sub_group: jsonSubGroup.body.subGroups,
+                sub_group: jsonSubGroup.body.subGroupsAll,
                 secction: jsonSecction.body.secctions,
                 dep: jsonDep.body
             } 
@@ -180,6 +178,11 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
         if(!gss) getAll();
         else setGroupSubSecction(gss)
     }, []);
+
+    useEffect(()=>{
+        
+
+    }, [groupSubSecction?.group]);
 
     const UpdatePagination = (p: Range) => {
         if(p-1 == 0) window.localStorage.setItem('obj_data', JSON.stringify(data));
@@ -303,7 +306,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                                 <select name='group' onChange={handleSelectionGroup} className='bg-transparent mt-3 text-md font-bold w-full'>
                                     <option value='0' selected>Seleccione una opcion</option>      
                                     {
-                                        groupSubSecction.group.map((key) => (
+                                        groupSubSecction.group && groupSubSecction.group.map((key) => (
                                             <option value={key.id} key={key.id}>{key.group}</option>
                                         ))
                                     }
@@ -314,10 +317,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                                 <select name='sub_group_id' onChange={handleSelectionClasification} className='bg-transparent mt-3 text-md font-bold w-full'>
                                     <option value='0' selected>Seleccione una opcion</option>
                                     {
-                                        groupSubSecction.sub_group.map((key) => (
-                                            key.id == idGroup 
-                                                ? <option key={key.id} value={key.id}>{key.sub_group}</option>
-                                                : <></>
+                                        groupSubSecction.sub_group && groupSubSecction.sub_group.filter(i => i.group_id == idGroup).map((key) => (
+                                            <option key={key.id} value={key.id}>{key.sub_group}</option>
                                         ))
                                     }
                                 </select>
@@ -327,7 +328,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                                 <select name='secction_id' onChange={handleSelectionClasification} className='bg-transparent mt-3 text-md font-bold w-full'>
                                     <option value='0' selected>Seleccione una opcion</option>   
                                     {
-                                        groupSubSecction.secction.map((key) => (
+                                        groupSubSecction.secction && groupSubSecction.secction.map((key) => (
                                             <option key={key.id} value={key.id}>{key.secction}</option>
                                         ))
                                     }

@@ -3,11 +3,14 @@ import { GroupsCompletedList, SubGroups, SubGroupsCompleted, SubGroupsCompletedL
 import { BASIC_URL } from "../../../constants";
 import { TextSubtitle } from "../DEFAULT/TextTypes";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
+import { GetUserStorage } from "../../../service/UserService";
 
 type StateForm = 'Crear' | 'Actualizar';
 export const SecctionSubGroup = () => {
     const noti = useNotification();
-    const [groups, setGroups] = useState<SubGroupsCompletedList | null>(null);
+    const user = GetUserStorage();
+    const ROL = user.role === 'SECRETARY' ? true : false;
+    const [subgroups, setSubGroups] = useState<SubGroupsCompletedList | null>(null);
     const [definedGroup, setDefineGroups] = useState<GroupsCompletedList | null>(null);
     const [data, setData] = useState<SubGroups | null>(null);
     const [read, setRead] = useState(false);
@@ -133,18 +136,17 @@ export const SecctionSubGroup = () => {
                 }
             };
             const res = await fetch(`${BASIC_URL}/admin/subgroup`, RequesOptions);
-            console.log(res)
             if(!res.ok) return;
             const json = await res.json();
             const subgroups: SubGroupsCompletedList = json.body.subGroupsAll;
-            setGroups(subgroups);
+            setSubGroups(subgroups);
         }
         GetGroups();
-    },[read]);
+    }, [read]);
 
     return (
-        <div className='grid md:grid-cols-[1fr_2fr] p-3 gap-4'>
-            <section>
+        <div className={`grid md:grid-cols-[1fr] p-3 gap-4`}>
+            {ROL && <section>
                 <TextSubtitle text={`${send} Sub Grupo`} />
                 <form className='grid gap-y-3' onSubmit={handleSubmit}>
                     <input 
@@ -168,28 +170,26 @@ export const SecctionSubGroup = () => {
                     </select>
                     <input type='submit' value={`${send}`} className="w-full bg-purple-600 hover:bg-purple-700 rounded-md py-3 text-white font-bold" />
                 </form>
-            </section>
+            </section>}
             <section>
                 {
-                    groups != null
-                    ? <ul className='grid gap-3'>{
-                        groups.map((item)=>(
-                            <li key={item.id} className='list-none pl-3 bg-white rounded-md flex justify-between items-center border'>
-                                <span className='font-bold text-purple-800 text-lg'>{item.group_reference.group}</span>
+                    subgroups &&
+                    <ul className='grid gap-3'>{
+                        subgroups.map((item)=>(
+                            <li key={item.id} className='list-none py-3 pl-3 bg-white rounded-md flex justify-between items-center border'>
+                               <span className='font-bold text-purple-800 text-lg'>{item.group_reference?.group}</span>
                                 <span className='font-bold text-gray-800 text-lg'>{item.sub_group}</span>
                                 <div>
-                                    <button
+                                    {ROL && <button
                                         onClick={()=>ToUpdate(item)}
                                         className='bg-green-400 hover:bg-green-500 rounded-r-md py-3 px-3 h-full'
                                     >
                                         Actualizar
-                                    </button>
+                                    </button>}
                                 </div>
                             </li>
                         ))
-                    }</ul>
-                    : <>...</>
-                    
+                    }</ul>                    
                 }
             </section>
         </div>

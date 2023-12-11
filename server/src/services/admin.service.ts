@@ -198,6 +198,21 @@ const DeleteDep = async (id: number ) => {
     return del;
 }
 
+/**
+ * 
+ * LOGS
+ */
+
+const ReadLogs = async (id?: number) => {
+    const prisma = new PrismaClient();
+    if (id) {
+        const result = await prisma.logs.findMany({ where:{id}, take:15 });
+        return result;
+    }
+    const result = await prisma.logs.findMany({ take:15 });
+    return result;
+}
+
 export {
     CreatheDep,
     ReadDep,
@@ -222,5 +237,7 @@ export {
     CreatheObjects,
     ReadObjects,
     UpdateObjects,
-    DeleteObjects
+    DeleteObjects,
+
+    ReadLogs
 }

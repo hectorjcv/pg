@@ -3,10 +3,13 @@ import { Groups, GroupsCompleted, GroupsCompletedList } from "../../../types/Obj
 import { BASIC_URL } from "../../../constants";
 import { TextSubtitle } from "../DEFAULT/TextTypes";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
+import { GetUserStorage } from "../../../service/UserService";
 
 type StateForm = 'Crear' | 'Actualizar';
 export const SecctionGroup = () => {
     const noti = useNotification();
+    const user = GetUserStorage();
+    const ROL = user.role === 'SECRETARY' ? true : false;
     const [groups, setGroups] = useState<GroupsCompletedList | null>(null);
     const [data, setData] = useState<Groups | null>(null);
     const [read, setRead] = useState(false);
@@ -34,8 +37,6 @@ export const SecctionGroup = () => {
                 },
                 "body":JSON.stringify(data)
             };
-            console.log(RequesOptions);
-            console.log(send, data.id)
             if(send == 'Actualizar' && data.id) {
                 const url = `${BASIC_URL}/admin/group/${data.id}`
                 const res = await fetch(url, RequesOptions);
@@ -67,8 +68,6 @@ export const SecctionGroup = () => {
                 noti.newNotification(newNoti);
                 noti.updateActive(true);
             }
-            
-            console.log(json);
             setData({group:''});
             setRead(!read);
         }
@@ -101,29 +100,35 @@ export const SecctionGroup = () => {
     },[read]);
 
     return (
-        <div className='grid md:grid-cols-[1fr_2fr] p-3 gap-4'>
-            <section>
-                <TextSubtitle text={`${send} Grupo`} />
-                <form className='grid gap-y-3' onSubmit={handleSubmit}>
-                    <input type='text' value={data?.group} onChange={handleChange} placeholder="Grupo" className='rounded-md w-full p-3 focus:outline-none border bg-white shadow' />
-                    <input type='submit' value={`${send}`} className="w-full bg-purple-600 hover:bg-purple-700 rounded-md py-3 text-white font-bold" />
-                </form>
-            </section>
+        <div className={`grid md:grid-cols-[${ ROL ? '1fr_2fr' : '1fr'}] p-3 gap-4`}>
+            {
+                ROL &&
+                <section>
+                    <TextSubtitle text={`${send} Grupo`} />
+                    <form className='grid gap-y-3' onSubmit={handleSubmit}>
+                        <input type='text' value={data?.group} onChange={handleChange} placeholder="Grupo" className='rounded-md w-full p-3 focus:outline-none border bg-white shadow' />
+                        <input type='submit' value={`${send}`} className="w-full bg-purple-600 hover:bg-purple-700 rounded-md py-3 text-white font-bold" />
+                    </form>
+                </section>
+            }
             <section>
                 {
                     groups != null
                     ? <ul className='grid gap-3'>{
                         groups.map((item)=>(
-                            <li key={item.id} className='list-none pl-3 bg-white rounded-md flex justify-between items-center border'>
+                            <li key={item.id} className='list-none py-3 pl-3 bg-white rounded-md flex justify-between items-center border'>
                                 <span className='font-bold text-gray-800 text-lg'>{item.group}</span>
-                                <div>
-                                    <button
-                                        onClick={()=>ToUpdate(item)}
-                                        className='bg-green-400 hover:bg-green-500 rounded-r-md py-3 px-3 h-full'
-                                    >
-                                        Actualizar
-                                    </button>
-                                </div>
+                                {
+                                    ROL && 
+                                    <div>
+                                        <button
+                                            onClick={()=>ToUpdate(item)}
+                                            className='bg-green-400 hover:bg-green-500 rounded-r-md py-3 px-3 h-full'
+                                        >
+                                            Actualizar
+                                        </button>
+                                    </div>
+                                }
                             </li>
                         ))
                     }</ul>

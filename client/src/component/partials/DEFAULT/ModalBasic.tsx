@@ -14,7 +14,7 @@ export const ModalBasic: React.FC<Props> = ({children, cb, closeModal, w}) => {
 
     return (
         <div
-            className='top-0 w-screen min-h-screen left-0 bg-black bg-opacity-50 absolute flex justify-center items-center z-20'>
+            className='top-0 w-screen min-h-screen left-0 bg-black bg-opacity-80 absolute flex justify-center items-center z-20'>
             
             <button 
                 onClick={()=>{

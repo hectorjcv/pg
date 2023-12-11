@@ -15,7 +15,7 @@ datasource db {
 model Logs {
   id          Int  @id @default(autoincrement())
   code        Int
-  data        DateTime
+  data        String
   description String
   url         String
   ci          String
@@ -51,14 +51,10 @@ model Objects {
   estado                            String
   show_me                           Boolean               @default(true)
   creathe_by                        Int
-  date_reference                    Dates_objects         @relation(fields: [date_id], references: [id])
   date_id                           Int                   @unique
-  clasification_reference           Clasification_objects @relation(fields: [clasification_id], references: [id])
-  clasification_id                  Int                   @unique
-  quantity_reference                Quantity_objects      @relation(fields: [quantity_id], references: [id])
-  quantity_id                       Int                   @unique
-  dep_reference                     Departament      @relation(fields: [dep_id], references: [id])
-  dep_id                            Int                   @unique
+  clasification_id                  Int
+  quantity_id                       Int
+  dep_id                            Int
 }
 
 model Dates_objects {
@@ -66,19 +62,16 @@ model Dates_objects {
   creathe     DateTime            @default(now())
   update      DateTime
   delete      DateTime
-  date        Objects?
 }
 
 model Quantity_objects {
   id            Int       @id   @default(autoincrement())
   fisica        Int
   contable      Int
-  quantity        Objects?
 }
 
 model Clasification_objects {
   id                    Int       @id   @default(autoincrement())
-  clasification         Objects?
   group_id              Int
   sub_group_id          Int
   secction_id           Int
@@ -105,5 +98,4 @@ model Secction {
  model Departament {
   id                Int       @id   @default(autoincrement())
   departament_name  String
-  dep               Objects?
  }

@@ -3,10 +3,13 @@ import { Secction, SecctionCompletedList } from "../../../types/ObjectsGroupSub"
 import { BASIC_URL } from "../../../constants";
 import { TextSubtitle } from "../DEFAULT/TextTypes";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
+import { GetUserStorage } from "../../../service/UserService";
 
 type StateForm = 'Crear' | 'Actualizar';
 export const SecctionSecction = () => {
     const noti = useNotification();
+    const user = GetUserStorage();
+    const ROL = user.role === 'SECRETARY' ? true : false;
     const [secctions, setSecction] = useState<SecctionCompletedList | null>(null);
     const [data, setData] = useState<Secction | null>(null);
     const [read, setRead] = useState(false);
@@ -113,29 +116,29 @@ export const SecctionSecction = () => {
     },[read]);
 
     return (
-        <div className='grid md:grid-cols-[1fr_2fr] p-3 gap-4'>
-            <section>
+        <div className={`grid md:grid-cols-[${ROL ? '1fr_2fr' : '1fr'}] p-3 gap-4`}>
+            {ROL && <section>
                 <TextSubtitle text={`${send} Sección`} />
                 <form className='grid gap-y-3' onSubmit={handleSubmit}>
                     <input type='text' value={data?.secction} onChange={handleChange} placeholder="Sección" className='rounded-md w-full p-3 focus:outline-none border bg-white shadow' />
                     <input type='submit' value={`${send}`} className="w-full bg-purple-600 hover:bg-purple-700 rounded-md py-3 text-white font-bold" />
                 </form>
-            </section>
+            </section>}
             <section>
                 {
                     secctions != null
                     ? <ul className='grid gap-3'>{
                         secctions.map((item)=>(
-                            <li key={item.id} className='list-none pl-3 bg-white rounded-md flex justify-between items-center border'>
+                            <li key={item.id} className='list-none py-3 pl-3 bg-white rounded-md flex justify-between items-center border'>
                                 <span className='font-bold text-gray-800 text-lg'>{item.secction}</span>
-                                <div>
+                                {ROL && <div>
                                     <button
                                         onClick={()=>ToUpdate(item)}
                                         className='bg-green-400 hover:bg-green-500 rounded-r-md py-3 px-3 h-full'
                                     >
                                         Actualizar
                                     </button>
-                                </div>
+                                </div>}
                             </li>
                         ))
                     }</ul>

@@ -2,7 +2,7 @@
 CREATE TABLE `Logs` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `code` INTEGER NOT NULL,
-    `data` DATETIME(3) NOT NULL,
+    `data` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
     `url` VARCHAR(191) NOT NULL,
     `ci` VARCHAR(191) NOT NULL,
@@ -44,10 +44,9 @@ CREATE TABLE `Objects` (
     `date_id` INTEGER NOT NULL,
     `clasification_id` INTEGER NOT NULL,
     `quantity_id` INTEGER NOT NULL,
+    `dep_id` INTEGER NOT NULL,
 
     UNIQUE INDEX `Objects_date_id_key`(`date_id`),
-    UNIQUE INDEX `Objects_clasification_id_key`(`clasification_id`),
-    UNIQUE INDEX `Objects_quantity_id_key`(`quantity_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -105,11 +104,10 @@ CREATE TABLE `Secction` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- AddForeignKey
-ALTER TABLE `Objects` ADD CONSTRAINT `Objects_date_id_fkey` FOREIGN KEY (`date_id`) REFERENCES `Dates_objects`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+-- CreateTable
+CREATE TABLE `Departament` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `departament_name` VARCHAR(191) NOT NULL,
 
--- AddForeignKey
-ALTER TABLE `Objects` ADD CONSTRAINT `Objects_clasification_id_fkey` FOREIGN KEY (`clasification_id`) REFERENCES `Clasification_objects`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Objects` ADD CONSTRAINT `Objects_quantity_id_fkey` FOREIGN KEY (`quantity_id`) REFERENCES `Quantity_objects`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

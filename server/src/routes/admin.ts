@@ -24,7 +24,9 @@ import {
     CreateDepController,
     ReadDepController,
     UpdateDepController,
-    DeleteDepController
+    DeleteDepController,
+
+    ReadLogsController
 } from '../controllers/admin.controller';
 
 const router = Router();
@@ -53,5 +55,7 @@ router.post('/objects', auth, CreateObjectController);
 router.get('/objects', auth, ReadObjectController);
 router.put('/objects/:id', auth, UpdateObjectController);
 router.delete('/objects/:id', auth, DeleteObjectController);
+
+router.get('/logs', auth, ReadLogsController);
 
 export { router };
