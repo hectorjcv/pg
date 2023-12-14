@@ -159,6 +159,30 @@ const ReadObjects = async (take: number, sk:number) => {
     return {ObjetsResult, count}
 }
 
+const ReadOneObjects = async (id:number) => {
+    const prisma = new PrismaClient();
+
+    const obj = await prisma.objects.findFirst({
+        where:{id}
+    });
+    if(!obj) throw new Error('No existe');
+
+    const Dates = await prisma.dates_objects.findFirst({ where:{id:obj.date_id} });
+    const Clasifications = await prisma.clasification_objects.findFirst({ where:{id:obj.clasification_id} });
+    const Quantity = await prisma.quantity_objects.findFirst({ where:{id:obj.quantity_id} });
+    const Dep = await prisma.departament.findFirst({ where:{id:obj.dep_id} });
+
+    const objComplete = {
+        ...obj,
+        date_reference: Dates,
+        clasification_reference: Clasifications,
+        quantity_reference: Quantity,
+        dep_reference: Dep
+    };
+
+    return objComplete
+}
+
 const UpdateObjects = async () => {
 
     return {}
@@ -236,6 +260,7 @@ export {
 
     CreatheObjects,
     ReadObjects,
+    ReadOneObjects,
     UpdateObjects,
     DeleteObjects,
 

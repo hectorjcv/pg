@@ -82,7 +82,7 @@ export const DashboardSecretary = () => {
                 </InventaryProvider>
             }
 
-{
+            {
                 modalDep && 
                 <ModalBasic closeModal={setModalDep} cb={afterDep} w='w-[90%] lg:w-[70%]'>
                     <SecctionDep />

@@ -145,7 +145,7 @@ export const DashboardPage = () => {
                                 Administrar
                             </ButtonBorder>
                             <ButtonBorder cb={()=> Navigate('/excel/1')}>
-                                excel
+                                excel(ejemplo)
                             </ButtonBorder>
                         </div>
                     </CardSingle>

@@ -17,6 +17,7 @@ import {
     DeleteSecctionController,
 
     CreateObjectController,
+    ReadOneObjectController,
     ReadObjectController,
     UpdateObjectController,
     DeleteObjectController,
@@ -53,6 +54,7 @@ router.delete('/dep/:id', auth, DeleteDepController);
 
 router.post('/objects', auth, CreateObjectController);
 router.get('/objects', auth, ReadObjectController);
+router.get('/object/:id', auth, ReadOneObjectController);
 router.put('/objects/:id', auth, UpdateObjectController);
 router.delete('/objects/:id', auth, DeleteObjectController);
 

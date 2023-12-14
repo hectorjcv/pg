@@ -14,6 +14,7 @@ import { BASIC_URL } from "../../../constants";
 import { ReadyObject } from "./ReadyObject";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 import { DepList } from "../../../types/DepTypes";
+import { useInventary } from "../../../context/InventaryContext";
 
 const dataDefault: ObjectCreate = {
     name: '',
@@ -46,6 +47,7 @@ type GSS = {
 }
 
 export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction<boolean>>}) => {
+    const inv = useInventary();
     const noti = useNotification();
     const obj_data: (ObjectCreate | null) = JSON.parse(`${window.localStorage.getItem('obj_data')}`);
     const obj_quantity: (Quantity | null) = JSON.parse(`${window.localStorage.getItem('obj_quantity')}`);
@@ -95,7 +97,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                     noti.newNotification(newNoti);
                     noti.updateActive(true);
 
-                    close(false);
+                    inv.updatePag(2);
+                    //close(false);
                     window.localStorage.removeItem('obj_data');
                     window.localStorage.removeItem('obj_clasification');
                     window.localStorage.removeItem('obj_quantity');
@@ -178,11 +181,6 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
         if(!gss) getAll();
         else setGroupSubSecction(gss)
     }, []);
-
-    useEffect(()=>{
-        
-
-    }, [groupSubSecction?.group]);
 
     const UpdatePagination = (p: Range) => {
         if(p-1 == 0) window.localStorage.setItem('obj_data', JSON.stringify(data));

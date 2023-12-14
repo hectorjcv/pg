@@ -16,6 +16,7 @@ import {
 
   CreatheObjects,
   ReadObjects,
+  ReadOneObjects,
   UpdateObjects,
   DeleteObjects,
 
@@ -596,6 +597,34 @@ const ReadObjectController = async (req: RequestExtend, res:Response) => {
   }
 }
 
+const ReadOneObjectController = async (req: RequestExtend, res:Response) => {
+  try {
+    const id = parseInt(req.params.id);
+    const responseService = await ReadOneObjects(id);
+
+    GenerateLog({
+      id: parseInt(req.user.userid),
+      code:200,
+      data:'SUCCESS_READ_OBJECT',
+      description:'bien',
+      url:'/admin/object'
+    });
+    return res
+      .status(200)
+      .json({ response:'SUCCESS_READ_OBJECT', body:responseService });
+
+  } catch (error) {
+    GenerateLog({
+      id: parseInt(req.user.userid),
+      code:400,
+      data:'DANGER_CREATE_OBJECT',
+      description:'error al leer el bien',
+      url:'/admin/object'
+    });
+    handleHTTP(res, 'DANGER_READ_OBJECTS', error)
+  }
+}
+
 const UpdateObjectController = async (req: RequestExtend, res:Response) => {
   try {
     const responseService = '';
@@ -661,6 +690,7 @@ export {
 
   CreateObjectController,
   ReadObjectController,
+  ReadOneObjectController,
   UpdateObjectController,
   DeleteObjectController,
 
