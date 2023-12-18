@@ -110,6 +110,7 @@ const CreatheObjects = async (data: ObjectCreate, clf: Clasifications, qun: Quan
         update: date,
         delete: date
     }
+    console.log(qun);
     const dateReady = await prisma.dates_objects.create({data:DateSave});
     const clfReady = await prisma.clasification_objects.create({data:clf});
     const qunReady = await prisma.quantity_objects.create({data:qun});

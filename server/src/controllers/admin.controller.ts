@@ -534,7 +534,7 @@ const CreateObjectController = async (req: RequestExtend, res:Response) => {
       name: req.body.data.name,
       description:req.body.data.description,
       price: req.body.data.price,
-      quantity: req.body.data.quantity,
+      quantity: QuantitySave.fisica,
       n_identification: req.body.data.n_identification,
       estado: req.body.data.estado,
       creathe_by: parseInt(req.user.userid),
