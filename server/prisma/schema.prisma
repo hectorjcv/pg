@@ -27,7 +27,7 @@ model People {
   id                Int         @id @default(autoincrement())
   name              String 
   lastname          String
-  ci                String      @unique
+  ci                String
   password          String
   phone             String
   email             String
