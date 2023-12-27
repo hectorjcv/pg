@@ -19,7 +19,7 @@ import { Header } from "../../component/partials/DEFAULT/Header";
 export const DashboardSecretary = () => {
     const noti = useNotification();
     const auth = useAuth();
-    OnSession(auth.session);    
+    OnSession(auth.session);
     const [modalInventary, setModalInventary] = useState(false);
     const [modalDep, setModalDep] = useState(false);
 
@@ -76,7 +76,7 @@ export const DashboardSecretary = () => {
             {
                 modalInventary && 
                 <InventaryProvider>
-                    <ModalBasic closeModal={setModalInventary} cb={afterInventary} w='w-[90%] lg:w-[60%]'>
+                    <ModalBasic closeModal={setModalInventary} cb={afterInventary} w='w-[90%]'>
                         <SecctionInventary close={setModalInventary} />
                     </ModalBasic> 
                 </InventaryProvider>
@@ -119,6 +119,7 @@ export const DashboardSecretary = () => {
 
                     <div className='row-span-4 grid gap-y-5'>
                         <CardSingle>
+                            <span>.</span>
                         </CardSingle>
                     </div>
 

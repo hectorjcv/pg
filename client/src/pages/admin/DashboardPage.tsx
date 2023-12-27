@@ -19,7 +19,6 @@ export const DashboardAdmin = () => {
     const auth = useAuth();
     OnSession(auth.session);
 
-    const [modalAdmin, setModalAdmin] = useState(false);
     const [modalInventary, setModalInventary] = useState(false);
     const [modalDep, setModalDep] = useState(false);
     const [updateAdmin, setUpdateAdmin] = useState(false);
@@ -40,11 +39,6 @@ export const DashboardAdmin = () => {
     return (
         <>
         { noti.active && <Notification /> }
-        {
-            modalAdmin && 
-            <ModalBasic closeModal={setModalAdmin} cb={After} w="w-[60%]">
-            </ModalBasic> 
-        }
 
         {
             modalDep && 
@@ -55,7 +49,7 @@ export const DashboardAdmin = () => {
 
         {
             modalInventary && 
-            <ModalBasic closeModal={setModalInventary} cb={After} w='w-[90%] lg:w-[60%]'>
+            <ModalBasic closeModal={setModalInventary} cb={After} w='w-[90%]'>
                 <InventaryProvider>
                     <Inventary />
                 </InventaryProvider>
@@ -83,7 +77,7 @@ export const DashboardAdmin = () => {
                     </CardSingle>
 
                     <CardSingle cls='row-span-5'>
-                        
+                        <span>.</span>
                     </CardSingle>
 
                     <CardSingle cls='row-span-4'>

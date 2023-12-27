@@ -1,6 +1,7 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect, useState } from "react"
 import { ObjectsCompletedList } from "../types/ObjectsGroupSub";
 import { BASIC_URL } from "../constants";
+import { GlobalFilter } from "../types/FiltersType";
 
 interface AuthContextInterface {
     count: number,
@@ -14,7 +15,9 @@ interface AuthContextInterface {
     objects: ObjectsCompletedList | null,
     updateObjects: Dispatch<SetStateAction<ObjectsCompletedList | null>>,
     toUpdate: boolean,
-    updateUpdate: Dispatch<SetStateAction<boolean>>
+    updateUpdate: Dispatch<SetStateAction<boolean>>,
+    filter: GlobalFilter,
+    updateFilter: Dispatch<SetStateAction<GlobalFilter>>
 }
 
 const DefaultContext: AuthContextInterface = {
@@ -29,7 +32,9 @@ const DefaultContext: AuthContextInterface = {
     toUpdate: false,
     updateUpdate: ()=>{},
     take:10,
-    updateTake: ()=>{} 
+    updateTake: ()=>{},
+    filter: { type:'ALL', filter:null },
+    updateFilter: ()=>{}
 }
 
 export const InventaryContext = createContext(DefaultContext);
@@ -40,7 +45,9 @@ export const InventaryProvider = ({children}: {children: ReactNode}) => {
     const [sk, setSk] = useState(0);
     const [take, settake] = useState(10);
     const [objects, setObjects] = useState<ObjectsCompletedList | null>(null);
+    const [objectsCurrent, setObjectsCurrent] = useState<ObjectsCompletedList | null>(null);
     const [toUpdate, setToUpdate] = useState(false);
+    const [filter, setFilter] = useState<GlobalFilter>(DefaultContext.filter)
 
     useEffect(()=>{
         const Getting = async () => {
@@ -57,10 +64,78 @@ export const InventaryProvider = ({children}: {children: ReactNode}) => {
             const json = await res.json();
             const objs:ObjectsCompletedList = json.body.ObjetsResult;
             setCount(json.body.count);
-            setObjects(objs);
+            setObjectsCurrent(objs);
         }
         Getting();
     }, [toUpdate, pag]);
+
+    useEffect(()=>{
+
+        if(filter.type === 'ALL') {
+            setObjects(objectsCurrent);
+            return
+        }
+
+        if(filter.type === 'DEPARTAMENTO' && objectsCurrent !== null) {
+            if(filter.filter.dep_name === 'ALL') {
+                setObjects(objectsCurrent);
+                return
+            }
+            const newsObjest = objectsCurrent.filter(i => i.dep_reference.departament_name === filter.filter.dep_name);
+            setObjects(newsObjest);
+            return;
+        }
+
+        if(filter.type === 'NOMBRE' && objectsCurrent !== null) {
+            const newsObjest = objectsCurrent.filter(i => i.name.includes(filter.filter.name));
+            setObjects(newsObjest);
+            return;
+        }
+
+
+        if(filter.type === 'CODIGO' && objectsCurrent !== null) {
+            const newsObjest = objectsCurrent.filter(i => i.n_identification.startsWith(filter.filter.code));
+            setObjects(newsObjest);
+            return;
+        }
+
+        if(filter.type === 'VALOR' && objectsCurrent !== null) {
+            if(filter.filter.max === 0) {
+                const newsObjest = objectsCurrent.filter(i => i.price >= filter.filter.min);
+                setObjects(newsObjest);
+                return;
+            }
+
+            if(filter.filter.min === 0) {
+                const newsObjest = objectsCurrent.filter(i => i.price <= filter.filter.max);
+                setObjects(newsObjest);
+                return;
+            }
+
+            const newsObjest = objectsCurrent.filter(i => i.price >= filter.filter.min && i.price <= filter.filter.max);
+            setObjects(newsObjest);
+            return;
+        }
+
+        if(filter.type === 'CANTIDAD' && objectsCurrent !== null) {
+            if(filter.filter.max === 0) {
+                const newsObjest = objectsCurrent.filter(i => i.quantity_reference && i.quantity_reference.fisica >= filter.filter.min);
+                setObjects(newsObjest);
+                return;
+            }
+
+            if(filter.filter.min === 0) {
+                const newsObjest = objectsCurrent.filter(i => i.quantity_reference && i.quantity_reference?.fisica <= filter.filter.max);
+                setObjects(newsObjest);
+                return;
+            }
+
+            const newsObjest = objectsCurrent.filter(i => i.quantity_reference && i.quantity_reference?.fisica >= filter.filter.min && i.quantity_reference?.fisica <= filter.filter.max);
+            setObjects(newsObjest);
+            return;
+        }
+
+    }, [filter, objectsCurrent])
 
     return (
         <InventaryContext.Provider value={{
@@ -75,7 +150,9 @@ export const InventaryProvider = ({children}: {children: ReactNode}) => {
             updateTake:settake,
             updateObjects: setObjects,
             toUpdate: toUpdate,
-            updateUpdate: setToUpdate
+            updateUpdate: setToUpdate,
+            filter:filter,
+            updateFilter: setFilter
         }}>
             {children}
         </InventaryContext.Provider>

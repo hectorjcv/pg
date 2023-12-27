@@ -102,6 +102,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                     window.localStorage.removeItem('obj_data');
                     window.localStorage.removeItem('obj_clasification');
                     window.localStorage.removeItem('obj_quantity');
+                    if(false) close(true);
                 }
             }
             SaveObjects();
