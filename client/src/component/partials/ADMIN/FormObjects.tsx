@@ -58,6 +58,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
     const [clasification, setClasification] = useState<Clasifications>(clasificationDefault);
     const [groupSubSecction, setGroupSubSecction] = useState<GSS | null>(null);
     const [pag, setPag] = useState<Range>(0);
+    const [validNext, setValidNext] = useState([false,false,false]);
+    const [error, setError] = useState<{input:null | string, error: null | string}>({input:null, error:null})
 
     const hadleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -149,6 +151,39 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
         setClasification(newSave);
     }
 
+    const ValidNextPage = ({op}:{op:number}) => {
+        let valid = validNext
+        if(pag == 0) {
+            if(!data.description) return setError({input:'description', error:'Debes rellenar este campo'})
+            if(!data.name) return setError({input:'name', error:'Debes rellenar este campo'})
+            if(!data.n_identification) return setError({input:'n_identification', error:'Debes rellenar este campo'})
+            if(!data.price) return setError({input:'price', error:'Debes rellenar este campo'})
+            if(!data.estado) return setError({input:'estado', error:'Debes secelcionar una opción'})
+
+            valid[0] = true
+        }
+        if(pag == 1) {
+            if(!idGroup) return setError({input:'group', error:'Debes selecionar una opcion este campo'})
+            if(!clasification.sub_group_id) return setError({input:'subgroup', error:'Debes selecionar una opcion este campo'})
+            if(!clasification.secction_id) return setError({input:'section', error:'Debes selecionar una opcion este campo'})
+
+            valid[1] = true
+        }
+        if(pag == 2) {
+            if(!quantity.fisica) return setError({input:'fisica', error:'Debes completar este campo'})
+            if(!quantity.contable) return setError({input:'contable', error:'Debes completar este campo'})
+            alert(idDep);
+            if(!idDep) return setError({input:'dep', error:'Debes seleccionar una opción'})
+
+
+            valid[2] = true
+        }
+        if(pag == 3) valid[3] = true
+
+        setValidNext(valid);
+        UpdatePagination(op as Range);
+    }
+
     useEffect(()=>{
         const getAll = async () => {
             const token = `${window.localStorage.getItem('token')}`
@@ -205,6 +240,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                             placeholder="N° Identificación" 
                             className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
                             />
+                        { error.input === 'n_identification' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
                     </div>
                     <div className='grid gapy-3'>
                         <label className='text-lg text-purple-900'>Nombre</label>
@@ -216,6 +252,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                             placeholder="Nombre" 
                             className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
                             />
+                        { error.input === 'name' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
                     </div>
                     <div className='grid gapy-3'>
                         <label className='text-lg text-purple-900'>Descripción</label>
@@ -227,6 +265,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                             placeholder="Descripción" 
                             className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
                             />
+                        { error.input === 'description' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
                     </div>
                     <div className='grid gapy-3'>
                         <label className='text-lg text-purple-900'>Costo</label>
@@ -238,12 +278,14 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                             placeholder="Precio" 
                             className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
                             />
+                        { error.input === 'price' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
                     </div>
                     <div className='grid gapy-3'>
                         <label className='text-lg text-purple-900'>Estado</label>
                         <select 
                             onChange={handleChangeSelect}
-                            name='n_identification' 
+                            name='estado' 
                             placeholder="N° Identificación" 
                             className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
                         >
@@ -251,8 +293,11 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                             <option value='Nuevo'>Nuevo</option>
                             <option value='Usado'>Usado</option>
                         </select>
+                        { error.input === 'estado' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
                     </div>
                 </section>
+
                 : pag == 2
                 ? <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
                     <div className='grid gap-y-3'>
@@ -265,6 +310,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                             placeholder="Física" 
                             className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
                             />
+                        { error.input === 'fisica' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
                     </div>
                     <div className='grid gap-y-3'>
                         <label className='text-lg text-purple-900'>Contable</label>
@@ -276,6 +323,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                             placeholder="Contable" 
                             className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
                             />
+                        { error.input === 'contable' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
                     </div>
                     <div className='grid col-span-2'>
                         <label>Departamento</label>
@@ -288,10 +337,12 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                             <option value={idDep ? idDep : 0} selected>{idDep ? idDep : 'Selecciona una opción'}</option>
                             {
                                 groupSubSecction?.dep.map(item => (
-                                    <option className='font-bold' value={`${item.departament_name}...${item.id}`} >{item.departament_name}</option>
+                                    <option className='font-bold' value={item.id} >{item.departament_name}</option>
                                 ))
                             }
                         </select>
+                        { error.input === 'dep' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
                     </div>
                 </section>
                 : pag == 1
@@ -309,6 +360,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                                         ))
                                     }
                                 </select>
+                                { error.input === 'group' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
                             </div>
                             <div className='bg-white shadow rounded-md p-3'>
                                 <TextSubtitle text='Sub Grupo' />
@@ -320,6 +373,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                                         ))
                                     }
                                 </select>
+                                { error.input === 'subgroup' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
                             </div>
                             <div className='bg-white shadow rounded-md p-3'>
                                 <TextSubtitle text='Sección' />
@@ -331,6 +386,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                                         ))
                                     }
                                 </select>
+                                { error.input === 'section' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
                             </div>
                         </section>
                         : <span>cargando...</span>
@@ -343,12 +400,12 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
             <div className='w-full flex justify-between items-center mt-5'>
                 {
                     pag !== 0 
-                    ? <button type='button' onClick={()=>UpdatePagination(pag-1 as Range)} className='p-3 rounded-md text-center bg-purple-500 hover:bg-purple-600 font-bold text-white'>Anterior</button>
+                    ? <button type='button' onClick={()=>ValidNextPage({op:pag-1})} className='p-3 rounded-md text-center bg-purple-500 hover:bg-purple-600 font-bold text-white'>Anterior</button>
                     : <span></span>
                 }
                 {
                     pag !== 3
-                    ? <button type='button' onClick={()=>UpdatePagination(pag+1 as Range)} className='p-3 rounded-md text-center bg-purple-500 hover:bg-purple-600 font-bold text-white'>Siguiente</button>
+                    ? <button type='button' onClick={()=>ValidNextPage({op:pag+1})} className='p-3 rounded-md text-center bg-purple-500 hover:bg-purple-600 font-bold text-white'>Siguiente</button>
                     : <input type='submit' className='py-3 px-10 rounded-md text-center bg-purple-700 hover:bg-purple-800 font-bold text-white' value='Crear' />
                 }
             </div>
