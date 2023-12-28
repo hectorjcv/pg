@@ -136,10 +136,7 @@ const ReadObjects = async (take: number, sk:number) => {
 
     const count = await prisma.objects.count();
 
-    const Objects = await prisma.objects.findMany({
-        take: take,
-        skip: sk
-    });
+    const Objects = await prisma.objects.findMany();
     const Dates = await prisma.dates_objects.findMany();
     const Clasifications = await prisma.clasification_objects.findMany();
     const Quantity = await prisma.quantity_objects.findMany();
