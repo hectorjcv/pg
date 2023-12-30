@@ -92,8 +92,10 @@ const LoginPage = () => {
                         <div className='mt-5 flex justify-center items-center flex-col'>
                             <h3 className='font-extrabold text-purple-900 text-2xl text-center'>Ingresa tus datos</h3>
 
-                            <input onChange={(e)=> setEmail(e.target.value)} type='email' placeholder="micorreo@gmail.com" className='bg-purple-50 mt-5 border border-purple-600 font-bold focus:outline-none text-purple-900 p-3 rounded-lg w-full' />
-                            <input onChange={(e)=> setCi(e.target.value)} type='password' placeholder="********" className='bg-purple-50 mt-5 border border-purple-600 font-bold focus:outline-none text-purple-900 p-3 rounded-lg w-full' />
+                            <label className='text-lg text-gray-800'>Ingrese Correo</label>
+                            <input onChange={(e)=> setEmail(e.target.value)} type='email' placeholder="" className='bg-purple-50 mt-5 border border-purple-600 font-bold focus:outline-none text-purple-900 p-3 rounded-lg w-full' />
+                            <label className='text-lg text-gray-800'>Ingrese Contraseña</label>
+                            <input onChange={(e)=> setCi(e.target.value)} type='password' placeholder="" className='bg-purple-50 mt-5 border border-purple-600 font-bold focus:outline-none text-purple-900 p-3 rounded-lg w-full' />
 
                             <div className='w-full bottom-0 flex justify-between mt-5 '>
                                 <button type='submit' className='bg-purple-600 hover:bg-purple-700 text-purple-50 px-8 py-4 rounded-xl text-lg font-bold'>Entrar</button>

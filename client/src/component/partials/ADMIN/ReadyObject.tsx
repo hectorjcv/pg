@@ -32,11 +32,11 @@ export const ReadyObject = () => {
                     <div className='mt-3 p-5'>
                         <TextSubtitle text='Datos' />
                         <p className='grid grid-cols-2'>
+                            <span>N° Identificación: <b>{data.n_identification}</b></span>
                             <span>Nombre: <b>{data.name}</b></span>
                             <span>Descripción: <b>{data.description}</b></span>
+                            <span>Estado: <b>{data.estado}</b></span>                            
                             <span>Costo: <b>{data.price}</b></span>
-                            <span>Estado: <b>{data.estado}</b></span>
-                            <span>N° Identificación: <b>{data.n_identification}</b></span>
                         </p>
                     </div>
                     <div className='mt-3 p-5'>

@@ -99,7 +99,7 @@ export const DashboardSecretary = () => {
                         </CardSingle>
                         <CardSingle cls='row-span-2'>
                             <TextTitle text='Inventario' />
-                            <ButtonBorder cb={()=>setModalInventary(true)} >Administrar</ButtonBorder>
+                            <ButtonBorder cb={()=>setModalInventary(true)} >Cargar</ButtonBorder>
                         </CardSingle>
                     </div>
                     
@@ -107,7 +107,7 @@ export const DashboardSecretary = () => {
                         <CardSingle>
                             <TextTitle text='Departamentos' />
                             <ButtonBorder cb={onModalDep}>
-                                Administrar
+                                Crear
                             </ButtonBorder>
                         </CardSingle>
 

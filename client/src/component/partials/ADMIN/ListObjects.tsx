@@ -30,7 +30,6 @@ export const ListObjects = () => {
                     <select onChange={HandleChange} className='py-2 px-10 font-bold text-black text-lg rounded-md'>
                         <option selected value='ALL'>Todos</option>
                         <option value='DEPARTAMENTO'>Departamento</option>
-                        <option value='VALOR'>Valor</option>
                         <option value='NOMBRE'>Nombre</option>
                         <option value='CODIGO'>Código</option>
                         <option value='CANTIDAD'>Cantidad</option>
