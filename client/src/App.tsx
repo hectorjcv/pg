@@ -9,14 +9,12 @@ import { DashboardAdmin } from "./pages/admin/DashboardPage";
 import { InventaryProvider } from "./context/InventaryContext";
 import { FormatBM1 } from "./component/table/BM1/FormatBM1";
 import { GetUserStorage } from "./service/UserService";
-import { Navigate } from "./hooks/useNavigate";
 
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [renderApp, setRenderApp] = useState(false);
   const user = GetUserStorage();
-  if(!user.role) Navigate('/');
 
   useEffect(()=> {
     const onLocationChange = () => {

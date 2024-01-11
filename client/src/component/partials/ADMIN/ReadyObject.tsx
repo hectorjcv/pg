@@ -3,7 +3,7 @@ import { TextSubtitle } from "../DEFAULT/TextTypes";
 import { Clasifications, ObjectCreate, Quantity } from "../../../types/ObjectsGroupSub";
 
 export const ReadyObject = () => {
-    const data: ObjectCreate = JSON.parse(`${window.localStorage.getItem('obj_data')}`);
+    const data: ObjectCreate = JSON.parse(`${window.localStorage.getItem('data')}`);
     const clasi: Clasifications = JSON.parse(`${window.localStorage.getItem('obj_clasification')}`);
     const quantity: Quantity = JSON.parse(`${window.localStorage.getItem('obj_quantity')}`);
     const dep: {id:string,dep:string} = JSON.parse(`${window.localStorage.getItem('dep_id')}`);
@@ -13,6 +13,10 @@ export const ReadyObject = () => {
     useEffect(()=>{
         setReady(data && clasi && quantity ? true : false);
     },[])
+
+    console.log(data);
+    console.log(clasi);
+    console.log(quantity);
 
     return (
         <>

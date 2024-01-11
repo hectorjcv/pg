@@ -70,7 +70,6 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
 
         if(!data || !clasi || !quantity || !dep) return console.log('DANGER_GET_DATA_STORAGE')
         else {
-            console.log(dep);
             const SaveObjects = async () => {
                 const token = `${window.localStorage.getItem('token')}`;
                 const body: AllCreate = {
