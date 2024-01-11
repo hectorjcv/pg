@@ -8,11 +8,15 @@ import { DashboardSecretary } from "./pages/secretary/DashboardPage";
 import { DashboardAdmin } from "./pages/admin/DashboardPage";
 import { InventaryProvider } from "./context/InventaryContext";
 import { FormatBM1 } from "./component/table/BM1/FormatBM1";
+import { GetUserStorage } from "./service/UserService";
+import { Navigate } from "./hooks/useNavigate";
 
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [renderApp, setRenderApp] = useState(false);
+  const user = GetUserStorage();
+  if(!user.role) Navigate('/');
 
   useEffect(()=> {
     const onLocationChange = () => {
@@ -33,11 +37,19 @@ function App() {
     <>
       <AuthProvider>
         <NotificationProvider>
-          { currentPath === '/direct/dashboard' && <DashboardPage /> }
-          { currentPath === '/admin/dashboard' && <DashboardAdmin /> }
-          { currentPath === '/secretary/dashboard' && <DashboardSecretary /> }
-          { currentPath === '/excel/1' && <InventaryProvider><FormatBM1 /></InventaryProvider> }
-          { currentPath === '/' && <LoginPage /> }
+          {
+            user && <>
+              { currentPath === '/direct/dashboard' && <DashboardPage /> }
+              { currentPath === '/admin/dashboard' && <DashboardAdmin /> }
+              { currentPath === '/secretary/dashboard' && <DashboardSecretary /> }
+              { currentPath === '/excel/1' && <InventaryProvider><FormatBM1 /></InventaryProvider> }
+            </>
+          }
+          {
+            !user && <>
+              { currentPath === '/' && <LoginPage /> }
+            </>
+          }
         </NotificationProvider>
       </AuthProvider>
     </>
