@@ -63,12 +63,12 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
 
     const hadleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data: ObjectCreate = JSON.parse(`${window.localStorage.getItem('obj_data')}`);
+        const data: ObjectCreate = JSON.parse(`${window.localStorage.getItem('data')}`);
         const clasi: Clasifications = JSON.parse(`${window.localStorage.getItem('obj_clasification')}`);
         const quantity: Quantity = JSON.parse(`${window.localStorage.getItem('obj_quantity')}`);
         const dep: string = JSON.parse(`${window.localStorage.getItem('dep_id')}`);
 
-        if(!data || !clasi || !quantity || !dep) return console.log('DANGER_GET_DATA_STORAGE')
+        if(!data || !clasi || !quantity || !dep) return console.log('DANGER_GET_DATA_STORAGE');
         else {
             const SaveObjects = async () => {
                 const token = `${window.localStorage.getItem('token')}`;
@@ -231,7 +231,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
 
     return (
         <form onSubmit={hadleSubmit}>
-            <TextTitle text={pag == 3 ? 'Verificar Datos' : pag == 2 ? 'Seleccionar' : 'Crear'} />
+            <TextTitle text={pag == 4 ? 'Verificar Datos' : pag == 2 || pag == 0 ? 'Seleccionar' : 'Crear'} />
             {
                 pag == 0 
                 ? <section className='grid gap-3 cgrid-cols-1 lg:grid-cols-2'>
