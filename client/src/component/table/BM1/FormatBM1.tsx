@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { BodyBM1 } from "./BodyBM1";
 import { HeaderBM1 } from "./HeaderBM1";
 import { useDownloadExcel } from 'react-export-table-to-excel';
-import generatePDF, {Resolution, Margin} from 'react-to-pdf';
+import generatePDF, { Margin } from 'react-to-pdf';
 
 export const FormatBM1 = () => {
     const tableRef = useRef(null);

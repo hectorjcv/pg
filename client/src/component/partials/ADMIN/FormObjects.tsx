@@ -11,7 +11,6 @@ import {
 } from "../../../types/ObjectsGroupSub";
 import { TextSubtitle, TextTitle } from "../DEFAULT/TextTypes";
 import { BASIC_URL } from "../../../constants";
-import { ReadyObject } from "./ReadyObject";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 import { DepList } from "../../../types/DepTypes";
 import { useInventary } from "../../../context/InventaryContext";
@@ -38,7 +37,6 @@ const clasificationDefault: Clasifications = {
 
 }
 
-type Range = 0|1|2|3|4;
 type GSS = {
     group: GroupsCompletedList,
     sub_group: SubGroupsCompletedList,
@@ -61,6 +59,22 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
     const hadleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const clasi: Clasifications = clasification;
+
+        if(!idDep) return setError({input:'select.dep',error:'Debes selecionar una opción'});
+
+        if(!data.n_identification) return setError({input:'n_identification',error:'Debes completar este campo'});
+        if(!data.name) return setError({input:'name',error:'Debes completar este campo'});
+        if(!data.description) return setError({input:'description',error:'Debes completar este campo'});
+        if(!data.estado) return setError({input:'select.estado',error:'Debes seleccionar una opción'});
+        if(!data.price) return setError({input:'price',error:'Debes completar este campo'});
+        // if(!data.quantity) return setError({input:'quantity',error:'Debes completar este campo'});
+
+        if(!quantity.fisica) return setError({input:'quantity.quantity',error:'Debes llenar este campo'});
+        if(!quantity.contable) return setError({input:'quantity.contable',error:'Debes llenar este campo'});
+
+        if(!clasi.group_id) return setError({input:'select.group',error:'Debes seleccionar una opción'});  
+        if(!clasi.sub_group_id) return setError({input:'select.subgroup',error:'Debes seleccionar una opción'});  
+        if(!clasi.secction_id) return setError({input:'select.section',error:'Debes seleccionar una opción'});  
 
         const SaveObjects = async () => {
             const token = `${window.localStorage.getItem('token')}`;
@@ -101,6 +115,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
         }
         
         SaveObjects();
+        setError({input:null,error:null});
     }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -183,6 +198,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
             <section className='grid gap-3 cgrid-cols-1 lg:grid-cols-2'>
                 <div className='grid col-span-2'>
                     <label>Departamento</label>
+                    { error.input == 'select.dep' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
                     <select name='dep' className='py-3 text-lg text-center' onChange={(event) => {
                         console.log(event.target.value);
                         setIdDep(parseInt(`${event.target.value}`));
@@ -202,6 +218,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
             <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
                 <div className='grid gapy-3'>
                     <label className='text-lg text-purple-900'>Código</label>
+                    { error.input == 'input.n_identification' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
                     <input
                         onChange={handleChange} 
                         type='text' 
@@ -214,6 +231,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                 </div>
                 <div className='grid gapy-3'>
                     <label className='text-lg text-purple-900'>Nombre</label>
+                    { error.input == 'input.name' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
                     <input
                         onChange={handleChange} 
                         type='text' 
@@ -227,6 +245,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                 </div>
                 <div className='grid gapy-3'>
                     <label className='text-lg text-purple-900'>Descripción</label>
+                    { error.input == 'input.description' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
                     <input
                         onChange={handleChange} 
                         type='text' 
@@ -240,6 +259,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                 </div>
                 <div className='grid gapy-3'>
                     <label className='text-lg text-purple-900'>Costo</label>
+                    { error.input == 'input.price' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
                     <input
                         onChange={handleChange} 
                         type='number' 
@@ -253,6 +273,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                 </div>
                 <div className='grid gapy-3'>
                     <label className='text-lg text-purple-900'>Estado</label>
+                    { error.input == 'select.estado' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+                    
                     <select 
                         onChange={handleChangeSelect}
                         name='estado' 
@@ -271,6 +293,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
             <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
                 <div className='grid gap-y-3'>
                     <label className='text-lg text-purple-900'>Física</label>
+                    { error.input == 'quantity.fisica' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+
                     <input
                         onChange={handleChangeQuantity} 
                         type='number' 
@@ -284,6 +308,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                 </div>
                 <div className='grid gap-y-3'>
                     <label className='text-lg text-purple-900'>Contable</label>
+                    { error.input == 'quantity.contable' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
                     <input
                         onChange={handleChangeQuantity} 
                         type='number' 
@@ -301,6 +326,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                 ? <section className='grid gap-y-4 grid-cols-3'>
                     <div className='bg-white shadow rounded-md p-3'>
                         <TextSubtitle text='Grupo' />
+                        { error.input == 'select.group' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+
                         <select name='group' onChange={handleSelectionGroup} className='bg-transparent mt-3 text-md font-bold w-full'>
                             <option value='0' selected>Seleccione una opcion</option>      
                             {
@@ -314,6 +341,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                     </div>
                     <div className='bg-white shadow rounded-md p-3'>
                         <TextSubtitle text='Sub Grupo' />
+                        { error.input == 'select.subgroup' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+
                         <select name='sub_group_id' onChange={handleSelectionClasification} className='bg-transparent mt-3 text-md font-bold w-full'>
                             <option value='0' selected>Seleccione una opcion</option>
                             {
@@ -327,6 +356,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
                     </div>
                     <div className='bg-white shadow rounded-md p-3'>
                         <TextSubtitle text='Sección' />
+                        { error.input == 'select.section' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+
                         <select name='secction_id' onChange={handleSelectionClasification} className='bg-transparent mt-3 text-md font-bold w-full'>
                             <option value='0' selected>Seleccione una opcion</option>   
                             {

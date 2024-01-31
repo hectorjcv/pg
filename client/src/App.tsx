@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { LoginPage } from "./pages/default/LoginPage";
 import { NAVIGATION_EVENT } from "./constants";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import { DashboardPage } from "./pages/direct/DashboardPage";
 import { NotificationProvider } from "./context/NotificationContext";
 import { DashboardSecretary } from "./pages/secretary/DashboardPage";
@@ -15,6 +15,12 @@ function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [renderApp, setRenderApp] = useState(false);
   const user = GetUserStorage();
+  const auth = useAuth();
+  let DefDashboard = null;
+
+  if(user) {
+    DefDashboard = user.role == 'ADMIN' ? <DashboardAdmin /> : user.role == 'SECRETARY' ? <DashboardSecretary /> : <DashboardPage />;
+  }
 
   useEffect(()=> {
     const onLocationChange = () => {
@@ -37,6 +43,7 @@ function App() {
         <NotificationProvider>
           {
             user && <>
+              { currentPath === '/' && DefDashboard }
               { currentPath === '/direct/dashboard' && <DashboardPage /> }
               { currentPath === '/admin/dashboard' && <DashboardAdmin /> }
               { currentPath === '/secretary/dashboard' && <DashboardSecretary /> }
