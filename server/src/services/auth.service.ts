@@ -72,7 +72,7 @@ const Register = async (user:UserRegister) => {
         phone: user.phone,
         email: user.email,
         password: user.ci,
-        role: 'DIRECT',
+        role: user.role,
         status: 'ACTIVE' 
     }
     newUser.password = await hash(newUser.password, 11);

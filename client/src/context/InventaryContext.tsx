@@ -59,7 +59,7 @@ export const InventaryProvider = ({children}: {children: ReactNode}) => {
                     "Content-Type":"application/json"
                 }
             };
-            const url = `${BASIC_URL}/admin/objects/?take=${take}&sk=${sk*10}`;
+            const url = `${BASIC_URL}/admin/objects`;
             const res = await fetch(url, RequesOptions);
             const json = await res.json();
             const objs:ObjectsCompletedList = json.body.ObjetsResult;

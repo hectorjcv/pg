@@ -131,7 +131,7 @@ const CreatheObjects = async (data: ObjectCreate, clf: Clasifications, qun: Quan
     return {toSave}
 }
 
-const ReadObjects = async (take: number, sk:number) => {
+const ReadObjects = async () => {
     const prisma = new PrismaClient();
 
     const count = await prisma.objects.count();
@@ -154,6 +154,8 @@ const ReadObjects = async (take: number, sk:number) => {
         ObjetsResult.push(obj);
     });
 
+
+    console.log(ObjetsResult);
     return {ObjetsResult, count}
 }
 

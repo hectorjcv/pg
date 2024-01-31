@@ -76,7 +76,7 @@ export const DashboardSecretary = () => {
             {
                 modalInventary && 
                 <InventaryProvider>
-                    <ModalBasic closeModal={setModalInventary} cb={afterInventary} w='w-[90%]'>
+                    <ModalBasic h={'full'} closeModal={setModalInventary} cb={afterInventary} w='w-[90%]'>
                         <SecctionInventary close={setModalInventary} />
                     </ModalBasic> 
                 </InventaryProvider>

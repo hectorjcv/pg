@@ -11,7 +11,7 @@ export const TableObjects = () => {
                 ? <>
                     <table className='w-full'>
                         <>
-                            <tr className='bg-purple-400'>
+                            <tr className='bg-purple-400 h-[15px]'>
                                 <td className='border border-purple-950 p-2 text-center font-bold'>Código</td>
                                 <td className='border border-purple-950 p-2 text-center font-bold'>Nombre</td>
                                 <td className='border border-purple-950 p-2 text-center font-bold'>Valor</td>

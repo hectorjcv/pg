@@ -37,7 +37,7 @@ const controllerLogin = async ({body}:Request, res:Response) => {
 
         const REGEX = {
             ci: /^[a-zA-Z0-9]{7,50}/,
-            email: /^([a-zA-Z0-9_\-]+)@/
+            email: /^([a-zA-Z0-9_\-.]+)@/
         }
         
         if(!REGEX.ci.test(sendService.ci)) throw new Error('DANGER_CI_INVALID')

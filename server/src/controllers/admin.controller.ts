@@ -569,10 +569,7 @@ const CreateObjectController = async (req: RequestExtend, res:Response) => {
 const ReadObjectController = async (req: RequestExtend, res:Response) => {
   try {
     console.log(req.query);
-    const take = `${req.query.take}`;
-    const sk = `${req.query.sk}`;
-    console.log(req.user);
-    const responseService = await ReadObjects(parseInt(take), parseInt(sk));
+    const responseService = await ReadObjects();
 
     GenerateLog({
       id: parseInt(req.user.userid),

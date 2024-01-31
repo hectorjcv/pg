@@ -26,7 +26,7 @@ export const ListObjects = () => {
                     <TextTitle text="Inventario" />
                     <ParagraxBasic text={`${inv.count} registros`} />
                 </aside>
-                <div className='rounded-xl bg-purple-300 mb-3 p-3 grid grid-cols-[400px_1fr] gap-x-10'>
+                <div className='rounded-xl bg-purple-300 mb-3 p-3 grid grid-cols-[400px_1fr] gap-x-10 h-[70px]'>
                     <select onChange={HandleChange} className='py-2 px-10 font-bold text-black text-lg rounded-md'>
                         <option selected value='ALL'>Todos</option>
                         <option value='DEPARTAMENTO'>Departamento</option>

@@ -5,12 +5,14 @@ interface Props {
     children: ReactNode,
     cb: ()=> void,
     closeModal: Dispatch<SetStateAction<boolean>>,
-    w?: string
+    w?: string,
+    h?: string
 }
 
-export const ModalBasic: React.FC<Props> = ({children, cb, closeModal, w}) => {
+export const ModalBasic: React.FC<Props> = ({children, cb, closeModal, w, h}) => {
 
-    const cls = w ? w : 'w-[90%]'
+    const cls = w ? w : 'w-[90%]';
+    const hei = h ? 'h-[90vh]' : 'h-auto';
 
     return (
         <div
@@ -25,7 +27,7 @@ export const ModalBasic: React.FC<Props> = ({children, cb, closeModal, w}) => {
                 >
                     X
             </button>
-            <CardSingle w={cls}>
+            <CardSingle w={cls} h={hei}>
                 {children}
             </CardSingle>
         </div>
