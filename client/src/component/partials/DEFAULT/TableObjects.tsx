@@ -1,8 +1,25 @@
 import { useInventary } from "../../../context/InventaryContext"
+import { ObjectCompleted } from "../../../types/ObjectsGroupSub";
 
 export const TableObjects = () => {
 
     const inv = useInventary(); 
+
+    const HandleClick = ({item}:{item:ObjectCompleted}) => {
+        const previus = inv.select.selected ? inv.select.selected : [];
+
+        if(previus.includes(item)) {
+            const index = previus.indexOf(item);
+            console.log(index, item.n_identification);
+            previus.splice(index, 1);
+            window.localStorage.setItem('export', JSON.stringify(previus));
+            return inv.updateSelect({select:true, selected:previus});
+        }
+
+        previus.push(item);
+        window.localStorage.setItem('export', JSON.stringify(previus));
+        return inv.updateSelect({select:true, selected:previus});
+    }
 
     return (
         <>
@@ -22,7 +39,11 @@ export const TableObjects = () => {
                         <>
                         {
                             inv.objects.map(item => (
-                                <tr className='bg-gray-100 border border-purple-950' key={item.id}>
+                                <tr 
+                                    className={`border border-purple-950 ${inv.select.selected?.includes(item) ? 'bg-purple-300' : 'bg-gray-100' }`}
+                                    key={item.id} 
+                                    onClick={()=>HandleClick({item})}
+                                >
                                     <td className='border border-purple-950 py-1 text-center'>{item.n_identification}</td>
                                     <td className='border border-purple-950 py-1 text-center'>{item.name}</td>
                                     <td className='border border-purple-950 py-1 text-center'>{item.price}</td>

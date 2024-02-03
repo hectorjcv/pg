@@ -1,14 +1,14 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Groups, GroupsCompleted, GroupsCompletedList } from "../../../types/ObjectsGroupSub";
 import { BASIC_URL } from "../../../constants";
-import { TextSubtitle } from "../DEFAULT/TextTypes";
+import { TextSubtitle, TextTitle } from "../DEFAULT/TextTypes";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 import { GetUserStorage } from "../../../service/UserService";
 
 type StateForm = 'Crear' | 'Actualizar';
 export const SecctionGroup = () => {
     const noti = useNotification();
-    const user = GetUserStorage();
+    const user = GetUserStorage();    
     const ROL = user.role === 'SECRETARY' ? true : false;
     const [groups, setGroups] = useState<GroupsCompletedList | null>(null);
     const [data, setData] = useState<Groups | null>(null);
@@ -100,7 +100,7 @@ export const SecctionGroup = () => {
     },[read]);
 
     return (
-        <div className={`grid md:grid-cols-[${ ROL ? '1fr_2fr' : '1fr'}] p-3 gap-4`}>
+        <div className={`grid ${ ROL ? 'grid-cols-[0.5fr_1fr]' : 'grid-cols-1'} p-3 gap-4 place-items-center`}>
             {
                 ROL &&
                 <section>
@@ -111,10 +111,17 @@ export const SecctionGroup = () => {
                     </form>
                 </section>
             }
-            <section>
+            <section className='w-full'>
                 {
                     groups != null
-                    ? <ul className='grid gap-3'>{
+                    ? <ul className='grid gap-3'>
+                        <li className='list-none py-3 pl-3 bg-white rounded-md flex justify-between items-center border'>
+                            <span className='font-bold text-gray-800 text-lg'>Nombre Del Grupo</span>
+                            <button>
+                            </button>
+                            
+                        </li>
+                    {
                         groups.map((item)=>(
                             <li key={item.id} className='list-none py-3 pl-3 bg-white rounded-md flex justify-between items-center border'>
                                 <span className='font-bold text-gray-800 text-lg'>{item.group}</span>
@@ -132,8 +139,7 @@ export const SecctionGroup = () => {
                             </li>
                         ))
                     }</ul>
-                    : <></>
-                    
+                    : <><TextTitle text='No tinees grupos' /></>                    
                 }
             </section>
         </div>

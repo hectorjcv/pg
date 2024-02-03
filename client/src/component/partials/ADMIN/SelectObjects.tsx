@@ -8,7 +8,7 @@ export const SelectObjects = () => {
     const setPage = (p: PagInventary) => inventary.updatePag(p);
 
     return (
-        <section className='grid gap-y-5 h-[50%] m-auto w-[70%]'>
+        <section className='grid gap-y-5 m-auto w-[70%]'>
             <TextTitle text='Selecciona una opción' />
 
             <button

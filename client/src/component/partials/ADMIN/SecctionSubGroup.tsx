@@ -145,8 +145,8 @@ export const SecctionSubGroup = () => {
     }, [read]);
 
     return (
-        <div className={`grid md:grid-cols-[1fr] p-3 gap-4`}>
-            {ROL && <section>
+        <div className={`grid ${ROL ? 'grid-cols-[0.5fr_1fr]' : 'grid-cols-1'} place-items-center p-3 gap-4`}>
+            {ROL && <section className='w-full'>
                 <TextSubtitle text={`${send} Sub Grupo`} />
                 <form className='grid gap-y-3' onSubmit={handleSubmit}>
                     <input 
@@ -171,18 +171,25 @@ export const SecctionSubGroup = () => {
                     <input type='submit' value={`${send}`} className="w-full bg-purple-600 hover:bg-purple-700 rounded-md py-3 text-white font-bold" />
                 </form>
             </section>}
-            <section>
+            <section className='w-full'>
                 {
                     subgroups &&
-                    <ul className='grid gap-3'>{
+                    <ul className='grid'>
+                        <li className='list-none py-3 pl-3 bg-white rounded-md grid grid-cols-[1fr_1fr_.3fr] border'>
+                            <span className='font-bold text-purple-800 text-lg'>Grupo</span>
+                            <span className='font-bold text-gray-800 text-lg'>Sub Grupo</span>
+                            <div>
+                            </div>
+                        </li>
+                    {
                         subgroups.map((item)=>(
-                            <li key={item.id} className='list-none py-3 pl-3 bg-white rounded-md flex justify-between items-center border'>
-                               <span className='font-bold text-purple-800 text-lg'>{item.group_reference?.group}</span>
-                                <span className='font-bold text-gray-800 text-lg'>{item.sub_group}</span>
+                            <li key={item.id} className='list-none pl-3 bg-white grid grid-cols-[1fr_1fr_.3fr] border-l border-b'>
+                               <span className='flex border-r pl-3 items-center font-bold text-purple-800 text-lg'>{item.group_reference?.group}</span>
+                                <span className='flex border-r pl-3 items-center font-bold text-gray-800 text-lg'>{item.sub_group}</span>
                                 <div>
                                     {ROL && <button
                                         onClick={()=>ToUpdate(item)}
-                                        className='bg-green-400 hover:bg-green-500 rounded-r-md py-3 px-3 h-full'
+                                        className='bg-green-400 hover:bg-green-500 py-3 px-3 h-full'
                                     >
                                         Actualizar
                                     </button>}

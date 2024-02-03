@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext"
 import { useNotification } from "../../context/NotificationContext";
 import { OnSession } from "../../hooks/useVerifySession";
 import { ModalBasic } from "../../component/partials/DEFAULT/ModalBasic";
-import { ParagraxOpacity, TextTitle } from "../../component/partials/DEFAULT/TextTypes";
+import { TextTitle } from "../../component/partials/DEFAULT/TextTypes";
 import { Inventary } from "../../component/partials/DIRECT/Inventary";
 import { InventaryProvider } from "../../context/InventaryContext";
 import { Header } from "../../component/partials/DEFAULT/Header";
@@ -22,6 +22,7 @@ export const DashboardAdmin = () => {
     const [modalInventary, setModalInventary] = useState(false);
     const [modalDep, setModalDep] = useState(false);
     const [updateAdmin, setUpdateAdmin] = useState(false);
+    const [passwordModal, setPasswordModal] = useState(false);
 
     const After = () => {
         setModalInventary(false);
@@ -30,10 +31,6 @@ export const DashboardAdmin = () => {
 
     const onModalDep = () => {
         setModalDep(true);
-    }
-
-    const calbakModalInventary = () => {
-        setModalInventary(true);
     }
 
     return (
@@ -47,7 +44,7 @@ export const DashboardAdmin = () => {
             </ModalBasic> 
         }
 
-        {
+{
             modalInventary && 
             <ModalBasic closeModal={setModalInventary} cb={After} w='w-[90%]'>
                 <InventaryProvider>
@@ -55,38 +52,45 @@ export const DashboardAdmin = () => {
                 </InventaryProvider>
             </ModalBasic> 
         }
+        
+        {
+            passwordModal && 
+            <ModalBasic closeModal={setPasswordModal} cb={After} w='w-[90%]'>
+                <>
+                    <TextTitle text='Actualizar tu contraseña' />
+                    <FormUpdatePassword />
+                </>
+            </ModalBasic> 
+        }
 
         <div className='min-h-screen bg-purple-200 grid grid-rows-[auto_1fr]'>
-            <Header />
-            <main className='py-5 hidden lg:grid grid-cols-1 w-full px-10 gap-5'>
-                <div className='grid grid-cols-3 grid-rows-3 gap-5'>
-                    <CardSingle>
-                        <TextTitle text='Inventario' />
-                        <ParagraxOpacity text='ver el inventario de los muebles, inmuebles y vehículos' />
-
-                        <ButtonBorder cb={calbakModalInventary}>
-                            Administrar
-                        </ButtonBorder>
-                    </CardSingle>
-
-                    <CardSingle>
-                        <TextTitle text='Departamentos' />
-                        <ButtonBorder cb={onModalDep}>
-                            Administrar
-                        </ButtonBorder>
-                    </CardSingle>
-
-                    <CardSingle cls='row-span-5'>
-                        <span>.</span>
-                    </CardSingle>
-
-                    <CardSingle cls='row-span-4'>
-                        <TextTitle text='Actualizar tu contraseña' />
-                        <FormUpdatePassword />
-                    </CardSingle>
-
-                    <CardSingle cls='row-span-4'>
+            <Header open={setPasswordModal} />
+            <main className='py-5 grid grid-cols-3 w-full px-10 gap-5'>
+                <div className='row-span-1 grid gap-y-5'>
+                    <CardSingle cls=''>
                         <ListGroupSubSecc />
+                    </CardSingle>
+                </div>
+                
+                <div className='row-span-1 grid gap-y-5'>
+                    <CardSingle cls='row-span-2'>
+                        <div className='h-[250px] grid place-items-center m-auto'>
+                            <TextTitle text='Departamentos' />
+                            <ButtonBorder cb={onModalDep}>
+                                Crear
+                            </ButtonBorder>
+                        </div>
+                    </CardSingle>
+                </div>
+
+                <div className='row-span-1 grid gap-y-5'>
+                    <CardSingle cls='row-span-2'>
+                        <div className='h-[250px] grid place-items-center m-auto'>
+                            <TextTitle text='Inventario' />
+                            <ButtonBorder cb={()=>setModalInventary(true)}>
+                                Crear
+                            </ButtonBorder>
+                        </div>
                     </CardSingle>
                 </div>
             </main>

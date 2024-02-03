@@ -9,6 +9,7 @@ import { CodigoFilter } from "../DEFAULT/FILTERS/Codigo";
 import { NombreFilter } from "../DEFAULT/FILTERS/Nombre";
 import { ValorFilter } from "../DEFAULT/FILTERS/Valor";
 import { SetFilters } from "../../../types/FiltersType";
+import { SelectedOptions } from "./SelectedOptions";
 
 export const ListObjects = () => {
     const inv = useInventary();
@@ -26,7 +27,8 @@ export const ListObjects = () => {
                     <TextTitle text="Inventario" />
                     <ParagraxBasic text={`${inv.count} registros`} />
                 </aside>
-                <div className='rounded-xl bg-purple-300 mb-3 p-3 grid grid-cols-[400px_1fr] gap-x-10 h-[70px]'>
+                <div className='rounded-xl bg-purple-300 mb-3 p-3 grid grid-cols-[auto_400px_1fr] gap-x-10 h-[70px]'>
+                    <SelectedOptions />
                     <select onChange={HandleChange} className='py-2 px-10 font-bold text-black text-lg rounded-md'>
                         <option selected value='ALL'>Todos</option>
                         <option value='DEPARTAMENTO'>Departamento</option>

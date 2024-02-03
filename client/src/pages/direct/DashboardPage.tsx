@@ -18,7 +18,6 @@ import { InventaryProvider } from "../../context/InventaryContext";
 import { Header } from "../../component/partials/DEFAULT/Header";
 import { ListGroupSubSecc } from "../../component/partials/DIRECT/ListGroupSubSecc";
 import { SecctionDep } from "../../component/partials/ADMIN/SecctionDep";
-import { Navigate } from "../../hooks/useNavigate";
 
 export const DashboardPage = () => {
     const noti = useNotification();
@@ -32,6 +31,7 @@ export const DashboardPage = () => {
     const [admins, setAdmins] = useState< User[] | null >(null);
     const [getAdminsState, setGetAdminsState] = useState<StateFilterAdmins>('ALL');
     const [updateAdmin, setUpdateAdmin] = useState(false);
+    const [passwordModal, setPasswordModal] = useState(false);
 
     const After = () => {
         setGetAdminsState("ACTIVE");
@@ -123,53 +123,57 @@ export const DashboardPage = () => {
             </ModalBasic> 
         }
 
+        {
+            passwordModal && 
+            <ModalBasic closeModal={setPasswordModal} cb={()=>{}} w='w-[90%] lg:w-[70%]'>
+                <TextTitle text='Actualizar tu contraseña' />
+                <FormUpdatePassword />
+            </ModalBasic> 
+        }
+
         <div className='min-h-screen bg-purple-200 grid grid-rows-[auto_1fr]'>
-            <Header />
+            <Header open={setPasswordModal} />
             <main className='py-5 hidden lg:grid grid-cols-1 w-full px-10 gap-5'>
-                <div className='grid grid-cols-3 grid-rows-3 gap-5'>
-                    <CardSingle>
-                        <TextTitle text={`Cuentas (${admins?.length})`} />
-                        <ParagraxOpacity text='Crea, actualiza, bloquea, elimina administradores' />
+                <div className='grid grid-cols-3 gap-5'>
+                    <div className='row-span-1 grid h-full gap-5'>
+                        <CardSingle cls='row-span-3'>
+                            <div className='h-[300px] m-auto'>
+                                <TextTitle text={`Cuentas (${admins?.length})`} />
+                                <ParagraxOpacity text='Crea, actualiza, bloquea, elimina administradores' />
 
-                        <ButtonBorder cb={calbakModal}>
-                            Administrar
-                        </ButtonBorder>
-                    </CardSingle>
+                                <ButtonBorder cb={calbakModal}>
+                                    Administrar
+                                </ButtonBorder>
+                            </div>
+                        </CardSingle>
+                    </div>
 
-                    <CardSingle>
-                        <TextTitle text='Inventario' />
-                        <ParagraxOpacity text='ver el inventario de los muebles, inmuebles' />
+                    <div className='row-span-1 grid h-full gap-5'>
+                        <CardSingle>
+                            <TextTitle text='Inventario' />
+                            <ParagraxOpacity text='ver el inventario de los muebles, inmuebles' />
 
-                        <div>
                             <ButtonBorder cb={calbakModalInventary}>
                                 Administrar
                             </ButtonBorder>
-                            <ButtonBorder cb={()=> Navigate('/excel/1')}>
-                                exportar (beta)
-                            </ButtonBorder>
-                        </div>
-                    </CardSingle>
+                        </CardSingle>
 
-                    <CardSingle cls='row-span-1'>
-                        <TextTitle text='Departamentos' />
-                        <ButtonBorder cb={onModalDep}>
-                            Administrar
-                        </ButtonBorder>                        
-                    </CardSingle>
+                        <CardSingle cls=''>
+                            <ListGroupSubSecc />
+                        </CardSingle>
+                    </div>
 
-                    <CardSingle cls='row-span-4'>
-                        <ListGroupSubSecc />
-                    </CardSingle>
 
-                    <CardSingle cls='row-span-4'>
-                        <TextTitle text='Actualizar tu contraseña' />
-                        <FormUpdatePassword />
-                    </CardSingle>
-
-                    <CardSingle cls='row-span-4'>
-                        <TextTitle text='' />
-                        
-                    </CardSingle>
+                    <div className='row-span-1 grid h-full gap-5'>
+                        <CardSingle cls='row-span-3'>
+                            <div className='h-[300px] m-auto'>
+                                <TextTitle text='Departamentos' />
+                                <ButtonBorder cb={onModalDep}>
+                                    Administrar
+                                </ButtonBorder> 
+                            </div>                       
+                        </CardSingle>
+                    </div>
                 </div>
             </main>
         </div>

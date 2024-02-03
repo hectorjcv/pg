@@ -3,6 +3,11 @@ import { ObjectsCompletedList } from "../types/ObjectsGroupSub";
 import { BASIC_URL } from "../constants";
 import { GlobalFilter } from "../types/FiltersType";
 
+interface SelectBien {
+    select: boolean,
+    selected: ObjectsCompletedList | null,
+} 
+
 interface AuthContextInterface {
     count: number,
     updateCount: Dispatch<SetStateAction<number>>,
@@ -17,7 +22,10 @@ interface AuthContextInterface {
     toUpdate: boolean,
     updateUpdate: Dispatch<SetStateAction<boolean>>,
     filter: GlobalFilter,
-    updateFilter: Dispatch<SetStateAction<GlobalFilter>>
+    updateFilter: Dispatch<SetStateAction<GlobalFilter>>,
+
+    select: SelectBien,
+    updateSelect: Dispatch<SetStateAction<SelectBien>>,
 }
 
 const DefaultContext: AuthContextInterface = {
@@ -34,7 +42,10 @@ const DefaultContext: AuthContextInterface = {
     take:10,
     updateTake: ()=>{},
     filter: { type:'ALL', filter:null },
-    updateFilter: ()=>{}
+    updateFilter: ()=>{},
+
+    select: { select:false, selected:null },
+    updateSelect: ()=>{}
 }
 
 export const InventaryContext = createContext(DefaultContext);
@@ -47,7 +58,9 @@ export const InventaryProvider = ({children}: {children: ReactNode}) => {
     const [objects, setObjects] = useState<ObjectsCompletedList | null>(null);
     const [objectsCurrent, setObjectsCurrent] = useState<ObjectsCompletedList | null>(null);
     const [toUpdate, setToUpdate] = useState(false);
-    const [filter, setFilter] = useState<GlobalFilter>(DefaultContext.filter)
+    const [filter, setFilter] = useState<GlobalFilter>(DefaultContext.filter);
+
+    const [select, setSelect] = useState<SelectBien>({ select:false, selected:null });
 
     useEffect(()=>{
         const Getting = async () => {
@@ -152,7 +165,9 @@ export const InventaryProvider = ({children}: {children: ReactNode}) => {
             toUpdate: toUpdate,
             updateUpdate: setToUpdate,
             filter:filter,
-            updateFilter: setFilter
+            updateFilter: setFilter,
+            select,
+            updateSelect: setSelect
         }}>
             {children}
         </InventaryContext.Provider>

@@ -86,6 +86,13 @@ export const SecctionDep = () => {
             <div className='w-full'>
                 <TextTitle text='Departamentos' />
                 <ul className='grid gap-y-3 w-full'>
+                    <li 
+                        className='w-full flex justify-between rounded-md' 
+                    >
+                        <span className='p-3 font-bold'>Nombre</span>
+                        <button>
+                        </button>
+                    </li>
                     {
                         listDep === null
                         ? <>Cargando...</>

@@ -1,13 +1,13 @@
-import { useInventary } from "../../../context/InventaryContext";
+import { ObjectCompleted } from "../../../types/ObjectsGroupSub";
 
 export const ListBM1 = () => {
 
-    const inv = useInventary();
+    const items: ObjectCompleted[] = JSON.parse(`${window.localStorage.getItem('export')}`);
 
     return (
         <>
             {
-                inv.objects && inv.objects.map(item => (
+               items &&items.map(item => (
                     <tr className='grid grid-cols-12 w-full'>
                     <td className='border-2 border-gray-300 col-span-3'>
                         <div className='grid grid-cols-3 w-full'>

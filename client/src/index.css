@@ -17,9 +17,13 @@ table thead tr td, table tbody tr td {
     justify-content: center;
     align-items: center;
     text-align: center;
+
 }
 
 table tbody tr td {
     padding: 7px;
 }
 
+.text-vertical {
+    text-orientation: upright;
+}

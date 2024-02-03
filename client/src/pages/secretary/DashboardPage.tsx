@@ -22,6 +22,8 @@ export const DashboardSecretary = () => {
     OnSession(auth.session);
     const [modalInventary, setModalInventary] = useState(false);
     const [modalDep, setModalDep] = useState(false);
+    const [passwordModal, setPasswordModal] = useState(false);
+
 
     useEffect(()=>{
         type GSS = {
@@ -60,8 +62,6 @@ export const DashboardSecretary = () => {
         if(gss && gss.group.length == 0) getAll();
     },[])
 
-    
-
     const onModalDep = () => {
         setModalDep(true);
     }
@@ -88,38 +88,46 @@ export const DashboardSecretary = () => {
                     <SecctionDep />
                 </ModalBasic> 
             }
+
+{
+                passwordModal && 
+                <ModalBasic closeModal={setPasswordModal} cb={afterDep} w='w-[90%] lg:w-[70%]'>
+                    <>
+                        <TextTitle text='Actualizar tu contraseña' />
+                        <FormUpdatePassword />
+                    </>
+                </ModalBasic> 
+            }
         
         <div className='min-h-screen bg-purple-200 grid grid-rows-[auto_1fr]'>
-            <Header />
+            <Header open={setPasswordModal} />
             <main className='py-5 hidden lg:grid grid-cols-1fr w-full px-10 gap-5'>
-                <div className='grid grid-cols-3 grid-rows-3 gap-5'>
-                    <div className='row-span-4 grid gap-y-5'>
-                        <CardSingle cls='row-span-5'>
+                <div className='grid grid-cols-3 grid-rows-1 gap-5'>
+                    <div className='row-span-1 grid gap-y-5'>
+                        <CardSingle cls=''>
                             <ListGroupSubSecc />
-                        </CardSingle>
-                        <CardSingle cls='row-span-2'>
-                            <TextTitle text='Inventario' />
-                            <ButtonBorder cb={()=>setModalInventary(true)} >Cargar</ButtonBorder>
                         </CardSingle>
                     </div>
                     
-                    <div className='row-span-4 grid gap-y-5'>
-                        <CardSingle>
-                            <TextTitle text='Departamentos' />
-                            <ButtonBorder cb={onModalDep}>
-                                Crear
-                            </ButtonBorder>
-                        </CardSingle>
-
+                    <div className='row-span-1 grid gap-y-5'>
                         <CardSingle cls='row-span-2'>
-                            <TextTitle text='Actualizar tu contraseña' />
-                            <FormUpdatePassword />
+                            <div className='h-[250px] grid place-items-center m-auto'>
+                                <TextTitle text='Departamentos' />
+                                <ButtonBorder cb={onModalDep}>
+                                    Crear
+                                </ButtonBorder>
+                            </div>
                         </CardSingle>
                     </div>
 
-                    <div className='row-span-4 grid gap-y-5'>
-                        <CardSingle>
-                            <span>.</span>
+                    <div className='row-span-1 grid gap-y-5'>
+                        <CardSingle cls='row-span-2'>
+                            <div className='h-[250px] grid place-items-center m-auto'>
+                                <TextTitle text='Inventario' />
+                                <ButtonBorder cb={()=>setModalInventary(true)}>
+                                    Crear
+                                </ButtonBorder>
+                            </div>
                         </CardSingle>
                     </div>
 
