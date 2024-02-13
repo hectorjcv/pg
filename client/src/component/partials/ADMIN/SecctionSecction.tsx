@@ -91,11 +91,6 @@ export const SecctionSecction = () => {
         SaveSecction();
     }
 
-    const ToUpdate = (secc: Secction) => {
-        setSend("Actualizar");
-        setData({secction:secc.secction, id:secc.id})
-    }
-
     useEffect(()=> {
         const GetGroups = async () => {
             const token = `${window.localStorage.getItem('token')}`
@@ -116,7 +111,7 @@ export const SecctionSecction = () => {
     },[read]);
 
     return (
-        <div className={`grid md:grid-cols-[${ROL ? '1fr_2fr' : '1fr'}] p-3 gap-4`}>
+        <div className={`grid ${ROL ? 'md:grid-cols-2' : 'md:grid-cols-1'} p-3 gap-4`}>
             {ROL && <section>
                 <TextSubtitle text={`${send} Sección`} />
                 <form className='grid gap-y-3' onSubmit={handleSubmit}>
@@ -131,14 +126,6 @@ export const SecctionSecction = () => {
                         secctions.map((item)=>(
                             <li key={item.id} className='list-none py-3 pl-3 bg-white rounded-md flex justify-between items-center border'>
                                 <span className='font-bold text-gray-800 text-lg'>{item.secction}</span>
-                                {ROL && <div>
-                                    <button
-                                        onClick={()=>ToUpdate(item)}
-                                        className='bg-green-400 hover:bg-green-500 rounded-r-md py-3 px-3 h-full'
-                                    >
-                                        Actualizar
-                                    </button>
-                                </div>}
                             </li>
                         ))
                     }</ul>

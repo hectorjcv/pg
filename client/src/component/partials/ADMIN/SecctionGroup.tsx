@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { Groups, GroupsCompleted, GroupsCompletedList } from "../../../types/ObjectsGroupSub";
+import { Groups, GroupsCompletedList } from "../../../types/ObjectsGroupSub";
 import { BASIC_URL } from "../../../constants";
 import { TextSubtitle, TextTitle } from "../DEFAULT/TextTypes";
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
@@ -74,12 +74,6 @@ export const SecctionGroup = () => {
         SaveGroup();
     }
 
-    const ToUpdate = (group: GroupsCompleted) => {
-        setSend("Actualizar");
-        console.log(group);
-        setData({group:group.group, id:group.id})
-    }
-
     useEffect(()=> {
         const GetGroups = async () => {
             const token = `${window.localStorage.getItem('token')}`
@@ -125,17 +119,6 @@ export const SecctionGroup = () => {
                         groups.map((item)=>(
                             <li key={item.id} className='list-none py-3 pl-3 bg-white rounded-md flex justify-between items-center border'>
                                 <span className='font-bold text-gray-800 text-lg'>{item.group}</span>
-                                {
-                                    ROL && 
-                                    <div>
-                                        <button
-                                            onClick={()=>ToUpdate(item)}
-                                            className='bg-green-400 hover:bg-green-500 rounded-r-md py-3 px-3 h-full'
-                                        >
-                                            Actualizar
-                                        </button>
-                                    </div>
-                                }
                             </li>
                         ))
                     }</ul>

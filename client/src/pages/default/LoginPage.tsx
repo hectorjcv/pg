@@ -1,5 +1,6 @@
 // import { Navigate } from "../../hooks/useNavigate";
 import LOGO from '../../assets/logo.jpg';
+import LOGO2 from '../../assets/logo2.jpg';
 import FONDO from '../../assets/fondo.jpg';
 
 
@@ -85,9 +86,17 @@ const LoginPage = () => {
                 backgroundSize: '100% 100%'
             }}
         >
-            <div className='w-screen min-h-screen flex justify-center items-center bg-black bg-opacity-30'>
-                <div className='w-[90%] lg:w-[50%] py-10 bg-white rounded-xl shadow flex flex-col justify-center items-center'>
-                    <img src={LOGO} className='w-40 ' />
+            
+            <div className='w-screen min-h-screen flex justify-center flex-col items-center relative bg-gray-950 bg-opacity-50'>
+                
+                <div className='py-5 w-[90%] lg:w-[50%] rounded-t-xl bg-white relative'>
+                    <h1 className='font-extralight text-4xl text-center'>SISTEMA DE BIENES</h1>
+                    <img src={LOGO2} className='w-36 absolute top-0 left-0 rounded-tl-xl p-2' />
+                    <img src={LOGO} className='w-28 absolute top-0 right-0 rounded-tl-xl p-2' />
+                </div>
+
+                <div className='w-[90%] lg:w-[50%] py-10 bg-white rounded-b-xl shadow flex flex-col justify-center items-center'>
+                    
                     <form className='w-[90%] lg:w-[60%]' onSubmit={handleSubmit}>
                         <div className='mt-5 flex justify-center items-center flex-col'>
                             <h3 className='font-extrabold text-purple-900 text-2xl text-center'>Ingresa tus datos</h3>

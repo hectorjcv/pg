@@ -33,6 +33,34 @@ export const BodyBM1 = () => {
             </tr>
             <ListBM1 />
             <tr className='grid grid-cols-12 w-full'>
+                <td className='border-2 border-gray-300 col-span-3'>
+                    <div className='grid grid-cols-3 w-full'>
+                        <span className='text-center border-r-2 border-gray-300'></span>
+                        <span className='text-center border-r-2 border-gray-300'></span>
+                        <span className='text-center border-gray-300'></span>
+                    </div>
+                </td>
+                <td className='border-2 border-gray-300 col-span-1'></td>
+                <td className='border-2 border-gray-300 col-span-2'></td>
+                <td className='border-2 border-gray-300 col-span-4 flex justify-end pr-36'>SUB TOTAL</td>
+                <td className='border-2 border-gray-300 col-span-1'></td>
+                <td className='border-2 border-gray-300 col-span-1'></td>
+            </tr>
+            <tr className='grid grid-cols-12 w-full'>
+                <td className='border-2 border-gray-300 col-span-3'>
+                    <div className='grid grid-cols-3 w-full'>
+                        <span className='text-center border-r-2 border-gray-300'></span>
+                        <span className='text-center border-r-2 border-gray-300'></span>
+                        <span className='text-center border-gray-300'></span>
+                    </div>
+                </td>
+                <td className='border-2 border-gray-300 col-span-1'></td>
+                <td className='border-2 border-gray-300 col-span-2'></td>
+                <td className='border-2 border-gray-300 col-span-4 flex justify-end pr-36'>TOTAL</td>
+                <td className='border-2 border-gray-300 col-span-1'></td>
+                <td className='border-2 border-gray-300 col-span-1'></td>
+            </tr>
+            <tr className='grid grid-cols-12 w-full'>
                 <td className='border-2 border-gray-300 col-span-4 grid place-items-center'>
                     <p className='font-bold text-gray-950'>Elaborado por:</p>
                     <p className='only:'>Dirección de Bienes Municipales</p>

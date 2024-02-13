@@ -23,6 +23,7 @@ export const DashboardSecretary = () => {
     const [modalInventary, setModalInventary] = useState(false);
     const [modalDep, setModalDep] = useState(false);
     const [passwordModal, setPasswordModal] = useState(false);
+    const [pageInv, setPageInv] = useState(0);
 
 
     useEffect(()=>{
@@ -77,7 +78,7 @@ export const DashboardSecretary = () => {
                 modalInventary && 
                 <InventaryProvider>
                     <ModalBasic h={'full'} closeModal={setModalInventary} cb={afterInventary} w='w-[90%]'>
-                        <SecctionInventary close={setModalInventary} />
+                        <SecctionInventary pag={pageInv} close={setModalInventary} />
                     </ModalBasic> 
                 </InventaryProvider>
             }
@@ -124,8 +125,17 @@ export const DashboardSecretary = () => {
                         <CardSingle cls='row-span-2'>
                             <div className='h-[250px] grid place-items-center m-auto'>
                                 <TextTitle text='Inventario' />
-                                <ButtonBorder cb={()=>setModalInventary(true)}>
-                                    Crear
+                                <ButtonBorder cb={()=>{
+                                    setPageInv(1);
+                                    setModalInventary(true);
+                                }}>
+                                    ver
+                                </ButtonBorder>
+                                <ButtonBorder cb={()=>{
+                                    setPageInv(2);
+                                    setModalInventary(true);
+                                }}>
+                                    crear
                                 </ButtonBorder>
                             </div>
                         </CardSingle>

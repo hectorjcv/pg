@@ -5,28 +5,7 @@ export const BodyBM3 = () => {
 
     return (
         <tbody className='w-full grid'>
-            <tr className='grid grid-cols-[repeat(20,5vw)] w-full'>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-                <td className='border'></td>
-            </tr>
+            
             <tr className='grid grid-cols-[repeat(20,5vw)] w-full'>
                 <td className='border col-span-4 grid grid-cols-3'>
                     <span className='col-span-4 border-b'>CODIGO</span>

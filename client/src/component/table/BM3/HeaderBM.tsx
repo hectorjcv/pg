@@ -4,7 +4,34 @@ export const HeaderBM3 = () => {
 
     return (
         <thead className='w-full grid'>
-            <RowNone />
+            <tr className='grid grid-cols-12 w-full'>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border-2 border-gray-800'>FORMULARIO</td>
+            </tr>
+            <tr className='grid grid-cols-12 w-full'>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border-2 border-gray-800'>BM3</td>
+            </tr>
             <tr className='grid grid-cols-[repeat(20,5vw)] w-full'>
                 <td className='border'></td>
                 <td className='border'></td>

@@ -1,17 +1,12 @@
-import { useInventary } from "../../../context/InventaryContext";
 import { FormObjects } from "./FormObjects";
 import { ListObjects } from "./ListObjects";
-import { SelectObjects } from "./SelectObjects";
 
-export const SecctionInventary = ({close}: {close: React.Dispatch<React.SetStateAction<boolean>>}) => {
-    const inventary = useInventary();
+export const SecctionInventary = ({close, pag}: {close: React.Dispatch<React.SetStateAction<boolean>>, pag:number}) => {
 
     return (
         <>
             {
-                inventary.pag == 0
-                ? <SelectObjects />
-                : inventary.pag == 1
+                pag == 2
                 ? <FormObjects  close={close} />
                 : <ListObjects />
             }

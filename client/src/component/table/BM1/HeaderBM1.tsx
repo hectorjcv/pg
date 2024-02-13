@@ -4,7 +4,6 @@ export const HeaderBM1 = () => {
 
     return (
         <thead className='w-full grid'>
-            <RowNone />
             <tr className='grid grid-cols-12 w-full'>
                 <td className='border'></td>
                 <td className='border'></td>
@@ -31,7 +30,7 @@ export const HeaderBM1 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='border-2 border-gray-800'>HOJA N° 1 DE 1</td>
+                <td className='border-2 border-gray-800'>BM1</td>
             </tr>
             <tr className='grid grid-cols-12 w-full'>
                 <td className='border-2 border-gray-800 col-span-3'>1.- ENTIDAD PROPIETARIA</td>
@@ -50,9 +49,9 @@ export const HeaderBM1 = () => {
             </tr>
             <RowNone />
             <tr className='grid grid-cols-12 w-full'>
-                <td className='border-2 border-gray-800 col-span-3'>7.- DIRECCIÓN O LUGAR</td>
+                <td className='border-2 border-gray-800 col-span-3'>6.- DIRECCIÓN O LUGAR</td>
                 <td className='border-2 border-gray-800 col-span-5'>SAN JUAN DE LOS MORROS</td>
-                <td className='border-2 border-gray-800 col-span-1'>8.- FECHA</td>
+                <td className='border-2 border-gray-800 col-span-1'>7.- FECHA</td>
                 <td className='border-2 border-gray-800 col-span-3'></td>
             </tr>
             <RowNone />

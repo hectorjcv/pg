@@ -1,10 +1,36 @@
-import { RowNone } from "../TypesRows";
 
 export const HeaderBM2 = () => {
 
     return (
         <thead className='w-full grid'>
-            <RowNone />
+            <tr className='grid grid-cols-12 w-full'>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border-2 border-gray-800'>FORMULARIO</td>
+            </tr>
+            <tr className='grid grid-cols-12 w-full'>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border'></td>
+                <td className='border-2 border-gray-800'>BM2</td>
+            </tr>
             <tr className='grid grid-cols-12 w-full'>
                 <td className='border'></td>
                 <td className='border'></td>
