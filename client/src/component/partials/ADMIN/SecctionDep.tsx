@@ -104,16 +104,7 @@ export const SecctionDep = () => {
                                         key={item.id}
                                     >
                                         <span className='p-3 font-bold'>{item.departament_name}</span>
-                                        <button 
-                                            className='bg-green-500 rounded-r-md hover:bg-green-500 py-3 px-2 text-center font-bold text-white'
-                                            onClick={()=>{
-                                                setQuery('U');
-                                                setDep(item.departament_name);
-                                                setIdDep(item.id);
-                                            }}
-                                        >
-                                            Actualizar
-                                        </button>
+                                       
                                     </li>
                                 ))
                             }

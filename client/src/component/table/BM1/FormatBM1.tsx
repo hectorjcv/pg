@@ -9,12 +9,12 @@ export const FormatBM1 = () => {
 
     return (
         <>
-        <div className='w-[100%] py-3 absolute top-10 left-10'>
+        <div className='w-[100%] py-3 absolute bottom-10 left-10'>
             <button 
-                className='bg-red-500 hover:bg-red-600 bg-opacity-50 hover:bg-opacity-100 rounded-md font-bold text-center py-3 px-10' 
+                className='bg-red-500 mx-auto hover:bg-red-600 bg-opacity-50 hover:bg-opacity-100 rounded-md font-bold text-center py-3 px-10' 
                 onClick={()=> generatePDF(tableRef, {filename: 'BM1.pdf', page:{margin:Margin.MEDIUM, orientation:"l"}})}
             >
-                Export PDF (beta)
+                Exportar PDF
             </button>
         </div>
 
