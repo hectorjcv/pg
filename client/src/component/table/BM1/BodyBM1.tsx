@@ -1,7 +1,18 @@
+import { ObjectCompleted } from "../../../types/ObjectsGroupSub";
 import { ListBM1 } from "./ListBM1";
 
 
 export const BodyBM1 = () => {
+
+    const items: ObjectCompleted[] = JSON.parse(`${window.localStorage.getItem('export')}`);
+
+    let acumulador = 0.00;
+
+    for (let i = 0; i < items.length; i++) {
+        const key = parseFloat(`${items[i].price}`);
+        acumulador = key + acumulador;
+    }
+
 
     return (
         <tbody className='w-full grid'>
@@ -42,7 +53,7 @@ export const BodyBM1 = () => {
                 </td>
                 <td className='border-2 border-gray-300 col-span-1'></td>
                 <td className='border-2 border-gray-300 col-span-2'></td>
-                <td className='border-2 border-gray-300 col-span-4 flex justify-end pr-36'>SUB TOTAL</td>
+                <td className='border-2 border-gray-300 col-span-4 flex justify-end pr-11'><b className='pr-5'>SUB TOTAL</b> {acumulador}</td>
                 <td className='border-2 border-gray-300 col-span-1'></td>
                 <td className='border-2 border-gray-300 col-span-1'></td>
             </tr>
@@ -56,7 +67,7 @@ export const BodyBM1 = () => {
                 </td>
                 <td className='border-2 border-gray-300 col-span-1'></td>
                 <td className='border-2 border-gray-300 col-span-2'></td>
-                <td className='border-2 border-gray-300 col-span-4 flex justify-end pr-36'>TOTAL</td>
+                <td className='border-2 border-gray-300 col-span-4 flex justify-end pr-11'><b className='pr-5'>TOTAL</b> {acumulador}</td>
                 <td className='border-2 border-gray-300 col-span-1'></td>
                 <td className='border-2 border-gray-300 col-span-1'></td>
             </tr>

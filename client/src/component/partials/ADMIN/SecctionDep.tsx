@@ -81,7 +81,7 @@ export const SecctionDep = () => {
                 <TextTitle text='Crear' />
                 <label className='text-xl'>Departamento</label>
                 <input type='text' value={dep} onChange={(event)=>setDep(event.target.value)} required placeholder='Nombre' className='border w-full p-3 rounded-md bg-white shadow text-lg' />
-                <input type='submit' value={`${query == 'C' ? 'Crear' : 'Actualizar'}`} className='w-full bg-purple-500 hover:bg-purple-600 text-lg font-bold py-2 text-white rounded-md mt-3' />
+                <input type='submit' value={`${query == 'C' ? 'Crear' : 'Actualizar'}`} className='w-full bg-blue-500 hover:bg-blue-600 text-lg font-bold py-2 text-white rounded-md mt-3' />
             </form>
             <div className='w-full'>
                 <TextTitle text='Departamentos' />
@@ -104,7 +104,16 @@ export const SecctionDep = () => {
                                         key={item.id}
                                     >
                                         <span className='p-3 font-bold'>{item.departament_name}</span>
-                                       
+                                        <button 
+                                            onClick={()=>{
+                                                setDep(item.departament_name);
+                                                setIdDep(item.id);
+                                                setQuery('U')
+                                            }}
+                                            className='p-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-r-md'
+                                        >
+                                            editar
+                                        </button>
                                     </li>
                                 ))
                             }

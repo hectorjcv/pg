@@ -6,30 +6,9 @@ export interface ObjectCreate {
   n_identification: string,
   estado: States,
   creathe_by: number,
-  dep_id: number
+  dep_id: number,
+  create: string
 }
-
-/*
-{
-    name: string,
-    description:string,
-    price: number,
-    quantity: number,
-    n_identification: string,
-    estado: States,
-    creathe_by: number,
-    imagen: string,
-    quantity: {
-        fisica: number,
-        contable: number
-    },
-    clasification: {
-        group_id: number,
-        sub_group_id: number,
-        secction_id: number
-    }
-}
-*/
 
 export type States = 'NUEVO' | 'USADO';
 

@@ -15,7 +15,7 @@ export const ReadyObject = () => {
     },[])
     return (
         <>
-        { ready && <div className='bg-purple-100 rounded-md pt-5'>
+        { ready && <div className='bg-blue-100 rounded-md pt-5'>
 
             <TextSubtitle text='Objeto para crear' />
 

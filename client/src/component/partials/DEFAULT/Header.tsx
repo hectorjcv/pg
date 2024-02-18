@@ -32,8 +32,11 @@ export const Header: FC<Props> = ({open}) => {
 
     return (
         <header className='h-full'>
-            <div className='w-full bg-gradient-to-r from-violet-600 to-purple-600 top-0 p-5 flex justify-between items-center'>
+            <div className='w-full bg-gradient-to-r from-sky-600 to-blue-600 top-0 p-5 flex justify-between items-center'>
                 <h1 className='text-center text-white font-mono text-xl font-bold'>
+                    { user.role == 'ADMIN' && <span>Inventariador </span> }
+                    { user.role == 'DIRECT' && <span>Director </span> }
+                    { user.role == 'SECRETARY' && <span>Secretario </span> }
                     {`${user.name} ${user.lastname}`}
                 </h1>
                 <div className="relative max-w-sm">

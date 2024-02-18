@@ -80,23 +80,23 @@ export const FormCreateAdmin: React.FC<Props> = ({cb, close}) => {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
                     <div>
                         <label htmlFor="" className='text-lg text-gray-800 font-bold'>Nombre</label>
-                        <input type='text' required name='name' onChange={handleChange} placeholder='Nombre' className='w-full bg-gray-50 border broder-purple-500 p-3 rounded-md focus:outline-none' />
+                        <input type='text' required name='name' onChange={handleChange} placeholder='Nombre' className='w-full bg-gray-50 border broder-blue-500 p-3 rounded-md focus:outline-none' />
                     </div>
                     <div>
                         <label htmlFor="" className='text-lg text-gray-800 font-bold'>Apellido</label>
-                        <input type='text' required name='lastname' onChange={handleChange} placeholder='Apellido' className='w-full bg-gray-50 border broder-purple-500 p-3 rounded-md focus:outline-none' />
+                        <input type='text' required name='lastname' onChange={handleChange} placeholder='Apellido' className='w-full bg-gray-50 border broder-blue-500 p-3 rounded-md focus:outline-none' />
                     </div>
                     <div>
                         <label htmlFor="" className='text-lg text-gray-800 font-bold'>Correo</label>
-                        <input type='email' required name='email' onChange={handleChange} placeholder='Correo' className='w-full bg-gray-50 border broder-purple-500 p-3 rounded-md focus:outline-none' />
+                        <input type='email' required name='email' onChange={handleChange} placeholder='Correo' className='w-full bg-gray-50 border broder-blue-500 p-3 rounded-md focus:outline-none' />
                     </div>
                     <div>
                         <label htmlFor="" className='text-lg text-gray-800 font-bold'>Cédula</label>
-                        <input type='text' required name='ci' onChange={handleChange} placeholder='Apellido' className='w-full bg-gray-50 border broder-purple-500 p-3 rounded-md focus:outline-none' />
+                        <input type='text' required name='ci' onChange={handleChange} placeholder='Apellido' className='w-full bg-gray-50 border broder-blue-500 p-3 rounded-md focus:outline-none' />
                     </div>
                     <div>
                         <label htmlFor="" className='text-lg text-gray-800 font-bold'>Teléfono</label>
-                        <input type='text' required name='phone' onChange={handleChange} placeholder='Teléfono' className='w-full bg-gray-50 border broder-purple-500 p-3 rounded-md focus:outline-none' />
+                        <input type='text' required name='phone' onChange={handleChange} placeholder='Teléfono' className='w-full bg-gray-50 border broder-blue-500 p-3 rounded-md focus:outline-none' />
                     </div>
                     <div>
                         <label htmlFor="" className='text-lg text-gray-800 font-bold'>Rol</label>
@@ -108,15 +108,15 @@ export const FormCreateAdmin: React.FC<Props> = ({cb, close}) => {
                                 const newData = {...data, role: role};
                                 setData(newData);
                             }} 
-                            className='w-full bg-gray-50 border broder-purple-500 p-3 rounded-md focus:outline-none'
+                            className='w-full bg-gray-50 border broder-blue-500 p-3 rounded-md focus:outline-none'
                         >
                             <option value='SECRETARY' selected>Seleccione una opción</option>
                             <option value='SECRETARY' selected>Secretario</option>
-                            <option value='ADMIN' selected>Administador</option>
+                            <option value='ADMIN' selected>Inventariador</option>
                         </select>
                     </div>
                     
-                    <input type='submit' value='Crear' className='cursor-pointer bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-md' />
+                    <input type='submit' value='Crear' className='cursor-pointer py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-md' />
                     
                 </div>
                 

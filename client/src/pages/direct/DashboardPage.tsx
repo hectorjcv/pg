@@ -10,7 +10,6 @@ import { FormCreateAdmin } from "../../component/partials/DIRECT/FormCreateAdmin
 import { ListAdmins } from "../../component/partials/DIRECT/ListAdmins";
 import { BASIC_URL } from "../../constants";
 import { RefreshToken } from "../../hooks/useRefrestToken";
-import { Inventary } from "../../component/partials/DIRECT/Inventary";
 import { useNotification } from "../../context/NotificationContext";
 import { Notification } from "../../component/partials/DEFAULT/Notification";
 import { FormUpdatePassword } from "../../component/partials/DEFAULT/FormUpdatePassword";
@@ -18,6 +17,7 @@ import { InventaryProvider } from "../../context/InventaryContext";
 import { Header } from "../../component/partials/DEFAULT/Header";
 import { ListGroupSubSecc } from "../../component/partials/DIRECT/ListGroupSubSecc";
 import { SecctionDep } from "../../component/partials/ADMIN/SecctionDep";
+import { SecctionInventary } from "../../component/partials/ADMIN/SecctionInventary";
 
 export const DashboardPage = () => {
     const noti = useNotification();
@@ -96,8 +96,8 @@ export const DashboardPage = () => {
                         adminSection === ''
                         ?   <div className='mt-5 flex justify-center items-center flex-col w-full'>
                                 <TextSubtitle text={`Director`} />
-                                <button type='button' onClick={()=>{setAdminSection('ADMINISTRATION')}} className='w-full transition-colors text-xl font-bold font-mono text-center mt-5 py-4 border border-purple-600 text-purple-600 hover:text-purple-50 hover:bg-purple-600 rounded-xl'>Administrar</button>
-                                <button type='button' onClick={()=>{setAdminSection('CREATE')}} className='w-full transition-colors text-xl font-bold font-mono text-center mt-5 py-4 border border-purple-600 text-purple-600 hover:text-purple-50 hover:bg-purple-600 rounded-xl'>Crear</button>
+                                <button type='button' onClick={()=>{setAdminSection('ADMINISTRATION')}} className='w-full transition-colors text-xl font-bold font-mono text-center mt-5 py-4 border border-blue-600 text-blue-600 hover:text-blue-50 hover:bg-blue-600 rounded-xl'>Administrar</button>
+                                <button type='button' onClick={()=>{setAdminSection('CREATE')}} className='w-full transition-colors text-xl font-bold font-mono text-center mt-5 py-4 border border-blue-600 text-blue-600 hover:text-blue-50 hover:bg-blue-600 rounded-xl'>Crear</button>
                             </div>
                         :   adminSection == 'CREATE'
                         ?   <FormCreateAdmin cb={After} close={setModalAdmin} />
@@ -109,9 +109,9 @@ export const DashboardPage = () => {
 
         {
             modalInventary && 
-            <ModalBasic closeModal={setModalInventary} cb={After} w='w-[90%] lg:w-[60%]'>
+            <ModalBasic closeModal={setModalInventary} cb={After} w='w-[90%]'>
                 <InventaryProvider>
-                    <Inventary />
+                    <SecctionInventary close={setModalInventary} pag={1} />
                 </InventaryProvider>
             </ModalBasic> 
         }
@@ -131,7 +131,7 @@ export const DashboardPage = () => {
             </ModalBasic> 
         }
 
-        <div className='min-h-screen bg-purple-200 grid grid-rows-[auto_1fr]'>
+        <div className='min-h-screen bg-blue-200 grid grid-rows-[auto_1fr]'>
             <Header open={setPasswordModal} />
             <main className='py-5 hidden lg:grid grid-cols-1 w-full px-10 gap-5'>
                 <div className='grid grid-cols-3 gap-5'>
@@ -139,7 +139,7 @@ export const DashboardPage = () => {
                         <CardSingle cls='row-span-3'>
                             <div className='h-[300px] m-auto'>
                                 <TextTitle text={`Cuentas (${admins?.length})`} />
-                                <ParagraxOpacity text='Crea, actualiza, bloquea, elimina administradores' />
+                                <ParagraxOpacity text='Crea, actualiza, elimina cuentas' />
 
                                 <ButtonBorder cb={calbakModal}>
                                     Administrar

@@ -20,8 +20,8 @@ export const ListBM1 = () => {
                     <td className='border-2 border-gray-300 col-span-2'>{item.n_identification}</td>
                     <td className='border-2 border-gray-300 col-span-3'>{`${item.name} ${item.description}`}</td>
                     <td className='border-2 border-gray-300 col-span-1'>{item.date_reference?.creathe.split('T')[0]}</td>
-                    <td className='border-2 border-gray-300 col-span-1'>{item.price}</td>
-                    <td className='border-2 border-gray-300 col-span-1'>{item.price*parseInt(`${item.quantity_reference?.fisica}`)}</td>
+                    <td className='border-2 border-gray-300 col-span-1'>{parseFloat(`${item.price}`).toFixed(2)}</td>
+                    <td className='border-2 border-gray-300 col-span-1'>{(item.price*parseFloat(`${item.quantity_reference?.fisica}`)).toFixed(2)}</td>
                 </tr>
                 ))
             }

@@ -8,7 +8,7 @@ export const HeaderTitle = () => {
             <img src={LOGO2} className='w-36' />
             <div>
                 <p className='w-full text-center text-md '>Alcaldía bolivariana del Municipio</p>
-                <p className='w-full text-center text-lg fontbold'>"JUAN GERMAN ROCIO NIEVES"</p>
+                <p className='w-full text-center text-lg fontbold'>"JUAN GERMAN ROCIOS NIEVES"</p>
                 <p className='w-full text-center text-md '>Estado Guárico</p>
                 <p className='w-full text-center text-md '>Rif.: G-20000218-8</p>
             </div>

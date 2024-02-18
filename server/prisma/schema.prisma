@@ -55,6 +55,7 @@ model Objects {
   clasification_id                  Int
   quantity_id                       Int
   dep_id                            Int
+  create                            String?
 }
 
 model Dates_objects {

@@ -13,7 +13,8 @@ export interface AllCreate {
     data: ObjectCreate,
     quantity: Quantity,
     clasification: Clasifications,
-    dep: number
+    dep: number,
+    date: string
 }
 
 export type States = 'NUEVO' | 'USADO';

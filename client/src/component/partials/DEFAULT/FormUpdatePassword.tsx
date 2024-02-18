@@ -70,7 +70,7 @@ export const FormUpdatePassword = () => {
                     onChange={ChangePassword}
                     type='password'
                     name='last_password'
-                    className='w-full rounded-md bg-purple-100 p-2 text-lg'
+                    className='w-full rounded-md bg-blue-100 p-2 text-lg'
                     />
             </div>
 
@@ -80,14 +80,14 @@ export const FormUpdatePassword = () => {
                     onChange={ChangePassword}
                     type='password'
                     name='new_password'
-                    className='w-full rounded-md bg-purple-100 p-2 text-lg'
+                    className='w-full rounded-md bg-blue-100 p-2 text-lg'
                     />
             </div>
             <div>
                 <input 
                     type='submit'
                     value='Actualizar'
-                    className='w-full rounded-md bg-purple-400 hover:bg-purpl-500 p-2 text-lg'
+                    className='w-full rounded-md bg-blue-400 hover:bg-purpl-500 p-2 text-lg'
                     />
             </div>
         </form>

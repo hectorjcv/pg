@@ -101,7 +101,7 @@ export const SecctionGroup = () => {
                     <TextSubtitle text={`${send} Grupo`} />
                     <form className='grid gap-y-3' onSubmit={handleSubmit}>
                         <input type='text' value={data?.group} onChange={handleChange} placeholder="Grupo" className='rounded-md w-full p-3 focus:outline-none border bg-white shadow' />
-                        <input type='submit' value={`${send}`} className="w-full bg-purple-600 hover:bg-purple-700 rounded-md py-3 text-white font-bold" />
+                        <input type='submit' value={`${send}`} className="w-full bg-blue-600 hover:bg-blue-700 rounded-md py-3 text-white font-bold" />
                     </form>
                 </section>
             }
@@ -117,8 +117,17 @@ export const SecctionGroup = () => {
                         </li>
                     {
                         groups.map((item)=>(
-                            <li key={item.id} className='list-none py-3 pl-3 bg-white rounded-md flex justify-between items-center border'>
+                            <li key={item.id} className='list-none pl-3 bg-white rounded-md flex justify-between items-center border'>
                                 <span className='font-bold text-gray-800 text-lg'>{item.group}</span>
+                                <button 
+                                    onClick={()=>{
+                                        setData(item)
+                                        setSend('Actualizar')
+                                    }}
+                                    className='h-full p-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-r-md'
+                                >
+                                    editar
+                                </button>
                             </li>
                         ))
                     }</ul>

@@ -18,7 +18,7 @@ export const CodigoFilter = () => {
 
     return (
         <div className='flex justify-center items-center gap-x-5 my-auto'>
-            <h2 className='text-xl text-purple-900 font-bold '>Filtrar por Código</h2>
+            <h2 className='text-xl text-blue-900 font-bold '>Filtrar por Código</h2>
             
             <input 
                 onChange={HandleChange} 

@@ -538,7 +538,8 @@ const CreateObjectController = async (req: RequestExtend, res:Response) => {
       n_identification: req.body.data.n_identification,
       estado: req.body.data.estado,
       creathe_by: parseInt(req.user.userid),
-      dep_id: parseInt(req.body.dep)
+      dep_id: parseInt(req.body.dep),
+      create: req.body.date
     }
 
     const responseService = await CreatheObjects(ObjectSave, Clasification, QuantitySave, parseInt(req.user.userid));

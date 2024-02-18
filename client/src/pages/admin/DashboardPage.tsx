@@ -5,7 +5,6 @@ import { useNotification } from "../../context/NotificationContext";
 import { OnSession } from "../../hooks/useVerifySession";
 import { ModalBasic } from "../../component/partials/DEFAULT/ModalBasic";
 import { TextTitle } from "../../component/partials/DEFAULT/TextTypes";
-import { Inventary } from "../../component/partials/DIRECT/Inventary";
 import { InventaryProvider } from "../../context/InventaryContext";
 import { Header } from "../../component/partials/DEFAULT/Header";
 import { ButtonBorder } from "../../component/partials/DEFAULT/ButtonBorder";
@@ -13,6 +12,7 @@ import { CardSingle } from "../../component/partials/DEFAULT/CardSingle";
 import { FormUpdatePassword } from "../../component/partials/DEFAULT/FormUpdatePassword";
 import { SecctionDep } from "../../component/partials/ADMIN/SecctionDep";
 import { ListGroupSubSecc } from "../../component/partials/DIRECT/ListGroupSubSecc";
+import { SecctionInventary } from "../../component/partials/ADMIN/SecctionInventary";
 
 export const DashboardAdmin = () => {
     const noti = useNotification();
@@ -48,7 +48,7 @@ export const DashboardAdmin = () => {
             modalInventary && 
             <ModalBasic closeModal={setModalInventary} cb={After} w='w-[90%]'>
                 <InventaryProvider>
-                    <Inventary />
+                    <SecctionInventary close={setModalInventary} pag={1} />
                 </InventaryProvider>
             </ModalBasic> 
         }
@@ -63,7 +63,7 @@ export const DashboardAdmin = () => {
             </ModalBasic> 
         }
 
-        <div className='min-h-screen bg-purple-200 grid grid-rows-[auto_1fr]'>
+        <div className='min-h-screen bg-blue-200 grid grid-rows-[auto_1fr]'>
             <Header open={setPasswordModal} />
             <main className='py-5 grid grid-cols-3 w-full px-10 gap-5'>
                 <div className='row-span-1 grid gap-y-5'>
@@ -77,7 +77,7 @@ export const DashboardAdmin = () => {
                         <div className='h-[250px] grid place-items-center m-auto'>
                             <TextTitle text='Departamentos' />
                             <ButtonBorder cb={onModalDep}>
-                                Crear
+                                Administar
                             </ButtonBorder>
                         </div>
                     </CardSingle>
@@ -88,7 +88,7 @@ export const DashboardAdmin = () => {
                         <div className='h-[250px] grid place-items-center m-auto'>
                             <TextTitle text='Inventario' />
                             <ButtonBorder cb={()=>setModalInventary(true)}>
-                                Crear
+                                Administrar
                             </ButtonBorder>
                         </div>
                     </CardSingle>

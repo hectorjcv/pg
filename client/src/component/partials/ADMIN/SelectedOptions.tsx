@@ -20,7 +20,7 @@ export const SelectedOptions = () => {
         <div className='h-full relative grid grid-cols-2'>
 
             <div className='relative flex justify-center items-center'>
-                <a href='#' onClick={()=>setOpeOptions(!openOptions)} className='bg-purple-500 hover:bg-purple-600 rounded-lg px-4 py-2 text-sm text-white font-bold'>opciones</a>
+                <a href='#' onClick={()=>setOpeOptions(!openOptions)} className='bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2 text-sm text-white font-bold'>opciones</a>
                 {
                     openOptions &&
                     <div className={`absolute right-0 z-10 w-56 mt-4 top-6 bg-white border border-gray-100 rounded-md shadow-lg`}>

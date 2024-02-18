@@ -13,13 +13,13 @@ export const SelectObjects = () => {
 
             <button
                 onClick={()=>{ setPage(1) }}
-                className='px-8 w-[50%] mx-auto max-h-[60px] font-bold rounded-lg py-3 border border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white'
+                className='px-8 w-[50%] mx-auto max-h-[60px] font-bold rounded-lg py-3 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white'
             >
                 Crear
             </button>
             <button
                 onClick={()=>{ setPage(2) }}
-                className='px-8 w-[50%] mx-auto max-h-[60px] font-bold rounded-lg py-3 border border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white'
+                className='px-8 w-[50%] mx-auto max-h-[60px] font-bold rounded-lg py-3 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white'
             >
                 Ver
             </button>

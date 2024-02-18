@@ -100,7 +100,7 @@ export const DashboardSecretary = () => {
                 </ModalBasic> 
             }
         
-        <div className='min-h-screen bg-purple-200 grid grid-rows-[auto_1fr]'>
+        <div className='min-h-screen bg-blue-200 grid grid-rows-[auto_1fr]'>
             <Header open={setPasswordModal} />
             <main className='py-5 hidden lg:grid grid-cols-1fr w-full px-10 gap-5'>
                 <div className='grid grid-cols-3 grid-rows-1 gap-5'>

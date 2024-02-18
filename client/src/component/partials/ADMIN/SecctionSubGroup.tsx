@@ -162,7 +162,7 @@ export const SecctionSubGroup = () => {
                             : <></>
                         }
                     </select>
-                    <input type='submit' value={`${send}`} className="w-full bg-purple-600 hover:bg-purple-700 rounded-md py-3 text-white font-bold" />
+                    <input type='submit' value={`${send}`} className="w-full bg-blue-600 hover:bg-blue-700 rounded-md py-3 text-white font-bold" />
                 </form>
             </section>}
             <section className='w-full'>
@@ -170,16 +170,25 @@ export const SecctionSubGroup = () => {
                     subgroups &&
                     <ul className='grid'>
                         <li className='list-none py-3 pl-3 bg-white rounded-md grid grid-cols-[1fr_1fr] border'>
-                            <span className='font-bold text-purple-800 text-lg'>Grupo</span>
+                            <span className='font-bold text-blue-800 text-lg'>Grupo</span>
                             <span className='font-bold text-gray-800 text-lg'>Sub Grupo</span>
                             <div>
                             </div>
                         </li>
                     {
                         subgroups.map((item)=>(
-                            <li key={item.id} className='list-none pl-3 bg-white grid grid-cols-[1fr_1fr] border-l border-b'>
-                               <span className='flex border-r pl-3 items-center font-bold text-purple-800 text-lg'>{item.group_reference?.group}</span>
+                            <li key={item.id} className='list-none pl-3 bg-white grid grid-cols-[1fr_1fr_.5fr] border-l border-b'>
+                                <span className='flex border-r pl-3 items-center font-bold text-blue-800 text-lg'>{item.group_reference?.group}</span>
                                 <span className='flex border-r pl-3 items-center font-bold text-gray-800 text-lg'>{item.sub_group}</span>
+                                <button 
+                                    onClick={()=>{
+                                        setData(item)
+                                        setSend('Actualizar')
+                                    }}
+                                    className='h-full p-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-r-md'
+                                >
+                                    editar
+                                </button>
                             </li>
                         ))
                     }</ul>                    

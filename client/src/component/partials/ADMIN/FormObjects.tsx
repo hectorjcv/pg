@@ -54,7 +54,8 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
     const [idDep, setIdDep] = useState<number|null>(null);
     const [clasification, setClasification] = useState<Clasifications>(clasificationDefault);
     const [groupSubSecction, setGroupSubSecction] = useState<GSS | null>(null);
-    const [error, setError] = useState<{input:null | string, error: null | string}>({input:null, error:null})
+    const [error, setError] = useState<{input:null | string, error: null | string}>({input:null, error:null});
+    const [date, setDate] = useState('');
 
     const hadleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -74,15 +75,18 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
 
         if(!clasi.group_id) return setError({input:'select.group',error:'Debes seleccionar una opción'});  
         if(!clasi.sub_group_id) return setError({input:'select.subgroup',error:'Debes seleccionar una opción'});  
-        if(!clasi.secction_id) return setError({input:'select.section',error:'Debes seleccionar una opción'});  
+        if(!date) return setError({input:'select.date',error:'Debes seleccionar una fecha'}); 
+        // if(!clasi.secction_id) return setError({input:'select.section',error:'Debes seleccionar una opción'});  
 
         const SaveObjects = async () => {
+            clasi.secction_id = clasi.secction_id ? clasi.secction_id : 0;
             const token = `${window.localStorage.getItem('token')}`;
             const body: AllCreate = {
                 data: data,
                 clasification: clasi,
                 quantity: quantity,
-                dep: parseInt(`${idDep}`)
+                dep: parseInt(`${idDep}`),
+                date
             }
             const RequesOptions = {
                 "method": "POST",
@@ -215,115 +219,10 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
 
                 </div>
             </section>
-            <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
-                <div className='grid gapy-3'>
-                    <label className='text-lg text-purple-900'>Código</label>
-                    { error.input == 'input.n_identification' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
-                    <input
-                        onChange={handleChange} 
-                        type='text' 
-                        name='n_identification' 
-                        value={data.n_identification}
-                        placeholder="N° Identificación" 
-                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
-                        />
-                    { error.input === 'n_identification' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
-                </div>
-                <div className='grid gapy-3'>
-                    <label className='text-lg text-purple-900'>Nombre</label>
-                    { error.input == 'input.name' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
-                    <input
-                        onChange={handleChange} 
-                        type='text' 
-                        name='name'
-                        value={data.name}
-                        placeholder="Nombre" 
-                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
-                        />
-                    { error.input === 'name' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
 
-                </div>
-                <div className='grid gapy-3'>
-                    <label className='text-lg text-purple-900'>Descripción</label>
-                    { error.input == 'input.description' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
-                    <input
-                        onChange={handleChange} 
-                        type='text' 
-                        name='description'
-                        value={data.description}
-                        placeholder="Descripción" 
-                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
-                        />
-                    { error.input === 'description' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
-
-                </div>
-                <div className='grid gapy-3'>
-                    <label className='text-lg text-purple-900'>Costo</label>
-                    { error.input == 'input.price' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
-                    <input
-                        onChange={handleChange} 
-                        type='number' 
-                        name='price' 
-                        value={data.price}
-                        placeholder="Precio" 
-                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
-                        />
-                    { error.input === 'price' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
-
-                </div>
-                <div className='grid gapy-3'>
-                    <label className='text-lg text-purple-900'>Estado</label>
-                    { error.input == 'select.estado' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
-                    
-                    <select 
-                        onChange={handleChangeSelect}
-                        name='estado' 
-                        placeholder="N° Identificación" 
-                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
-                    >
-                        <option value='0' selected>Seleccione una opcion</option>
-                        <option value='Nuevo'>Bueno</option>
-                        <option value='Nuevo'>Regular</option>
-                        <option value='Usado'>Dañado</option>
-                    </select>
-                    { error.input === 'estado' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
-
-                </div>
-            </section>
-            <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
-                <div className='grid gap-y-3'>
-                    <label className='text-lg text-purple-900'>Física</label>
-                    { error.input == 'quantity.fisica' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
-
-                    <input
-                        onChange={handleChangeQuantity} 
-                        type='number' 
-                        name='fisica' 
-                        value={quantity.fisica}
-                        placeholder="Física" 
-                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
-                        />
-                    { error.input === 'fisica' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
-
-                </div>
-                <div className='grid gap-y-3'>
-                    <label className='text-lg text-purple-900'>Contable</label>
-                    { error.input == 'quantity.contable' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
-                    <input
-                        onChange={handleChangeQuantity} 
-                        type='number' 
-                        name='contable' 
-                        value={quantity.contable}
-                        placeholder="Contable" 
-                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
-                        />
-                    { error.input === 'contable' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
-
-                </div>
-            </section>
             {
             groupSubSecction !== null 
-                ? <section className='grid gap-y-4 grid-cols-3'>
+                ? <section className='grid gap-y-4 grid-cols-3 mb-5'>
                     <div className='bg-white shadow rounded-md p-3'>
                         <TextSubtitle text='Grupo' />
                         { error.input == 'select.group' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
@@ -370,12 +269,138 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
 
                     </div>
                 </section>
-                : <span>cargando...</span>
+                : <p className='text-xl font-bold text-center'>cargando grupos, sub grupos y secciones...</p>
             }
+
+            <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
+                <div className='grid gapy-3'>
+                    <label className='text-lg text-blue-900'>Código</label>
+                    { error.input == 'input.n_identification' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+                    <input
+                        onChange={handleChange} 
+                        type='text' 
+                        name='n_identification' 
+                        value={data.n_identification}
+                        placeholder="N° Identificación" 
+                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
+                        />
+                    { error.input === 'n_identification' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+                </div>
+                <div className='grid gapy-3'>
+                    <label className='text-lg text-blue-900'>Nombre</label>
+                    { error.input == 'input.name' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+                    <input
+                        onChange={handleChange} 
+                        type='text' 
+                        name='name'
+                        value={data.name}
+                        placeholder="Nombre" 
+                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
+                        />
+                    { error.input === 'name' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
+                </div>
+                <div className='grid gapy-3'>
+                    <label className='text-lg text-blue-900'>Descripción</label>
+                    { error.input == 'input.description' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+                    <input
+                        onChange={handleChange} 
+                        type='text' 
+                        name='description'
+                        value={data.description}
+                        placeholder="Descripción" 
+                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
+                        />
+                    { error.input === 'description' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
+                </div>
+                <div className='grid gapy-3'>
+                    <label className='text-lg text-blue-900'>Estado</label>
+                    { error.input == 'select.estado' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+                    
+                    <select 
+                        onChange={handleChangeSelect}
+                        name='estado' 
+                        placeholder="N° Identificación" 
+                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
+                    >
+                        <option value='0' selected>Seleccione una opcion</option>
+                        <option value='Nuevo'>Bueno</option>
+                        <option value='Nuevo'>Regular</option>
+                        <option value='Usado'>Dañado</option>
+                    </select>
+                    { error.input === 'estado' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
+                </div>
+            </section>
+
+            <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
+                <div className='grid gap-y-3'>
+                    <label className='text-lg text-blue-900'>Física</label>
+                    { error.input == 'quantity.fisica' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+
+                    <input
+                        onChange={handleChangeQuantity} 
+                        type='number' 
+                        name='fisica' 
+                        value={quantity.fisica}
+                        placeholder="Física" 
+                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
+                        />
+                    { error.input === 'fisica' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
+                </div>
+
+
+                    <div className='grid gapy-3'>
+                        <label className='text-lg text-blue-900'>Costo</label>
+                        { error.input == 'input.price' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+                        <input
+                            onChange={handleChange} 
+                            type='number' 
+                            name='price' 
+                            value={data.price}
+                            placeholder="Precio" 
+                            className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
+                            />
+                        { error.input === 'price' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
+                    </div>
+
+                <div className='grid gap-y-3'>
+                    <label className='text-lg text-blue-900'>Contable</label>
+                    { error.input == 'quantity.contable' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+                    <input
+                        onChange={handleChangeQuantity} 
+                        type='number' 
+                        name='contable' 
+                        value={quantity.contable}
+                        placeholder="Contable" 
+                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
+                        />
+                    { error.input === 'contable' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
+                </div>
+                <div className='grid gap-y-3'>
+                    <label className='text-lg text-blue-900'>Fecha Incorporación</label>
+                    { error.input == 'quantity.data' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
+                    <input
+                        onChange={(e)=> setDate(e.target.value)} 
+                        type='date' 
+                        name='date' 
+                        placeholder="DD/MM/AAAA" 
+                        className="focus:outline-none p-3 rounded-md bg-white text-gray-800 shadow text-mg font-bold" 
+                        />
+                    { error.input === 'date' && <span className='bg-red-200 text-red-800 font-bold font-mono text-lg rounded-md p-2'>{error.error}</span> }
+
+                </div>
+            </section>
+
+            
             <div className='w-full flex justify-between items-center mt-5'>
             <input 
                 type='submit' 
-                className='py-3 px-10 rounded-md text-center bg-purple-700 hover:bg-purple-800 font-bold text-white' 
+                className='py-3 px-10 rounded-md text-center bg-blue-700 hover:bg-blue-800 font-bold text-white' 
                 value='Crear'/>
             </div>
         </form>

@@ -14,6 +14,7 @@ export const Inventary: React.FC<Props> = () => {
                 <ParagraxBasic text={`${inv.count} registros`} />
             </div>
             <div>
+                
                 <TableObjects />
             </div>
         </>

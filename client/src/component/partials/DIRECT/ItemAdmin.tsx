@@ -41,13 +41,13 @@ export const ItemAdmin: React.FC<Props> = ({ user, update }) => {
     }
 
     return (
-        <li className='grid grid-cols-[.3fr_.3fr_1fr_1fr] gap-x-5 px-10 border-b border-purple-300 py-2'>
+        <li className='grid grid-cols-[.3fr_.3fr_1fr_1fr] gap-x-5 px-10 border-b border-blue-300 py-2'>
             <ParagraxBasic text={status} />
             <ParagraxBasic text={user.ci} />
             <TextSubtitle text={`${user.name} ${user.lastname}`} />
             <div className='grid grid-cols-2 gap-x-5'>
                 <ButtonCB color='red' text='Eliminar' cb={Delete} id={user.id} />
-                <ButtonCB color='purple' text='Ver' cb={ ()=>{console.log('ver')} } id={user.id} />
+                <ButtonCB color='blue' text='Ver' cb={ ()=>{console.log('ver')} } id={user.id} />
             </div>
         </li>
     );
