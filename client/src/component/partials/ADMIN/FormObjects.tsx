@@ -34,7 +34,9 @@ const clasificationDefault: Clasifications = {
     group_id: clf ? clf.group_id : 0,
     sub_group_id: clf ? clf.sub_group_id : 0,
     secction_id: clf ? clf.secction_id : 0,
-
+    group_reference: {group:''},
+    sub_group_reference: {sub_group:'', group_id:0},
+    section_reference: {secction:''},
 }
 
 type GSS = {
@@ -126,6 +128,9 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
         const newData = {
             ...data,
             [event.target.name]: event.target.value
+        }
+        if(event.target.name == 'price') {
+            setQuantity({ fisica: quantity.fisica, contable: parseFloat(`${quantity.fisica*parseInt(`${event.target.value}`)}`) });
         }
         setData(newData);
     }
@@ -336,7 +341,7 @@ export const FormObjects = ({close}: {close: React.Dispatch<React.SetStateAction
 
             <section className='grid gap-3 grid-cols-1 lg:grid-cols-2'>
                 <div className='grid gap-y-3'>
-                    <label className='text-lg text-blue-900'>Física</label>
+                    <label className='text-lg text-blue-900'>Existencia</label>
                     { error.input == 'quantity.fisica' && <p className='font-bold text-red-800 text-md'>{error.error}</p> }
 
                     <input

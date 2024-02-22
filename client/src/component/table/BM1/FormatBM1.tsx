@@ -14,7 +14,7 @@ export const FormatBM1 = () => {
                 className='bg-red-500 mx-auto hover:bg-red-600 bg-opacity-50 hover:bg-opacity-100 rounded-md font-bold text-center py-3 px-10' 
                 onClick={()=> generatePDF(tableRef, {filename: 'BM1.pdf', page:{margin:Margin.MEDIUM, orientation:"l"}})}
             >
-                Exportar PDF
+                Descargar PDF
             </button>
         </div>
 

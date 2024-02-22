@@ -114,9 +114,10 @@ export const DashboardSecretary = () => {
                         <CardSingle cls='row-span-2'>
                             <div className='h-[250px] grid place-items-center m-auto'>
                                 <TextTitle text='Departamentos' />
-                                <ButtonBorder cb={onModalDep}>
+                                <div><ButtonBorder cb={onModalDep}>
                                     Crear
                                 </ButtonBorder>
+                                <p className='text-sm text-center font-light text-gray-500'>crear departamentos</p></div>
                             </div>
                         </CardSingle>
                     </div>
@@ -125,18 +126,20 @@ export const DashboardSecretary = () => {
                         <CardSingle cls='row-span-2'>
                             <div className='h-[250px] grid place-items-center m-auto'>
                                 <TextTitle text='Inventario' />
-                                <ButtonBorder cb={()=>{
+                                <div className='grid place-items-center'><ButtonBorder cb={()=>{
                                     setPageInv(1);
                                     setModalInventary(true);
                                 }}>
-                                    ver
+                                    Formatos
                                 </ButtonBorder>
-                                <ButtonBorder cb={()=>{
+                                <p className='text-sm text-center font-light text-gray-500'>ve los bienes, buscar entre los bienes, descargar los formatos BM1, BM2, y BM3</p></div>
+                                <div className='grid place-items-center'><ButtonBorder cb={()=>{
                                     setPageInv(2);
                                     setModalInventary(true);
                                 }}>
                                     crear
                                 </ButtonBorder>
+                                <p className='text-sm text-center font-light text-gray-500'>crear bienes</p></div>
                             </div>
                         </CardSingle>
                     </div>

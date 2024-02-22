@@ -6,12 +6,14 @@ import { SecctionGroup } from "../ADMIN/SecctionGroup";
 import { SecctionSecction } from "../ADMIN/SecctionSecction";
 import { SecctionSubGroup } from "../ADMIN/SecctionSubGroup";
 
+import { GetUserStorage } from "../../../service/UserService";
+
 export const ListGroupSubSecc = () => {
     const [modalGroup, setModalGroup] = useState(false);
     const [modalSubGroup, setModalSubGroup] = useState(false);
     const [modalSecctions, setModalSecctions] = useState(false);
 
-
+    const user = GetUserStorage();
 
     return (
         <>
@@ -37,21 +39,30 @@ export const ListGroupSubSecc = () => {
         <section className='grid grid-cols-1 gap-5 w-full'>
             <div className='grid grid-cols-2 place-items-center'>
                 <TextTitle text='Grupos' />
-                <ButtonBorder cb={()=>setModalGroup(true)}>
-                    Ver
+                <div><ButtonBorder cb={()=>setModalGroup(true)}>
+                    { user.role == 'SECRETARY' ? 'crear' : 'ver' }
                 </ButtonBorder>
+                <p className='text-sm text-center font-light text-gray-500'>
+                    { user.role == 'SECRETARY' ? 'crear grupos' : 'ver grupos' }
+                </p></div>
             </div>
             <div className='grid grid-cols-2 place-items-center'>
                 <TextTitle text='Sub grupos' />
-                <ButtonBorder cb={()=>setModalSubGroup(true)}>
-                    Ver
+                <div><ButtonBorder cb={()=>setModalSubGroup(true)}>
+                     { user.role == 'SECRETARY' ? 'crear' : 'ver' }
                 </ButtonBorder>
+                <p className='text-sm text-center font-light text-gray-500'>
+                    { user.role == 'SECRETARY' ? 'crear sub grupos' : 'ver sub grupos' }
+                </p></div>
             </div>
             <div className='grid grid-cols-2 place-items-center'>
                 <TextTitle text='Secciones' />
-                <ButtonBorder cb={()=>setModalSecctions(true)}>
-                    Ver
+                <div><ButtonBorder cb={()=>setModalSecctions(true)}>
+                     { user.role == 'SECRETARY' ? 'crear' : 'ver' }
                 </ButtonBorder>
+                <p className='text-sm text-center font-light text-gray-500'>
+                    { user.role == 'SECRETARY' ? 'crear secciones' : 'ver secciones' }
+                </p></div>
             </div>
         </section>
         </>

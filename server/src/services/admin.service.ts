@@ -139,12 +139,23 @@ const ReadObjects = async () => {
     const Quantity = await prisma.quantity_objects.findMany();
     const Dep = await prisma.departament.findMany();
 
+    const Groups = await prisma.groups.findMany();
+    const SubGroups = await prisma.sub_groups.findMany();
+    const Sections = await prisma.secction.findMany();
+
     const ObjetsResult: any[] = [];
     Objects.map(async (item) => {
+        const clasi = Clasifications.find(c => c.id == item.clasification_id);
+
         const obj = {
             ...item,
             date_reference: Dates.find(d => d.id == item.date_id),
-            clasification_reference: Clasifications.find(c => c.id == item.clasification_id),
+            clasification_reference: {
+                ...clasi,
+                group_reference: Groups.find(e => e.id == clasi?.group_id),
+                sub_group_reference: SubGroups.find(e => e.id == clasi?.sub_group_id),
+                section_reference: Sections.find(e => e.id == clasi?.secction_id)
+            },
             quantity_reference: Quantity.find(q => q.id == item.quantity_id),
             dep_reference: Dep.find(d => d.id == item.dep_id)
         };
@@ -165,17 +176,29 @@ const ReadOneObjects = async (id:number) => {
     if(!obj) throw new Error('No existe');
 
     const Dates = await prisma.dates_objects.findFirst({ where:{id:obj.date_id} });
-    const Clasifications = await prisma.clasification_objects.findFirst({ where:{id:obj.clasification_id} });
+    const Clasifications = await prisma.clasification_objects.findFirst({ 
+        where:{id:obj.clasification_id}
+    });
     const Quantity = await prisma.quantity_objects.findFirst({ where:{id:obj.quantity_id} });
     const Dep = await prisma.departament.findFirst({ where:{id:obj.dep_id} });
+
+    const Groups = await prisma.groups.findMany();
+    const SubGroups = await prisma.sub_groups.findMany();
+    const Sections = await prisma.secction.findMany();
 
     const objComplete = {
         ...obj,
         date_reference: Dates,
-        clasification_reference: Clasifications,
+        clasification_reference: {
+            ...Clasifications,
+            group_reference: Groups.find(e => e.id == Clasifications?.group_id),
+            sub_group_reference: SubGroups.find(e => e.id == Clasifications?.sub_group_id),
+            section_reference: Sections.find(e => e.id == Clasifications?.secction_id),
+        },
         quantity_reference: Quantity,
         dep_reference: Dep
     };
+
 
     return objComplete
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ButtonBorder } from "../../component/partials/DEFAULT/ButtonBorder";
 import { CardSingle } from "../../component/partials/DEFAULT/CardSingle";
-import { ParagraxOpacity, TextSubtitle, TextTitle } from "../../component/partials/DEFAULT/TextTypes";
+import { TextSubtitle, TextTitle } from "../../component/partials/DEFAULT/TextTypes";
 import { useAuth } from "../../context/AuthContext";
 import { OnSession } from "../../hooks/useVerifySession";
 import { ModalBasic } from "../../component/partials/DEFAULT/ModalBasic";
@@ -139,11 +139,13 @@ export const DashboardPage = () => {
                         <CardSingle cls='row-span-3'>
                             <div className='h-[300px] m-auto'>
                                 <TextTitle text={`Cuentas (${admins?.length})`} />
-                                <ParagraxOpacity text='Crea, actualiza, elimina cuentas' />
 
-                                <ButtonBorder cb={calbakModal}>
-                                    Administrar
-                                </ButtonBorder>
+                                <div className='grid place-items-center'>
+                                    <ButtonBorder cb={calbakModal}>
+                                        Administrar
+                                    </ButtonBorder>
+                                    <p className='text-sm text-center font-light text-gray-500'>ver, crear, actualizar, eliminar cuentas</p>
+                                </div>
                             </div>
                         </CardSingle>
                     </div>
@@ -151,11 +153,14 @@ export const DashboardPage = () => {
                     <div className='row-span-1 grid h-full gap-5'>
                         <CardSingle>
                             <TextTitle text='Inventario' />
-                            <ParagraxOpacity text='ver el inventario de los muebles, inmuebles' />
 
-                            <ButtonBorder cb={calbakModalInventary}>
-                                Administrar
-                            </ButtonBorder>
+                            <div className='grid place-items-center'>
+                                <ButtonBorder cb={calbakModalInventary}>
+                                    formatos
+                                </ButtonBorder>
+                                <p className='text-sm text-center font-light text-gray-500'>ve los bienes, buscar entre los bienes, descargar los formatos BM1, BM2, y BM3</p>
+
+                            </div>
                         </CardSingle>
 
                         <CardSingle cls=''>
@@ -168,9 +173,13 @@ export const DashboardPage = () => {
                         <CardSingle cls='row-span-3'>
                             <div className='h-[300px] m-auto'>
                                 <TextTitle text='Departamentos' />
-                                <ButtonBorder cb={onModalDep}>
-                                    Administrar
-                                </ButtonBorder> 
+                                <div className='grid place-items-center'>
+                                    <ButtonBorder cb={onModalDep}>
+                                        ver
+                                    </ButtonBorder>
+                                    <p className='text-sm text-center font-light text-gray-500'>ver lista de departamentos</p>
+
+                                </div> 
                             </div>                       
                         </CardSingle>
                     </div>

@@ -77,11 +77,14 @@ export const SecctionDep = () => {
 
     return(
         <section className='grid grid-cols-[.5fr_1fr] place-items-center gap-4'>
-            <form onSubmit={handleSumit}>
+            <form onSubmit={handleSumit} className='grid gap-3'>
                 <TextTitle text='Crear' />
-                <label className='text-xl'>Departamento</label>
-                <input type='text' value={dep} onChange={(event)=>setDep(event.target.value)} required placeholder='Nombre' className='border w-full p-3 rounded-md bg-white shadow text-lg' />
+                <div>
+                    <label className='text-xl'>Departamento</label>
+                    <input type='text' value={dep} onChange={(event)=>setDep(event.target.value)} required placeholder='Nombre' className='border w-full p-3 rounded-md bg-white shadow text-lg' />
+                </div>
                 <input type='submit' value={`${query == 'C' ? 'Crear' : 'Actualizar'}`} className='w-full bg-blue-500 hover:bg-blue-600 text-lg font-bold py-2 text-white rounded-md mt-3' />
+                
             </form>
             <div className='w-full'>
                 <TextTitle text='Departamentos' />

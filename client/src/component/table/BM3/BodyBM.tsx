@@ -8,23 +8,23 @@ export const BodyBM3 = () => {
             
             <tr className='grid grid-cols-[repeat(20,5vw)] w-full'>
                 <td className='border col-span-4 grid grid-cols-3'>
-                    <span className='col-span-4 border-b'>CODIGO</span>
-                    <span className='border-r text-sm'>GRUPO</span>
-                    <span className='border-r text-sm'>SUBGRUPO</span>
-                    <span className='text-sm'>SECCION</span>
+                    <span className='col-span-4 text-[11px] border-b'>CODIGO</span>
+                    <span className='border-r text-[11px] '>GRUPO</span>
+                    <span className='border-r text-[11px] '>SUBGRUPO</span>
+                    <span className='text-[11px]'>SECCION</span>
                 </td>
-                <td className='border col-span-2'>Numero de identificacion</td>
-                <td className='border col-span-8'>ESCRIPCION DE LOS BIENES</td>
-                <td className='border col-span-2 grid grid-cols-2'>
-                    <span className='col-span-4 border-b'>CANTIDAD</span>
-                    <span className='border-r text-sm'>Exitencia fisica</span>
-                    <span className='text-sm'>Registro contable</span>
+                <td className='text-[11px] border col-span-2'>Numero de identificacion</td>
+                <td className='text-[11px] border col-span-8'>ESCRIPCION DE LOS BIENES</td>
+                <td className='text-[11px] border col-span-2 grid grid-cols-2'>
+                    <span className='col-span-4 text-[11px] border-b'>CANTIDAD</span>
+                    <span className='text-[11px] border-r '>Exitencia fisica</span>
+                    <span className=''>Registro contable</span>
                 </td>
-                <td className='border col-span-2'>VALOR UNITARIO</td>
-                <td className='border col-span-2 grid grid-cols-2'>
-                    <span className='col-span-4 border-b'>DIFERENCIA</span>
-                    <span className='border-r text-sm'>Cantidad</span>
-                    <span className='text-sm'>Valor total</span>
+                <td className='text-[11px] border col-span-2'>VALOR UNITARIO</td>
+                <td className='text-[11px] border col-span-2 grid grid-cols-2'>
+                    <span className='col-span-4 text-[11px] border-b'>DIFERENCIA</span>
+                    <span className='text-[11px] border-r '>Cantidad</span>
+                    <span className=''>Valor total</span>
                 </td>
             </tr>
             <ListBM3 />
@@ -34,7 +34,7 @@ export const BodyBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='col-span-5 border-b border-gray-400'>Faltantes determinadas por</td>
+                <td className='col-span-5 border-b border-gray-400 text-[11px]'>Faltantes determinadas por</td>
                 <td className='border'></td>
             </tr>
             <tr className='grid grid-cols-[repeat(20,5vw)] w-full'>
@@ -42,7 +42,7 @@ export const BodyBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='col-span-3 border-b border-gray-400'>Cargo que desempeña</td>
+                <td className='col-span-3 border-b border-gray-400 text-[11px]'>Cargo que desempeña</td>
                 <td className='col-span-4 border-b border-gray-900'></td>
                 <td className='border'></td>
             </tr>
@@ -51,7 +51,7 @@ export const BodyBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='col-span-3 border-b border-gray-400'>Dependencia a la cual esta adcrito</td>
+                <td className='col-span-3 border-b border-gray-400 text-[11px]'>Dependencia a la cual esta adcrito</td>
                 <td className='col-span-4 border-b border-gray-900'></td>
                 <td className='border'></td>
             </tr>
@@ -60,7 +60,7 @@ export const BodyBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='col-span-3 border-b border-gray-400'>firma</td>
+                <td className='col-span-3 border-b border-gray-400 text-[11px]'>firma</td>
                 <td className='col-span-4 border-b border-gray-900'></td>
                 <td className='border'></td>
             </tr>
@@ -69,7 +69,7 @@ export const BodyBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='col-span-3 border-b border-gray-400'>Jefe de la Unidad de Trabajo</td>
+                <td className='col-span-3 border-b border-gray-400 text-[11px]'>Jefe de la Unidad de Trabajo</td>
                 <td className='col-span-4 border-b border-gray-900'></td>
                 <td className='border'></td>
             </tr>
@@ -78,7 +78,7 @@ export const BodyBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='col-span-3 border-b border-gray-400'>firma</td>
+                <td className='col-span-3 border-b border-gray-400 text-[11px]'>firma</td>
                 <td className='col-span-4 border-b border-gray-900'></td>
                 <td className='border'></td>
             </tr>

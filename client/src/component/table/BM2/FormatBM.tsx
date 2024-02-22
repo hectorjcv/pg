@@ -25,7 +25,7 @@ export const FormatBM2 = () => {
                         )}
                     }
                 >
-                    Export PDF (beta)
+                    Descargar PDF
                 </button>
             </div>
 

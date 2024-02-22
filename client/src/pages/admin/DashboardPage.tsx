@@ -76,9 +76,12 @@ export const DashboardAdmin = () => {
                     <CardSingle cls='row-span-2'>
                         <div className='h-[250px] grid place-items-center m-auto'>
                             <TextTitle text='Departamentos' />
-                            <ButtonBorder cb={onModalDep}>
-                                Administar
-                            </ButtonBorder>
+                            <div className='grid place-items-center'>
+                                <ButtonBorder cb={onModalDep}>
+                                    ver
+                                </ButtonBorder>
+                                <p className='text-sm text-center font-light text-gray-500'>ver lista de departamentos</p>
+                            </div>
                         </div>
                     </CardSingle>
                 </div>
@@ -87,9 +90,12 @@ export const DashboardAdmin = () => {
                     <CardSingle cls='row-span-2'>
                         <div className='h-[250px] grid place-items-center m-auto'>
                             <TextTitle text='Inventario' />
-                            <ButtonBorder cb={()=>setModalInventary(true)}>
-                                Administrar
-                            </ButtonBorder>
+                            <div className='grid place-items-center'>
+                                <ButtonBorder cb={()=>setModalInventary(true)}>
+                                    ver
+                                </ButtonBorder>
+                                <p className='text-sm text-center font-light text-gray-500'>ve los bienes, buscar entre los bienes, descargar los formatos BM1, BM2, y BM3</p>
+                            </div>
                         </div>
                     </CardSingle>
                 </div>

@@ -78,6 +78,7 @@ export const InventaryProvider = ({children}: {children: ReactNode}) => {
             const objs:ObjectsCompletedList = json.body.ObjetsResult;
             setCount(json.body.count);
             setObjectsCurrent(objs);
+            console.log(objs)
         }
         Getting();
     }, [toUpdate, pag]);

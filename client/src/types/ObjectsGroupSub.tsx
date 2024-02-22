@@ -28,7 +28,10 @@ export interface Dates {
 export interface Clasifications {
     group_id: number,
     sub_group_id: number,
-    secction_id: number
+    secction_id: number,
+    group_reference: Groups,
+    sub_group_reference: SubGroups,
+    section_reference: Secction
 }
 
 export interface Groups {
