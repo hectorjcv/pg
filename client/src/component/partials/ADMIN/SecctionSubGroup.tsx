@@ -28,7 +28,7 @@ export const SecctionSubGroup = () => {
     const handleChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
         const newSubGroupas:SubGroups = {
             id: data?.id,
-            sub_group: `${data?.sub_group}`,
+            sub_group: `${data && data.sub_group? data.sub_group:""}`,
             group_id: parseInt(event.target.value)
         }
         setData(newSubGroupas);
@@ -145,7 +145,7 @@ export const SecctionSubGroup = () => {
                 <form className='grid gap-y-3' onSubmit={handleSubmit}>
                     <input 
                         type='text' 
-                        value={data?.sub_group} 
+                        value={data?.sub_group == undefined ?"":data.sub_group}
                         onChange={handleChangeInput} 
                         placeholder="Sub Grupo" 
                         className='rounded-md w-full p-3 focus:outline-none border bg-white shadow' 
