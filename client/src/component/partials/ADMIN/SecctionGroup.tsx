@@ -117,17 +117,17 @@ export const SecctionGroup = () => {
                         </li>
                     {
                         groups.map((item)=>(
-                            <li key={item.id} className='list-none pl-3 bg-white rounded-md flex justify-between items-center border'>
+                            <li key={item.id} className='list-none p-3 bg-white rounded-md flex justify-between items-center border'>
                                 <span className='font-bold text-gray-800 text-lg'>{item.group}</span>
-                                <button 
-                                    onClick={()=>{
+                                { ROL && <button
+                                    onClick={()=>{ 
                                         setData(item)
                                         setSend('Actualizar')
                                     }}
                                     className='h-full p-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-r-md'
                                 >
                                     editar
-                                </button>
+                                </button> }
                             </li>
                         ))
                     }</ul>
