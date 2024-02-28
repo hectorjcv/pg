@@ -3,10 +3,12 @@ import { TextTitle } from "../DEFAULT/TextTypes"
 import { ObjNotification, useNotification } from "../../../context/NotificationContext";
 import { BASIC_URL } from "../../../constants";
 import { DepList, ResponseGet } from "../../../types/DepTypes";
-
+import { GetUserStorage } from "../../../service/UserService";
 type query_set = 'C' | 'U';
 
 export const SecctionDep = () => {
+    const user = GetUserStorage();
+    const ROL = user.role === 'SECRETARY' ? true : false;
     const noti = useNotification();
     const [dep, setDep] = useState('');
     const [idDep, setIdDep] = useState(0);
@@ -107,7 +109,7 @@ export const SecctionDep = () => {
                                         key={item.id}
                                     >
                                         <span className='p-3 font-bold'>{item.departament_name}</span>
-                                        <button 
+                                       { ROL && <button 
                                             onClick={()=>{
                                                 setDep(item.departament_name);
                                                 setIdDep(item.id);
@@ -116,7 +118,7 @@ export const SecctionDep = () => {
                                             className='p-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-r-md'
                                         >
                                             editar
-                                        </button>
+                                        </button> }
                                     </li>
                                 ))
                             }

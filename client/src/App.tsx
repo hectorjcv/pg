@@ -55,7 +55,7 @@ function App() {
           }
           {
             !user && <>
-              { currentPath === '/' && <LoginPage /> }
+             <LoginPage /> 
             </>
           }
         </NotificationProvider>

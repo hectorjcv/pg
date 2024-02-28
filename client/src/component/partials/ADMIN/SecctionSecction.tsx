@@ -126,7 +126,7 @@ export const SecctionSecction = () => {
                         secctions.map((item)=>(
                             <li key={item.id} className='list-none pl-3 bg-white rounded-md flex justify-between items-center border'>
                                 <span className='font-bold text-gray-800 text-lg'>{item.secction}</span>
-                                <button 
+                               { ROL &&  <button 
                                     onClick={()=>{
                                         setData(item)
                                         setSend('Actualizar')
@@ -134,7 +134,7 @@ export const SecctionSecction = () => {
                                     className='h-full p-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-r-md'
                                 >
                                     editar
-                                </button>
+                                </button> }
                             </li>
                         ))
                     }</ul>

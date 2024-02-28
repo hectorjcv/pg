@@ -180,7 +180,7 @@ export const SecctionSubGroup = () => {
                             <li key={item.id} className='list-none pl-3 bg-white grid grid-cols-[1fr_1fr_.5fr] border-l border-b'>
                                 <span className='flex border-r pl-3 items-center font-bold text-blue-800 text-lg'>{item.group_reference?.group}</span>
                                 <span className='flex border-r pl-3 items-center font-bold text-gray-800 text-lg'>{item.sub_group}</span>
-                                <button 
+                               { ROL && <button 
                                     onClick={()=>{
                                         setData(item)
                                         setSend('Actualizar')
@@ -188,7 +188,7 @@ export const SecctionSubGroup = () => {
                                     className='h-full p-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-r-md'
                                 >
                                     editar
-                                </button>
+                                </button> }
                             </li>
                         ))
                     }</ul>                    

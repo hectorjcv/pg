@@ -27,7 +27,7 @@ export const Header: FC<Props> = ({open}) => {
             DeleteStorage();
             auth.setSession(false);
         }
-        LogOutFn();
+        //LogOutFn();
     }
 
     return (
@@ -47,10 +47,10 @@ export const Header: FC<Props> = ({open}) => {
                     <div className={`${nav ? 'bloack' : 'hidden'} absolute right-0 z-10 w-56 mt-4 origin-top-right bg-white border border-gray-100 rounded-md shadow-lg`}>
                         <span onClick={()=>open(true)} className='block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700'>Cambiar contraseña</span>
                         <span onClick={()=>{
-                            DeleteStorage();
-                            LogOut(user.id);
+                            window.localStorage.removeItem('user');
+                            window.localStorage.removeItem('session');
+                            window.localStorage.removeItem('token');
                             window.location.reload();
-                            Navigate('/');
                         }} className='block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700'>salir</span>
                     </div>
                 </div>
