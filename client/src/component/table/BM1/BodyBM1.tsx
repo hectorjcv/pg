@@ -35,17 +35,17 @@ export const BodyBM1 = () => {
             <tr className='grid grid-cols-12 w-full'>
                 <td className='border border-gray-300 col-span-3'>
                     <div className='grid grid-cols-3 w-full'>
-                        <span className='text-center border-r-2 border-gray-300 text-[12px]'>GRUPO</span>
-                        <span className='text-center border-r-2 border-gray-300 text-[12px]'>SUBGRUPO</span>
-                        <span className='text-center border-gray-300 text-[12px]'>SECCIÓN</span>
+                        <span className='text-center border-r-2 border-gray-300 text-[7px]'>GRUPO</span>
+                        <span className='text-center border-r-2 border-gray-300 text-[7px]'>SUBGRUPO</span>
+                        <span className='text-center border-gray-300 text-[7px]'>SECCIÓN</span>
                     </div>
                 </td>
-                <td className='border border-gray-300 text-[12px] col-span-1'>CANTIDAD</td>
-                <td className='border border-gray-300 text-[12px] col-span-1'>N° DE IDENTIFICACIÓN</td>
-                <td className='border border-gray-300 text-[12px] col-span-4'>NOMBRE Y DESCRIPCION DE LOS ELEMENTOS</td>
-                <td className='border border-gray-300 text-[10px] col-span-1'>FECHA DE INCORPORACIÓN</td>
-                <td className='border border-gray-300 text-[10px] col-span-1'>VALOR UNITARIO</td>
-                <td className='border border-gray-300 text-[10px] col-span-1'>VALOR TOTAL</td>
+                <td className='border border-gray-300 text-[7px] col-span-1'>CANTIDAD</td>
+                <td className='border border-gray-300 text-[7px] col-span-1'>N° DE IDENTIFICACIÓN</td>
+                <td className='border border-gray-300 text-[7px] col-span-4'>NOMBRE Y DESCRIPCION DE LOS ELEMENTOS</td>
+                <td className='border border-gray-300 text-[7px] col-span-1'>FECHA DE INCORPORACIÓN</td>
+                <td className='border border-gray-300 text-[7px] col-span-1'>VALOR UNITARIO</td>
+                <td className='border border-gray-300 text-[7px] col-span-1'>VALOR TOTAL</td>
             </tr>
             <ListBM1 />
             <tr className='grid grid-cols-12 w-full'>

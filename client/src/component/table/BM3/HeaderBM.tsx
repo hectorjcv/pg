@@ -16,7 +16,7 @@ export const HeaderBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='border-2 border-gray-800'>FORMULARIO</td>
+                <td className='pb-3 text-[8px] border-2 border-gray-800'>FORMULARIO</td>
             </tr>
             <tr className='grid grid-cols-12 w-full'>
                 <td className='border'></td>
@@ -30,7 +30,7 @@ export const HeaderBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='border-2 border-gray-800'>BM3</td>
+                <td className='pb-3 text-[8px] border-2 border-gray-800'>BM3</td>
             </tr>
             <tr className='grid grid-cols-[repeat(20,5vw)] w-full'>
                 <td className='border'></td>
@@ -50,7 +50,7 @@ export const HeaderBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='border border-gray-500 col-span-5 text-[11px]'>Identificación del Comprobante</td>
+                <td className='pb-3 border border-gray-500 col-span-5 text-[11px]'>Identificación del Comprobante</td>
                 <td className='border'></td>
             </tr>
             <tr className='grid grid-cols-[repeat(20,5vw)] w-full'>
@@ -60,7 +60,7 @@ export const HeaderBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='border border-gray-500 col-span-3 text-[11px]'>Codigo Concepto Movimiento</td>
+                <td className='pb-3 border border-gray-500 col-span-3 text-[11px]'>Codigo Concepto Movimiento</td>
                 <td className='border border-gray-500 col-span-2 text-[11px]'></td>
                 <td className='border'></td>
             </tr>
@@ -70,7 +70,7 @@ export const HeaderBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='border border-gray-500 col-span-3 text-[11px]'>Numero de Comprobante</td>
+                <td className='pb-3 border border-gray-500 col-span-3 text-[11px]'>Numero de Comprobante</td>
                 <td className='border border-gray-500 col-span-2 text-[11px]'></td>
                 <td className='border'></td>
             </tr>
