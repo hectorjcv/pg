@@ -37,7 +37,7 @@ export const HeaderBM3 = () => {
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td className='border col-span-12 text-2xl'>RELACIÓN DE BIENES MUEBLES FALTANTES</td>
+                <td className='border col-span-12 text-2xl text-center'>RELACIÓN DE BIENES MUEBLES FALTANTES</td>
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>

@@ -11,6 +11,9 @@ export const SecctionDep = () => {
     const ROL = user.role === 'SECRETARY' ? true : false;
     const noti = useNotification();
     const [dep, setDep] = useState('');
+    const [unity, setUnity] = useState('');
+    const [direction, setDirection] = useState('');
+    const [service, setService] = useState('');
     const [idDep, setIdDep] = useState(0);
     const [listDep, setListDep] = useState<DepList | null>(null);
     const [query, setQuery] = useState<query_set>('C');
@@ -40,7 +43,10 @@ export const SecctionDep = () => {
 
         const CreateDep = async () => {
             const DepSend = {
-                dep_name: dep
+                dep_name: dep,
+                unity_name: unity,
+                service_name: service,
+                direction_name: direction
             }
             const token = `${window.localStorage.getItem('token')}`;
             const RequesOptions = {
@@ -78,53 +84,75 @@ export const SecctionDep = () => {
     }
 
     return(
-        <section className='grid grid-cols-[.5fr_1fr] place-items-center gap-4'>
-            <form onSubmit={handleSumit} className='grid gap-3'>
+        <section className={`grid ${ROL ? 'grid-cols-[.5fr_1fr]' : ''} place-items-center gap-4`}>
+            { ROL && <form onSubmit={handleSumit} className='grid gap-3'>
                 <TextTitle text='Crear' />
                 <div>
-                    <label className='text-xl'>Departamento</label>
-                    <input type='text' value={dep} onChange={(event)=>setDep(event.target.value)} required placeholder='Nombre' className='border w-full p-3 rounded-md bg-white shadow text-lg' />
+                    <label className='text-sm'>Departamento</label>
+                    <input type='text' value={dep} onChange={(event)=>setDep(event.target.value)} required placeholder='Departamento' className='border w-full p-3 rounded-md bg-white shadow text-xs' />
                 </div>
+
+                <div>
+                    <label className='text-sm'>Dirección</label>
+                    <input type='text' value={direction} onChange={(event)=>setDirection(event.target.value)} required placeholder='Departamento' className='border w-full p-3 rounded-md bg-white shadow text-xs' />
+                </div>
+
+                <div>
+                    <label className='text-sm'>Unidad</label>
+                    <input type='text' value={unity} onChange={(event)=>setUnity(event.target.value)} required placeholder='Unidad' className='border w-full p-3 rounded-md bg-white shadow text-xs' />
+                </div>
+
+                <div>
+                    <label className='text-sm'>Servicio</label>
+                    <input type='text' value={service} onChange={(event)=>setService(event.target.value)} required placeholder='Servicio' className='border w-full p-3 rounded-md bg-white shadow text-xs' />
+                </div>
+
                 <input type='submit' value={`${query == 'C' ? 'Crear' : 'Actualizar'}`} className='w-full bg-blue-500 hover:bg-blue-600 text-lg font-bold py-2 text-white rounded-md mt-3' />
                 
-            </form>
+            </form> }
+
             <div className='w-full'>
                 <TextTitle text='Departamentos' />
-                <ul className='grid gap-y-3 w-full'>
-                    <li 
-                        className='w-full flex justify-between rounded-md' 
-                    >
-                        <span className='p-3 font-bold'>Nombre</span>
-                        <button>
-                        </button>
-                    </li>
+                <table className='w-full'>
+                    <thead>
+                        <tr className='grid grid-cols-5'>
+                            <td className='border py-1 text-xs'>Departamento</td>
+                            <td className='border py-1 text-xs'>Dirección</td>
+                            <td className='border py-1 text-xs'>Servicio</td>
+                            <td className='border py-1 text-xs'>Unidad</td>
+                            { ROL && <td></td> }
+                        </tr>
+                    </thead>
                     {
                         listDep === null
                         ? <>Cargando...</>
-                        : <>
+                        : <tbody className='grid'>
                             {
                                 listDep.map((item) => (
-                                    <li 
-                                        className='w-full flex justify-between shadow-md rounded-md' 
+                                    <tr 
+                                        className='grid grid-cols-5'
                                         key={item.id}
                                     >
-                                        <span className='p-3 font-bold'>{item.departament_name}</span>
-                                       { ROL && <button 
+                                        <td className='border font-bold text-xs'>{item.departament_name}</td>
+                                        <td className='border font-bold text-xs'>{item.direction_name}</td>
+                                        <td className='border font-bold text-xs'>{item.service_name}</td>
+                                        <td className='border font-bold text-xs'>{item.unity_name}</td>
+                                       { ROL && <td className='border p-0'><button 
                                             onClick={()=>{
                                                 setDep(item.departament_name);
                                                 setIdDep(item.id);
                                                 setQuery('U')
                                             }}
-                                            className='p-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-r-md'
+                                            className='bg-green-500 hover:bg-green-600 text-white font-bold w-full h-full'
                                         >
                                             editar
-                                        </button> }
-                                    </li>
+                                        </button></td> }
+                                    </tr>
                                 ))
                             }
-                        </>
+                        </tbody>
                     }
-                </ul>
+                </table>
             </div>
         </section>
     )

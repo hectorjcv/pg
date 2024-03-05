@@ -34,7 +34,7 @@ export const HeaderBM2 = () => {
             <tr className='grid grid-cols-12 w-full'>
                 <td className='border'></td>
                 <td className='border'></td>
-                <td contentEditable={true} className='text-xs border col-span-7 font-extralight text-2xl'>RELACION DEL MOVIMIENTO DE BIENES MUEBLES</td>
+                <td contentEditable={true} className='border col-span-7 font-extralight text-2xl'>RELACION DEL MOVIMIENTO DE BIENES MUEBLES</td>
                 <td className='border'></td>
                 <td className='border'></td>
                 <td className='border'></td>
@@ -74,7 +74,7 @@ export const HeaderBM2 = () => {
             <tr className='grid grid-cols-12 w-full'>
                 <td contentEditable={true} className='text-xs text-start font-extralight col-span-3'>DEPENDENCIA O UNIDAD PRIMARIA</td>
                 <td className='border-b pt-2 border-gray-900 col-span-5 font-semilight' contentEditable={true}></td>
-                <td className='text-start font-extralight'>SERVICIO</td>
+                <td className='text-start text-xs font-extralight'>SERVICIO</td>
                 <td className='border-b pt-2 border-gray-900 col-span-3 font-semilight' contentEditable={true}></td>
             </tr>
             <tr className='grid grid-cols-12 w-full'>

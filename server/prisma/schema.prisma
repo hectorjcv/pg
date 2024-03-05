@@ -99,4 +99,7 @@ model Secction {
  model Departament {
   id                Int       @id   @default(autoincrement())
   departament_name  String
- }
+  service_name      String
+  unity_name        String
+  direction_name        String
+}

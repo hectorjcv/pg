@@ -114,8 +114,9 @@ const CreatheObjects = async (data: ObjectCreate, clf: Clasifications, qun: Quan
     const clfReady = await prisma.clasification_objects.create({data:clf});
     const qunReady = await prisma.quantity_objects.create({data:qun});
     const userReady = await prisma.people.findFirst({ where:{id:uid} });
-
+    console.log(userReady);
     if(!userReady) throw new Error(''); 
+
     const objSave = {
         ...data,
         date_id: dateReady.id,

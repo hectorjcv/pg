@@ -17,14 +17,14 @@ export const BodyBM3 = () => {
                 <td className='text-[11px] border col-span-8'>ESCRIPCION DE LOS BIENES</td>
                 <td className='text-[11px] border col-span-2 grid grid-cols-2'>
                     <span className='col-span-4 text-[11px] border-b'>CANTIDAD</span>
-                    <span className='text-[11px] border-r '>Exitencia fisica</span>
-                    <span className=''>Registro contable</span>
+                    <span className='text-[8px] border-r '>Exitencia fisica</span>
+                    <span className='text-[8px]'>Registro contable</span>
                 </td>
-                <td className='text-[11px] border col-span-2'>VALOR UNITARIO</td>
+                <td className='text-[11px] border col-span-2 text-center'>VALOR UNITARIO</td>
                 <td className='text-[11px] border col-span-2 grid grid-cols-2'>
                     <span className='col-span-4 text-[11px] border-b'>DIFERENCIA</span>
-                    <span className='text-[11px] border-r '>Cantidad</span>
-                    <span className=''>Valor total</span>
+                    <span className='text-[8px] border-r '>Cantidad</span>
+                    <span className='text-[8px]'>Valor total</span>
                 </td>
             </tr>
             <ListBM3 />

@@ -29,7 +29,7 @@ export const FormatBM2 = () => {
                 </button>
             </div>
 
-            <table ref={tableRef} className='w-[2000px] min-h-screen bg-white'>
+            <table ref={tableRef} className='w-screen min-h-screen bg-white'>
                 <HeaderTitle />
                 <HeaderBM2 />
                 <BodyBM2 />

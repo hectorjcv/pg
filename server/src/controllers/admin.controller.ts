@@ -406,18 +406,13 @@ const DeleteSecctionController = async (req: RequestExtend, res:Response) => {
 const CreateDepController = async (req: RequestExtend, res: Response) => {
   try {
     const depCreate: DepCreate = {
-      departament_name: req.body.dep_name
+      departament_name: req.body.dep_name,
+      service_name: req.body.dep_name,
+      unity_name: req.body.unity_name,
+      direction_name: req.body.unity_name
     };
 
     const responseService = await CreatheDep(depCreate);
-
-    GenerateLog({
-      id: parseInt(req.user.userid),
-      code:200,
-      data:'SUCCESS_CREATE_DEPARTAMENT',
-      description:'departamento creado exitosamente',
-      url:'/admin/dep'
-    });
     return res
       .status(200)
       .json({ response: 'SUCCESS_DEP_CREATE', body:responseService })
@@ -461,7 +456,10 @@ const ReadDepController = async (req: RequestExtend, res: Response) => {
 const UpdateDepController = async (req: RequestExtend, res: Response) => {
   try {
     const depUp: DepCreate = {
-      departament_name: req.body.dep_name
+      departament_name: req.body.dep_name,
+      service_name: req.body.service_name,
+      unity_name: req.body.unity_name,
+      direction_name: req.body.unity_name,
     }
     const id:number = parseInt(req.params.id);
     const responseService = await UpdateDep(depUp, id);
