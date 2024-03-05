@@ -1,34 +1,15 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import { BASIC_URL } from "../../../constants";
-import { useAuth } from "../../../context/AuthContext";
-import { DeleteStorage } from "../../../service/DeleteStorage";
+
 import { GetUserStorage } from "../../../service/UserService";
-import { Navigate } from "../../../hooks/useNavigate";
 
 interface Props {
     open: Dispatch<SetStateAction<boolean>>
 }
 
 export const Header: FC<Props> = ({open}) => {
-    const auth = useAuth();
     const user = GetUserStorage();
     const [nav, setNav] = useState(false);
 
-    const LogOut = (userId: number) => {
-        const LogOutFn = async () => {
-            const token = `${window.localStorage.getItem('token')}`;
-            fetch(`${BASIC_URL}/auth/logout/${userId}`, {
-                method: 'PUT',
-                headers: {
-                    "Content-Type":"application/json",
-                    "token":token
-                }
-            });
-            DeleteStorage();
-            auth.setSession(false);
-        }
-        //LogOutFn();
-    }
 
     return (
         <header className='h-full'>
