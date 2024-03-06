@@ -405,11 +405,19 @@ const DeleteSecctionController = async (req: RequestExtend, res:Response) => {
  */
 const CreateDepController = async (req: RequestExtend, res: Response) => {
   try {
+
+    console.log(`
+        Departamento: ${req.body.dep_name}
+        Unidad: ${req.body.service_name}
+        Dirección: ${req.body.unity_name}
+        Servicio: ${req.body.direction_name}
+    `);
+
     const depCreate: DepCreate = {
       departament_name: req.body.dep_name,
-      service_name: req.body.dep_name,
+      service_name: req.body.service_name,
       unity_name: req.body.unity_name,
-      direction_name: req.body.unity_name
+      direction_name: req.body.direction_name
     };
 
     const responseService = await CreatheDep(depCreate);
@@ -459,7 +467,7 @@ const UpdateDepController = async (req: RequestExtend, res: Response) => {
       departament_name: req.body.dep_name,
       service_name: req.body.service_name,
       unity_name: req.body.unity_name,
-      direction_name: req.body.unity_name,
+      direction_name: req.body.direction_name,
     }
     const id:number = parseInt(req.params.id);
     const responseService = await UpdateDep(depUp, id);

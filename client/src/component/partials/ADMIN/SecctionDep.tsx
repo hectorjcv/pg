@@ -41,6 +41,13 @@ export const SecctionDep = () => {
     const handleSumit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        console.log(`
+            Departamento: ${dep}
+            Unidad: ${unity}
+            Dirección: ${direction}
+            Servicio: ${service}
+        `);
+
         const CreateDep = async () => {
             const DepSend = {
                 dep_name: dep,
