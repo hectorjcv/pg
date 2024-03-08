@@ -59,7 +59,7 @@ export const HeaderBM1 = () => {
                 <td contentEditable={true} className='pb-1 text-[7px] border border-gray-800 col-span-5'>{DataItem.direction_name}</td>
                 <td contentEditable={true} className='pb-1 text-[7px] border border-gray-800 col-span-1'>7.- FECHA</td>
                 <td className='pb-1 text-[7px] border border-gray-800 col-span-3'>
-                    {`${date.getDate()} - ${date.getUTCDate()+1} - ${date.getFullYear()}`}
+                    {`${date.getDate()} - ${date.getMonth()+1} - ${date.getFullYear()}`}
                 </td>
             </tr>
             <RowNone />

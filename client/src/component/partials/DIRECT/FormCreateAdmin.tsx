@@ -11,7 +11,7 @@ interface AdminRegister {
     ci: string,
     phone: string,
     email: string,
-    role: ROLE
+    role: ROLE | null
 }
 
 const defaultAdmin: AdminRegister = {
@@ -20,7 +20,7 @@ const defaultAdmin: AdminRegister = {
     ci: '',
     phone: '',
     email: '',
-    role: 'SECRETARY'
+    role: null
 }
 
 interface Props {
@@ -110,10 +110,10 @@ export const FormCreateAdmin: React.FC<Props> = ({cb, close}) => {
                             }} 
                             className='w-full bg-gray-50 border broder-blue-500 p-3 rounded-md focus:outline-none'
                         >
-                            <option value='SECRETARY' selected>Seleccione una opción</option>
-                            <option value='SECRETARY' selected>Secretario</option>
-                            <option value='ADMIN' selected>Inventariador</option>
-                        </select>
+                            <option selected>Seleccione una opción</option>
+                            <option value='SECRETARY'>Secretario</option>
+                            <option value='ADMIN'>Inventariador</option>
+                            </select>
                     </div>
                     
                     <input type='submit' value='Crear' className='cursor-pointer py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-md' />

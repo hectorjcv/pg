@@ -36,7 +36,7 @@ export const ButtonCB: React.FC<PropsButton> = ({color, text, cb, id}) => {
     return (
         <button
             onClick={()=>{ if(cb && id) cb(id) }}
-            className={`${colorBG} px-7 py-3 font-bold text-center rounded-md`}
+            className={`${colorBG} px-3 text-xs py-3 font-bold text-center rounded-md`}
             >
                 {text}
         </button>
