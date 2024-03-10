@@ -18,7 +18,7 @@ export const Header: FC<Props> = ({open, openData}) => {
                     { user.role == 'ADMIN' && <span>Inventariador </span> }
                     { user.role == 'DIRECT' && <span>Director </span> }
                     { user.role == 'SECRETARY' && <span>Secretario </span> }
-                    {`${user.name} ${user.lastname}`}
+                   {`${user.name} ${user.lastname}`}
                 </h1>
                 <div className="relative max-w-sm">
                     <div className="iniline-flex bg-white border rounded-md">
