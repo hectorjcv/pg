@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { handleHTTP } from '../util/error.handle';
-import { Login, Register, RefresToken, ClosedSession, UpdatePassword } from '../services/auth.service';
-import { UserLogin, UserRegister } from '../interfaces/user.interface';
+import { Login, Register, RefresToken, ClosedSession, UpdatePassword, UpdateUser } from '../services/auth.service';
+import { UserLogin, UserRegister, UserUpdate } from '../interfaces/user.interface';
 import { RequestExtend } from '../interfaces/jwt.interface';
 import { GenerateLog } from '../util/logs.handle';
 
@@ -66,6 +66,29 @@ const controllerLogin = async ({body}:Request, res:Response) => {
         });
         console.log(err)
         handleHTTP(res, `${err}`, err);
+    }
+}
+
+const controllerUpdateUser = async (req: RequestExtend, res: Response) => {
+    try {
+        
+        const id = req.user.userid;
+
+        console.log(req.user)
+        const data: UserUpdate = {
+            ci: req.body.ci,
+            email: req.body.email,
+            lastname: req.body.lastname,
+            name: req.body.name,
+            phone: req.body.phone
+        };
+
+        const result = await UpdateUser(data, parseInt(`${id}`));
+        
+        return res.json({ response: 'SUCCESS_UPDATE_DATA', body: result })
+
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -143,4 +166,4 @@ const controllerSetPassword = async (req: RequestExtend, res: Response) => {
     }
 }
 
-export { controllerLogin, controllerRegister, controllerRefresToken, controllerClosedSession, controllerSetPassword };
+export { controllerLogin, controllerRegister, controllerRefresToken, controllerClosedSession, controllerSetPassword, controllerUpdateUser };

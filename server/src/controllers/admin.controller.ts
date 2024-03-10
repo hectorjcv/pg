@@ -406,13 +406,6 @@ const DeleteSecctionController = async (req: RequestExtend, res:Response) => {
 const CreateDepController = async (req: RequestExtend, res: Response) => {
   try {
 
-    console.log(`
-        Departamento: ${req.body.dep_name}
-        Unidad: ${req.body.service_name}
-        Dirección: ${req.body.unity_name}
-        Servicio: ${req.body.direction_name}
-    `);
-
     const depCreate: DepCreate = {
       departament_name: req.body.dep_name,
       service_name: req.body.service_name,

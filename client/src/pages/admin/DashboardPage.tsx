@@ -13,6 +13,7 @@ import { FormUpdatePassword } from "../../component/partials/DEFAULT/FormUpdateP
 import { SecctionDep } from "../../component/partials/ADMIN/SecctionDep";
 import { ListGroupSubSecc } from "../../component/partials/DIRECT/ListGroupSubSecc";
 import { SecctionInventary } from "../../component/partials/ADMIN/SecctionInventary";
+import { SectionUpdateData } from "../../component/partials/DEFAULT/SectionUpdateUser";
 
 export const DashboardAdmin = () => {
     const noti = useNotification();
@@ -23,6 +24,7 @@ export const DashboardAdmin = () => {
     const [modalDep, setModalDep] = useState(false);
     const [updateAdmin, setUpdateAdmin] = useState(false);
     const [passwordModal, setPasswordModal] = useState(false);
+    const [DataModal, setDataModal] = useState(false);
 
     const After = () => {
         setModalInventary(false);
@@ -63,8 +65,18 @@ export const DashboardAdmin = () => {
             </ModalBasic> 
         }
 
+        {
+            DataModal && 
+            <ModalBasic closeModal={setDataModal} cb={After} w='w-[90%]'>
+                <>
+                    <TextTitle text='Actualizar tu contraseña' />
+                    <SectionUpdateData />
+                </>
+            </ModalBasic> 
+        }
+
         <div className='min-h-screen bg-blue-200 grid grid-rows-[auto_1fr]'>
-            <Header open={setPasswordModal} />
+            <Header open={setPasswordModal} openData={setDataModal} />
             <main className='py-5 grid grid-cols-3 w-full px-10 gap-5'>
                 <div className='row-span-1 grid gap-y-5'>
                     <CardSingle cls=''>

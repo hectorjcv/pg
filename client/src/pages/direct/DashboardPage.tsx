@@ -18,6 +18,7 @@ import { Header } from "../../component/partials/DEFAULT/Header";
 import { ListGroupSubSecc } from "../../component/partials/DIRECT/ListGroupSubSecc";
 import { SecctionDep } from "../../component/partials/ADMIN/SecctionDep";
 import { SecctionInventary } from "../../component/partials/ADMIN/SecctionInventary";
+import { SectionUpdateData } from "../../component/partials/DEFAULT/SectionUpdateUser";
 
 export const DashboardPage = () => {
     const noti = useNotification();
@@ -32,6 +33,7 @@ export const DashboardPage = () => {
     const [getAdminsState, setGetAdminsState] = useState<StateFilterAdmins>('ALL');
     const [updateAdmin, setUpdateAdmin] = useState(false);
     const [passwordModal, setPasswordModal] = useState(false);
+    const [DataModal, setDataModal] = useState(false);
 
     const After = () => {
         setGetAdminsState("ACTIVE");
@@ -88,6 +90,17 @@ export const DashboardPage = () => {
     return (
         <>
         { noti.active && <Notification /> }
+
+        {
+            DataModal && 
+            <ModalBasic closeModal={setDataModal} cb={After} w='w-[90%]'>
+                <>
+                    <TextTitle text='Actualizar tu contraseña' />
+                    <SectionUpdateData />
+                </>
+            </ModalBasic> 
+        }
+
         {
             modalAdmin && 
             <ModalBasic closeModal={setModalAdmin} cb={After} w="w-[60%]">
@@ -132,7 +145,7 @@ export const DashboardPage = () => {
         }
 
         <div className='min-h-screen bg-blue-200 grid grid-rows-[auto_1fr]'>
-            <Header open={setPasswordModal} />
+            <Header open={setPasswordModal} openData={setDataModal} />
             <main className='py-5 hidden lg:grid grid-cols-1 w-full px-10 gap-5'>
                 <div className='grid grid-cols-3 gap-5'>
                     <div className='row-span-1 grid h-full gap-5'>

@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { UserRegister, UserLogin } from '../interfaces/user.interface';
+import { UserRegister, UserLogin, UserUpdate } from '../interfaces/user.interface';
 import { SECRET_KEY } from '../util/jwt'; 
 // import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -108,4 +108,17 @@ const UpdatePassword = async (password: string, id: number) => {
     return result;
 }
 
-export { Login, Register, RefresToken, ClosedSession, UpdatePassword };
+const UpdateUser = async (data: UserUpdate, id: number) => {
+    const prisma = new PrismaClient();
+
+
+    const result = prisma.people.update({
+        data: data,
+        where: {id}
+    })
+
+    return result;
+
+}
+
+export { Login, Register, RefresToken, ClosedSession, UpdatePassword, UpdateUser };

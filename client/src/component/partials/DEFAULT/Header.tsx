@@ -4,12 +4,12 @@ import { GetUserStorage } from "../../../service/UserService";
 
 interface Props {
     open: Dispatch<SetStateAction<boolean>>
+    openData: Dispatch<SetStateAction<boolean>>
 }
 
-export const Header: FC<Props> = ({open}) => {
+export const Header: FC<Props> = ({open, openData}) => {
     const user = GetUserStorage();
     const [nav, setNav] = useState(false);
-
 
     return (
         <header className='h-full'>
@@ -27,6 +27,7 @@ export const Header: FC<Props> = ({open}) => {
                     
                     <div className={`${nav ? 'bloack' : 'hidden'} absolute right-0 z-10 w-56 mt-4 origin-top-right bg-white border border-gray-100 rounded-md shadow-lg`}>
                         <span onClick={()=>open(true)} className='block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700'>Cambiar contraseña</span>
+                        <span onClick={()=>openData(true)} className='block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700'>Actualizar datos</span>
                         <span onClick={()=>{
                             window.localStorage.removeItem('user');
                             window.localStorage.removeItem('session');

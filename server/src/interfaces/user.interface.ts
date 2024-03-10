@@ -1,3 +1,4 @@
+
 export interface UserRegister {
     name: string,
     lastname: string,
@@ -7,6 +8,14 @@ export interface UserRegister {
     password: string,
     role: ROLE,
     status: STATUS
+}
+
+export interface UserUpdate {
+    name: string,
+    lastname: string,
+    ci: string,
+    phone: string,
+    email: string
 }
 
 export interface UserLogin {

@@ -141,7 +141,7 @@ export const SecctionDep = () => {
                                         key={item.id}
                                     >
                                         <td className='border font-bold text-xs'>{item.departament_name}</td>
-                                        <td className='border font-bold text-xs'>{item.direction_name}</td>
+                                        <td className='border font-bold text-xs'>{item.b}</td>
                                         <td className='border font-bold text-xs'>{item.service_name}</td>
                                         <td className='border font-bold text-xs'>{item.unity_name}</td>
                                        { ROL && <td className='border p-0'><button 

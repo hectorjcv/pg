@@ -24,6 +24,14 @@ export interface User {
     status: STATUS_USER
 }
 
+export interface UpdateUser {
+    ci: string,
+    email: string,
+    lastname: string,
+    name: string,
+    phone: string
+}
+
 export type ROLE = 'DIRECT' | 'ADMIN' | 'SECRETARY';
 
 export type STATUS_USER = 'ACTIVE' | 'DISACTIVE' | 'BLOQUED' | 'ALL';

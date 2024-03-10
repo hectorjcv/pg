@@ -15,6 +15,7 @@ import { FormUpdatePassword } from "../../component/partials/DEFAULT/FormUpdateP
 import { SecctionDep } from "../../component/partials/ADMIN/SecctionDep";
 import { ListGroupSubSecc } from "../../component/partials/DIRECT/ListGroupSubSecc";
 import { Header } from "../../component/partials/DEFAULT/Header";
+import { SectionUpdateData } from "../../component/partials/DEFAULT/SectionUpdateUser";
 
 export const DashboardSecretary = () => {
     const noti = useNotification();
@@ -24,7 +25,7 @@ export const DashboardSecretary = () => {
     const [modalDep, setModalDep] = useState(false);
     const [passwordModal, setPasswordModal] = useState(false);
     const [pageInv, setPageInv] = useState(0);
-
+    const [DataModal, setDataModal] = useState(false);
 
     useEffect(()=>{
         type GSS = {
@@ -90,7 +91,7 @@ export const DashboardSecretary = () => {
                 </ModalBasic> 
             }
 
-{
+            {
                 passwordModal && 
                 <ModalBasic closeModal={setPasswordModal} cb={afterDep} w='w-[90%] lg:w-[70%]'>
                     <>
@@ -99,9 +100,19 @@ export const DashboardSecretary = () => {
                     </>
                 </ModalBasic> 
             }
+
+        {
+            DataModal && 
+            <ModalBasic closeModal={setDataModal} cb={()=>{}} w='w-[90%]'>
+                <>
+                    <TextTitle text='Actualizar tu contraseña' />
+                    <SectionUpdateData />
+                </>
+            </ModalBasic> 
+        }
         
         <div className='min-h-screen bg-blue-200 grid grid-rows-[auto_1fr]'>
-            <Header open={setPasswordModal} />
+            <Header open={setPasswordModal} openData={setDataModal} />
             <main className='py-5 hidden lg:grid grid-cols-1fr w-full px-10 gap-5'>
                 <div className='grid grid-cols-3 grid-rows-1 gap-5'>
                     <div className='row-span-1 grid gap-y-5'>
