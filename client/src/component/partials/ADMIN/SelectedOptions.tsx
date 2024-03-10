@@ -21,13 +21,12 @@ export const SelectedOptions = () => {
 
             <div className='relative flex justify-center items-center'>
                 <a href='#' onClick={()=>setOpeOptions(!openOptions)} className='bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2 text-sm text-white font-bold'>opciones</a>
-                {
-                    openOptions &&
-                    <div className={`absolute right-0 z-10 w-56 mt-4 top-6 bg-white border border-gray-100 rounded-md shadow-lg`}>
-                        <span onClick={()=> { inv.updateSelect({ select: true, selected: []}) }} className='block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700'>Seleccionar algunos</span>
-                        <span onClick={HandleClick} className='block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700'>Seleccionar todo</span>
-                    </div>
-                }
+                
+                <div className={`absolute right-0 z-10 w-56 mt-4 top-6 bg-white border border-gray-100 rounded-md shadow-lg`}>
+                    <span onClick={()=> { inv.updateSelect({ select: true, selected: []}) }} className='block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700'>Seleccionar algunos</span>
+                    <span onClick={HandleClick} className='block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700'>Seleccionar todo</span>
+                </div>
+                
             </div> 
             <div className='relative flex justify-center items-center'>
                 <span className='text-sm font-bold text-black px-3'>{inv.select.selected && inv.select.selected?.length > 0 ? 'exportar' : 'Formato vacío' }</span>
