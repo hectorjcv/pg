@@ -105,7 +105,7 @@ export const DashboardSecretary = () => {
             DataModal && 
             <ModalBasic closeModal={setDataModal} cb={()=>{}} w='w-[90%]'>
                 <>
-                    <TextTitle text='Actualizar tu contraseña' />
+                    <TextTitle text='Actualizar Datos' />
                     <SectionUpdateData />
                 </>
             </ModalBasic> 

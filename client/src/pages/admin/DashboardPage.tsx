@@ -69,7 +69,7 @@ export const DashboardAdmin = () => {
             DataModal && 
             <ModalBasic closeModal={setDataModal} cb={After} w='w-[90%]'>
                 <>
-                    <TextTitle text='Actualizar tu contraseña' />
+                    <TextTitle text='Actualizar Datos' />
                     <SectionUpdateData />
                 </>
             </ModalBasic> 
