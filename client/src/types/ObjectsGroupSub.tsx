@@ -81,6 +81,7 @@ export interface ObjectCompleted {
     n_identification: string,
     estado: any,
     creathe_by: number,
+    create: string,
     date_id: number,
     date_reference: Dates | undefined,
     clasification_id: number,
