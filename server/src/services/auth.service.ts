@@ -3,7 +3,7 @@ import { UserRegister, UserLogin, UserUpdate } from '../interfaces/user.interfac
 import { SECRET_KEY } from '../util/jwt'; 
 // import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { compare, hash } from 'bcrypt'
+import { compare, hash } from 'bcryptjs'
 // import cookieParser from 'cookie-parser';
 
 const Login = async (user:UserLogin) => {

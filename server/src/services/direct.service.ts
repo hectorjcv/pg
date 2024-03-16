@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { UserRegister, UserLogin } from '../interfaces/user.interface';
-import { hash } from 'bcrypt';
+import { hash } from 'bcryptjs';
 
 
 const RegisterAdmin = async (user:UserRegister, id: number) => {
