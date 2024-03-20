@@ -89,8 +89,8 @@ export const BodyBM1 = ({ items, subtotal, pagIndex }: {items:(ObjectCompleted |
                 <Text style={styles.flex1}></Text>
                 <Text style={styles.flex4}></Text>
                 <Text style={styles.flex1}>subtotal</Text>
-                <Text style={styles.flex1}>{pagIndex != 0 ? (subtotal.sub+subTotalNative.sub) : subTotalNative.sub}</Text>
-                <Text style={styles.flex1}>{pagIndex != 0 ? (subtotal.total+subTotalNative.total) : subTotalNative.total}</Text>
+                <Text style={styles.flex1}>{subTotalNative.sub}</Text>
+                <Text style={styles.flex1}>{subTotalNative.total}</Text>
             </View>
             <View style={styles.view}>
                 <Text style={styles.flex1}></Text>
@@ -100,8 +100,8 @@ export const BodyBM1 = ({ items, subtotal, pagIndex }: {items:(ObjectCompleted |
                 <Text style={styles.flex1}></Text>
                 <Text style={styles.flex4}></Text>
                 <Text style={styles.flex1}>total</Text>
-                <Text style={styles.flex1}>{subTotalNative.sub}</Text>
-                <Text style={styles.flex1}>{subTotalNative.total}</Text>
+                <Text style={styles.flex1}>{pagIndex != 0 ? (subtotal.sub+subTotalNative.sub) : subTotalNative.sub}</Text>
+                <Text style={styles.flex1}>{pagIndex != 0 ? (subtotal.total+subTotalNative.total) : subTotalNative.total}</Text>
             </View>
 
             <View style={styles.view}>
