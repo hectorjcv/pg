@@ -115,6 +115,7 @@ export const DashboardSecretary = () => {
             <Header open={setPasswordModal} openData={setDataModal} />
             <main className='py-5 hidden lg:grid grid-cols-1fr w-full px-10 gap-5'>
                 <div className='grid grid-cols-3 grid-rows-1 gap-5'>
+
                     <div className='row-span-1 grid gap-y-5'>
                         <CardSingle cls=''>
                             <ListGroupSubSecc />

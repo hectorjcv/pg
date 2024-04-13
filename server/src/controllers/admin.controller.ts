@@ -35,6 +35,7 @@ import { Clasifications, Groups, ObjectCreate, Quantity, Secction, SubGroups } f
 import { DepCreate } from '../interfaces/dep.interface';
 import { GenerateLog } from '../util/logs.handle';
 
+
 /**
  * 
  * GROUPS_CRUD
@@ -568,7 +569,6 @@ const CreateObjectController = async (req: RequestExtend, res:Response) => {
 
 const ReadObjectController = async (req: RequestExtend, res:Response) => {
   try {
-    console.log(req.query);
     const responseService = await ReadObjects();
 
     GenerateLog({

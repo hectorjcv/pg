@@ -163,8 +163,6 @@ const ReadObjects = async () => {
         ObjetsResult.push(obj);
     });
 
-
-    console.log(ObjetsResult);
     return {ObjetsResult, count}
 }
 

@@ -57,9 +57,17 @@ export const BodyBM1 = ({ items, subtotal, pagIndex }: {items:(ObjectCompleted |
                     <>{
                         key 
                         ? <View style={styles.view}>
-                                <Text style={styles.flex1}>{key.clasification_reference?.group_reference.group}</Text>
-                                <Text style={styles.flex1}>{key.clasification_reference?.sub_group_reference.sub_group}</Text>
-                                <Text style={styles.flex1}>{key.clasification_reference?.section_reference.secction}</Text>
+                                <Text style={styles.flex1}>{key.clasification_reference && key.clasification_reference.group_reference.group}</Text>
+                                <Text style={styles.flex1}>{key.clasification_reference && key.clasification_reference.sub_group_reference.sub_group}</Text>
+                                <Text style={styles.flex1}>
+                                    {
+                                        key.clasification_reference && 
+                                        key.clasification_reference.section_reference && 
+                                        key.clasification_reference.section_reference.secction 
+                                        ? key.clasification_reference.section_reference.secction
+                                        : ``
+                                    }
+                                </Text>
                                 <Text style={styles.flex1}>{key.quantity}</Text>
                                 <Text style={styles.flex1}>{key.n_identification}</Text>
                                 <Text style={styles.flex4}>{key.name} {key.description}</Text>

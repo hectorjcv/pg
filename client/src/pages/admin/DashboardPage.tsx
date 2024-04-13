@@ -46,7 +46,7 @@ export const DashboardAdmin = () => {
             </ModalBasic> 
         }
 
-{
+        {
             modalInventary && 
             <ModalBasic closeModal={setModalInventary} cb={After} w='w-[90%]'>
                 <InventaryProvider>
@@ -78,6 +78,7 @@ export const DashboardAdmin = () => {
         <div className='min-h-screen bg-blue-200 grid grid-rows-[auto_1fr]'>
             <Header open={setPasswordModal} openData={setDataModal} />
             <main className='py-5 grid grid-cols-3 w-full px-10 gap-5'>
+
                 <div className='row-span-1 grid gap-y-5'>
                     <CardSingle cls=''>
                         <ListGroupSubSecc />

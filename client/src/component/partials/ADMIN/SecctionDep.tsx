@@ -102,7 +102,7 @@ export const SecctionDep = () => {
 
                 <div>
                     <label className='text-sm'>Dirección</label>
-                    <input type='text' value={direction} onChange={(event)=>setDirection(event.target.value)} required placeholder='Departamento' className='border w-full p-3 rounded-md bg-white shadow text-xs' />
+                    <input type='text' value={direction} onChange={(event)=>setDirection(event.target.value)} required placeholder='Direccion' className='border w-full p-3 rounded-md bg-white shadow text-xs' />
                 </div>
 
                 <div>
