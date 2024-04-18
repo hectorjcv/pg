@@ -22,6 +22,13 @@ const styles = StyleSheet.create({
         flex:1,
         border: '1px solid #000a',
         padding: '5px'
+    },
+    flex1bold: {
+        flex:'1',
+        padding:'5px',
+        border: '1px solid #000a',
+        fontSize: 7,
+        fontWeight: 'bold'
     }
     
 });
@@ -96,7 +103,7 @@ export const BodyBM1 = ({ items, subtotal, pagIndex }: {items:(ObjectCompleted |
                 <Text style={styles.flex1}></Text>
                 <Text style={styles.flex1}></Text>
                 <Text style={styles.flex4}></Text>
-                <Text style={styles.flex1}>subtotal</Text>
+                <Text style={styles.flex1bold}>SUBTOTAL</Text>
                 <Text style={styles.flex1}>{subTotalNative.sub}</Text>
                 <Text style={styles.flex1}>{subTotalNative.total}</Text>
             </View>
@@ -107,7 +114,7 @@ export const BodyBM1 = ({ items, subtotal, pagIndex }: {items:(ObjectCompleted |
                 <Text style={styles.flex1}></Text>
                 <Text style={styles.flex1}></Text>
                 <Text style={styles.flex4}></Text>
-                <Text style={styles.flex1}>total</Text>
+                <Text style={styles.flex1bold}>SUBTOTAL</Text>
                 <Text style={styles.flex1}>{pagIndex != 0 ? (subtotal.sub+subTotalNative.sub) : subTotalNative.sub}</Text>
                 <Text style={styles.flex1}>{pagIndex != 0 ? (subtotal.total+subTotalNative.total) : subTotalNative.total}</Text>
             </View>
