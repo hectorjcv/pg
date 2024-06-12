@@ -21,7 +21,11 @@ const styles = StyleSheet.create({
         height: '80px',
         flex:1,
         border: '1px solid #000a',
-        padding: '5px'
+        padding: '5px',
+        display: "flex",
+        flexDirection: "column",
+        fontSize: 10,
+        textAlign: "center",
     },
     flex1bold: {
         flex:'1',
@@ -120,9 +124,17 @@ export const BodyBM1 = ({ items, subtotal, pagIndex }: {items:(ObjectCompleted |
             </View>
 
             <View style={styles.view}>
-                <Text style={styles.footer}></Text>
-                <Text style={styles.footer}></Text>
-                <Text style={styles.footer}></Text>
+                <View style={styles.footer}>
+                    <View><Text>Elaborado por</Text></View>
+                    <View><Text>Dirección de Bienes Municipales</Text></View>
+                </View>
+                <Text style={styles.footer}>
+                    <Text>Revisado por</Text>
+
+                </Text>
+                <Text style={styles.footer}>
+                    <Text>Responsable Unidad de Trabajo</Text>
+                </Text>
             </View>            
         </>
     )

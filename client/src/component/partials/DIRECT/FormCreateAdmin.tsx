@@ -75,7 +75,7 @@ export const FormCreateAdmin: React.FC<Props> = ({cb, close}) => {
 
     return (
         <div>
-            <TextSubtitle text='Crear Administrador' />
+            <TextSubtitle text='Crear Cuentas' />
             <form className='grid gap-y-3 mt-5' onSubmit={handleSubmit}>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
                     <div>

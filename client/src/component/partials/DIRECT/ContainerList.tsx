@@ -13,7 +13,7 @@ export const ContainerList: React.FC<Props> = ({ list, update }) => {
     return (
         <>
             <div className='flex items-center justify-between'>
-                <TextTitle text="Administradores" />
+                <TextTitle text="Cuentas" />
             </div>
             <ul className='grid gap-y-4 py-4'>
                 {

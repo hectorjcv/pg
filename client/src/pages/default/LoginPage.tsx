@@ -77,43 +77,43 @@ const LoginPage = () => {
 
     return (
         <>
-        { noti.active && <Notification /> }
-        <div 
-            className='w-screen min-h-screen' 
-            style={{ 
-                backgroundImage:`url("${FONDO}")`,
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: '100% 100%'
-            }}
-        >
-            
-            <div className='w-screen min-h-screen flex justify-center flex-col items-center relative bg-gray-950 bg-opacity-50'>
+            { noti.active && <Notification /> }
+            <div 
+                className='w-screen min-h-screen' 
+                style={{ 
+                    backgroundImage:`url("${FONDO}")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: '100% 100%'
+                }}
+            >
                 
-                <div className='py-5 w-[90%] lg:w-[50%] rounded-t-xl bg-white relative'>
-                    <h1 className='font-extralight text-4xl text-center'>SISTEMA DE BIENES</h1>
-                    <img src={LOGO2} className='w-36 absolute top-0 left-0 rounded-tl-xl p-2' />
-                    <img src={LOGO} className='w-28 absolute top-0 right-0 rounded-tl-xl p-2' />
-                </div>
-
-                <div className='w-[90%] lg:w-[50%] py-10 bg-white rounded-b-xl shadow flex flex-col justify-center items-center'>
+                <div className='w-screen min-h-screen flex justify-center flex-col items-center relative bg-gray-950 bg-opacity-50'>
                     
-                    <form className='w-[90%] lg:w-[60%]' onSubmit={handleSubmit}>
-                        <div className='mt-5 flex justify-center items-center flex-col'>
-                            <h3 className='font-extrabold text-blue-900 text-2xl text-center'>Ingresa tus datos</h3>
+                    <div className='py-5 w-[90%] lg:w-[50%] rounded-t-xl bg-white relative'>
+                        <h1 className='font-extralight text-4xl text-center'>SISTEMA DE BIENES</h1>
+                        <img src={LOGO2} className='w-36 absolute top-0 left-0 rounded-tl-xl p-2' />
+                        <img src={LOGO} className='w-28 absolute top-0 right-0 rounded-tl-xl p-2' />
+                    </div>
 
-                            <label className='text-lg text-gray-800'>Ingrese Correo</label>
-                            <input onChange={(e)=> setEmail(e.target.value)} type='email' placeholder="" className='bg-blue-50 mt-5 border border-blue-600 font-bold focus:outline-none text-blue-900 p-3 rounded-lg w-full' />
-                            <label className='text-lg text-gray-800'>Ingrese Contraseña</label>
-                            <input onChange={(e)=> setCi(e.target.value)} type='password' placeholder="" className='bg-blue-50 mt-5 border border-blue-600 font-bold focus:outline-none text-blue-900 p-3 rounded-lg w-full' />
+                    <div className='w-[90%] lg:w-[50%] py-10 bg-white rounded-b-xl shadow flex flex-col justify-center items-center'>
+                        
+                        <form className='w-[90%] lg:w-[60%]' onSubmit={handleSubmit}>
+                            <div className='mt-5 flex justify-center items-center flex-col'>
+                                <h3 className='font-extrabold text-blue-900 text-2xl text-center'>Ingresa tus datos</h3>
 
-                            <div className='w-full bottom-0 flex justify-between mt-5 '>
-                                <button type='submit' className='bg-blue-600 hover:bg-blue-700 text-blue-50 px-8 py-4 rounded-xl text-lg font-bold'>Entrar</button>
+                                <label className='text-lg text-gray-800'>Ingrese Correo</label>
+                                <input onChange={(e)=> setEmail(e.target.value)} type='email' placeholder="" className='bg-blue-50 mt-5 border border-blue-600 font-bold focus:outline-none text-blue-900 p-3 rounded-lg w-full' />
+                                <label className='text-lg text-gray-800'>Ingrese Contraseña</label>
+                                <input onChange={(e)=> setCi(e.target.value)} type='password' placeholder="" className='bg-blue-50 mt-5 border border-blue-600 font-bold focus:outline-none text-blue-900 p-3 rounded-lg w-full' />
+
+                                <div className='w-full bottom-0 flex justify-between mt-5 '>
+                                    <button type='submit' className='bg-blue-600 hover:bg-blue-700 text-blue-50 px-8 py-4 rounded-xl text-lg font-bold'>Entrar</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
         </>
     )
 }
