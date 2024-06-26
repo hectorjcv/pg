@@ -9,7 +9,7 @@ export const FormatBM2 = () => {
 
     return (
         <>
-            <div className='w-[100%] py-3 absolute left-11 top-11'>
+            <div className='w-[100%] py-3 relative my-4 mx-auto'>
                 <button 
                     className='bg-red-500 hover:bg-red-600 bg-opacity-50 hover:bg-opacity-100 rounded-md font-bold text-center py-3 px-10' 
                     onClick={()=> {
